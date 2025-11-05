@@ -1,5 +1,5 @@
 /* Hero section */
-.hero {
+.hero-index {
   height: 100vh;
   background: url("https://images.unsplash.com/photo-1565372918670-e467f3d5f8e4")
     center/cover no-repeat;
@@ -10,7 +10,7 @@
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
 }
-.hero .content {
+.hero-index .content {
   position: relative;
   z-index: 1;
 }
