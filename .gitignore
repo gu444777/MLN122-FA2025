@@ -1,0 +1,31 @@
+﻿# Visual Studio
+.vs/
+*.suo
+*.user
+*.pdb
+*.obj
+*.exe
+*.dll
+*.cache
+
+# Build folders
+bin/
+obj/
+Debug/
+Release/
+
+# Logs
+*.log
+
+# GitHub Copilot (hoặc công cụ indexing khác)
+**/*CopilotIndices*/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Optional: file dữ liệu lớn, media
+*.zip
+*.rar
+*.mp4
+*.mov
