@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Các sự kiện trong lịch sử tài chính</title>
+  <meta name="description"
+    content="Sự hình thành tài chính tư bản chủ nghĩa (thế kỷ XV–XVIII): tích lũy nguyên thủy tư bản, chủ nghĩa trọng thương, sự ra đời ngân hàng và thị trường chứng khoán sơ khai." />
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <!-- AOS (Animate On Scroll) -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+  <style>
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont,
+        "Helvetica Neue", sans-serif;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(rgba(4, 21, 45, 0.75),
+          rgba(13, 110, 253, 0.7)),
+        url("https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
+      color: #fff;
+      text-align: center;
+      padding: 7rem 1rem 6rem;
+    }
+
+    .hero h1 {
+      font-weight: 700;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .hero .lead {
+      max-width: 720px;
+      margin: 1rem auto 0;
+      opacity: 0.95;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.15);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-badge span.icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: rgba(248, 211, 107, 0.2);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    main {
+      padding: 3rem 0 4rem;
+    }
+
+    .section-label {
+      display: inline-block;
+      padding: 0.3rem 0.9rem;
+      border-radius: 999px;
+      background: #e7f1ff;
+      color: #0b3b85;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-top: 0.75rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .section-subtitle {
+      color: #6c757d;
+      max-width: 720px;
+    }
+
+    /* Block lý thuyết + ảnh xen kẽ */
+    .theory-block {
+      margin-bottom: 4rem;
+    }
+
+    .theory-title {
+      font-size: 1.3rem;
+      font-weight: 650;
+      margin-bottom: 0.6rem;
+    }
+
+    .icon-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(13, 110, 253, 0.08);
+      color: #0d6efd;
+      margin-bottom: 0.6rem;
+      font-size: 1.1rem;
+    }
+
+    .theory-text-card {
+      border-radius: 1.1rem;
+      border: 1px solid #e2e6f0;
+      padding: 1.4rem 1.5rem;
+      background: #ffffff;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+      height: 100%;
+    }
+
+    .theory-text-card ul {
+      padding-left: 1.1rem;
+      margin-bottom: 0;
+    }
+
+    .theory-text-card li+li {
+      margin-top: 0.35rem;
+    }
+
+    .image-placeholder {
+      position: relative;
+      width: 100%;
+      border-radius: 1.2rem;
+      border: 1px dashed #c4cadb;
+      background: radial-gradient(circle at top left, #eef3ff, #f8fafc);
+      overflow: hidden;
+    }
+
+    /* Tỉ lệ 16:9 – muốn tỉ lệ khác thì đổi số */
+    .image-placeholder::before {
+      content: "";
+      display: block;
+      padding-top: 65%;
+      /* 16/9 = 0.5625 => 56.25% */
+    }
+
+    /* Ảnh luôn fill khung, không méo */
+    .image-placeholder img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .image-placeholder span {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: #43526b;
+    }
+
+    .highlight-box {
+      border-radius: 1rem;
+      padding: 1.25rem 1.5rem;
+      background: #f8f9ff;
+      border-left: 4px solid #0d6efd;
+      font-size: 0.96rem;
+    }
+
+    .highlight-box ul {
+      padding-left: 1.1rem;
+      margin-bottom: 0;
+    }
+
+    .tagline {
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+
+    @media (max-width: 767.98px) {
+      .hero {
+        padding-top: 5.5rem;
+        padding-bottom: 4.5rem;
+      }
+
+      .image-placeholder {
+        margin-top: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header id="main-header" class="sticky-top bg-dark text-white py-3 shadow-sm">
+    <nav class="container d-flex justify-content-between align-items-center">
+      <h3 class="m-0">Lịch sử tài chính</h3>
+      <ul class="nav">
+        <li class="nav-item">
+          <a href="../index.html" class="nav-link text-white">Trang chủ</a>
+        </li>
+        <li class="nav-item">
+          <a href="1-origin.html" class="nav-link text-white">Cổ đại</a>
+        </li>
+        <li class="nav-item">
+          <a href="2-origin.html" class="nav-link text-white fw-semibold">Trọng thương</a>
+        </li>
+        <li class="nav-item">
+          <a href="3-origin.html" class="nav-link text-white">Công nghiệp</a>
+        </li>
+        <li class="nav-item">
+          <a href="4-origin.html" class="nav-link text-white">Mác - Lênin</a>
+        </li>
+        <li class="nav-item">
+          <a href="5-crisis.html" class="nav-link text-white">Khủng hoảng</a>
+        </li>
+        <li class="nav-item">
+          <a href="6-origin.html" class="nav-link text-white">Việt Nam</a>
+        </li>
+        <li class="nav-item">
+          <a href="7-modern.html" class="nav-link text-white">Quiz</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" data-aos="fade-in" data-aos-duration="1400">
+    <div class="container">
+      <div class="hero-badge mb-3">
+        <span class="icon">⛵</span>
+        <span>Thế kỷ XV–XVIII · Thời kỳ trọng thương</span>
+      </div>
+      <h1>Sự hình thành tài chính tư bản chủ nghĩa</h1>
+      <p class="lead mt-2">
+        Từ tích lũy nguyên thủy, chủ nghĩa trọng thương cho đến ngân hàng và
+        thị trường chứng khoán sơ khai – đây là giai đoạn đặt nền móng cho
+        tài chính tư bản chủ nghĩa và kinh tế thị trường hiện đại.
+      </p>
+    </div>
+  </section>
+
+  <main class="container">
+    <!-- Tổng quan -->
+    <section class="my-5 text-center" data-aos="fade-up" data-aos-duration="1100">
+      <span class="section-label">Tổng quan</span>
+      <h2 class="section-title">
+        Từ ruộng đất phong kiến đến thị trường tài chính toàn cầu
+      </h2>
+      <p class="section-subtitle mx-auto">
+        Thế kỷ XV–XVIII là thời kỳ châu Âu chuyển mình từ xã hội phong kiến
+        sang tư bản chủ nghĩa. Các hình thức tích lũy vốn mới, hệ thống
+        thương mại biển, ngân hàng và cổ phiếu ra đời, tạo nên bộ khung tài
+        chính tư bản chủ nghĩa.
+      </p>
+    </section>
+
+    <!-- 1. Tích lũy nguyên thủy tư bản (Text trái – Ảnh phải) -->
+    <section class="theory-block">
+      <div class="row g-4 align-items-center">
+        <!-- Text -->
+        <div class="col-md-6" data-aos="fade-right" data-aos-duration="1100">
+          <div class="theory-text-card">
+            <div class="icon-circle">💰</div>
+            <h3 class="theory-title">1. Quá trình tích lũy nguyên thủy tư bản</h3>
+            <p class="mb-2">
+              <strong>Tích lũy nguyên thủy tư bản</strong> là giai đoạn
+              “chuẩn bị vốn ban đầu” cho giai cấp tư sản, diễn ra bằng những
+              con đường cưỡng bức và tước đoạt.
+            </p>
+            <ul>
+              <li>
+                <strong>Rào đất, cướp đất</strong> ở nông thôn: địa chủ và tư
+                sản mới chiếm đất công, đuổi nông dân khỏi ruộng.
+              </li>
+              <li>
+                <strong>Cướp bóc thuộc địa, buôn bán nô lệ</strong> và khai
+                thác vàng bạc, tài nguyên từ châu Mỹ, châu Phi, châu Á.
+              </li>
+              <li>
+                <strong>Thuế khóa và nợ công</strong>: nhà nước phong kiến –
+                tư sản dùng chiến tranh, thuế và vay nợ để chuyển của cải xã
+                hội vào tay nhà buôn, chủ ngân hàng.
+              </li>
+            </ul>
+            <p class="mt-3 mb-0">
+              Kết quả là hình thành một
+              <strong>giai cấp tư sản</strong> nắm vốn lớn và một
+              <strong>đội ngũ công nhân làm thuê</strong> đông đảo – điều
+              kiện kinh tế – xã hội để chủ nghĩa tư bản ra đời.
+            </p>
+          </div>
+        </div>
+
+        <!-- Image placeholder -->
+        <div class="col-md-6" data-aos="fade-left" data-aos-duration="1100">
+          <div class="image-placeholder p-0">
+            <img
+              src="https://media.licdn.com/dms/image/v2/D5612AQF-NYJK8zucIQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1690949392735?e=2147483647&v=beta&t=xeo0rxvJmoj7IV7vB33yKH3LB_hr7wm4aOq0ba5wj0I"
+              class="img-fluid rounded-4 shadow-sm w-100 h-100 object-fit-cover"
+              alt="Minh họa tích lũy nguyên thủy tư bản" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Chủ nghĩa trọng thương (Ảnh trái – Text phải) -->
+    <section class="theory-block">
+      <div class="row g-4 align-items-center">
+        <!-- Ảnh -->
+        <div class="col-md-6 order-md-1 order-2" data-aos="fade-right" data-aos-duration="1100">
+          <div class="image-placeholder">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Lorrain.seaport.jpg"
+              alt="Minh họa chủ nghĩa trọng thương" loading="lazy" decoding="async" />
+          </div>
+        </div>
+
+        <!-- Text -->
+        <div class="col-md-6 order-md-2 order-1" data-aos="fade-left" data-aos-duration="1100">
+          <div class="theory-text-card">
+            <div class="icon-circle">⚓</div>
+            <h3 class="theory-title">2. Chủ nghĩa trọng thương và vai trò của thương mại</h3>
+            <p class="mb-2">
+              <strong>Chủ nghĩa trọng thương</strong> là hệ thống tư tưởng kinh tế phổ biến ở châu Âu
+              thế kỷ XVI–XVII, coi vàng bạc là thước đo sự giàu có của quốc gia.
+            </p>
+            <ul>
+              <li>Chủ trương <strong>xuất khẩu nhiều, nhập khẩu ít</strong> để thu về kim loại quý.</li>
+              <li>Nhà nước can thiệp mạnh: bảo hộ mậu dịch, thuế cao với hàng ngoại, hỗ trợ
+                <strong>công ty độc quyền</strong> (Công ty Đông Ấn...).
+              </li>
+              <li>Thúc đẩy <strong>thương mại biển và khai thác thuộc địa</strong>, mở rộng tuyến hàng hải toàn cầu.
+              </li>
+            </ul>
+            <p class="mt-3 mb-0">
+              Lợi nhuận từ thương mại và thuộc địa trở thành <strong>nguồn vốn đầu tư</strong> cho công thương nghiệp,
+              góp phần hình thành <strong>thị trường thế giới</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 3. Ngân hàng & chứng khoán (Text trái – Ảnh phải) -->
+    <section class="theory-block">
+      <div class="row g-4 align-items-center">
+        <!-- Text -->
+        <div class="col-md-6" data-aos="fade-right" data-aos-duration="1100">
+          <div class="theory-text-card">
+            <div class="icon-circle">🏦</div>
+            <h3 class="theory-title">
+              3. Sự ra đời của ngân hàng và thị trường chứng khoán sơ khai
+            </h3>
+            <p class="mb-2">
+              Cùng với bùng nổ thương mại, những định chế tài chính mới đã
+              ra đời để quản lý và luân chuyển các dòng vốn.
+            </p>
+            <ul>
+              <li>
+                Ngân hàng xuất phát từ
+                <strong>nhà đổi tiền, cho vay nặng lãi</strong>
+                ở Ý, Hà Lan, Anh… rồi phát triển thành
+                <strong>ngân hàng nhận gửi – cho vay</strong>.
+              </li>
+              <li>
+                Một số ngân hàng bắt đầu
+                <strong>phát hành giấy bạc</strong>, đặt nền tảng cho hệ
+                thống tín dụng và thanh toán không dùng tiền mặt.
+              </li>
+              <li>
+                Các <strong>công ty cổ phần thương mại</strong> (Công ty Đông
+                Ấn, v.v.) phát hành
+                <strong>cổ phiếu, trái phiếu</strong>, tạo nên
+                <strong>thị trường chứng khoán sơ khai</strong>
+                ở Amsterdam, London...
+              </li>
+              <li>
+                Tư bản tiền tệ vận động tương đối độc lập với sản xuất, tìm
+                kiếm lợi nhuận qua <strong>lãi suất và đầu cơ</strong>.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Image placeholder -->
+        <div class="col-md-6" data-aos="fade-left" data-aos-duration="1100">
+          <div class="image-placeholder">
+            <img src="https://media.thuonghieucongluan.vn/uploads/2025/03/23/5530-1679047539-860x0-1742685958.jpg"
+              alt="Minh họa ngân hàng & thị trường chứng khoán sơ khai" />
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Ý nghĩa lịch sử (Ảnh trái – Text phải) -->
+    <section class="theory-block">
+      <div class="row g-4 align-items-center">
+        <!-- Image placeholder -->
+        <div class="col-md-6 order-md-1 order-2" data-aos="fade-right" data-aos-duration="1100">
+          <div class="image-placeholder">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Lorrain.seaport.jpg"
+              alt="Minh họa cảng biển – Claude Lorrain" loading="lazy" decoding="async" />
+          </div>
+        </div>
+
+        <!-- Text -->
+        <div class="col-md-6 order-md-2 order-1" data-aos="fade-left" data-aos-duration="1100">
+          <div class="theory-text-card">
+            <div class="icon-circle">📌</div>
+            <h3 class="theory-title">4. Ý nghĩa lịch sử</h3>
+            <div class="highlight-box mb-3">
+              <ul>
+                <li>
+                  Hoàn thành bước
+                  <strong>chuẩn bị về vốn và thiết chế tài chính</strong>
+                  cho chủ nghĩa tư bản.
+                </li>
+                <li>
+                  Hình thành các
+                  <strong>công cụ tài chính hiện đại</strong>:
+                  ngân hàng, tín dụng, cổ phiếu, trái phiếu, thị trường
+                  chứng khoán…
+                </li>
+                <li>
+                  Thúc đẩy quá trình chuyển từ
+                  <strong>kinh tế phong kiến phân tán</strong>
+                  sang
+                  <strong>kinh tế thị trường tư bản chủ nghĩa</strong>,
+                  mở đường cho cách mạng công nghiệp thế kỷ XVIII–XIX.
+                </li>
+              </ul>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center py-3 bg-dark text-white">
+    <p class="mb-0">© 2025 Nhóm 7 – Kinh tế chính trị Mác-Lênin</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/script.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+</body>
+
+</html>
