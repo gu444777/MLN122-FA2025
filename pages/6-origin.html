@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch Sử Tài Chính Việt Nam</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-dark: #0d4f2d;
+            --primary-light: #1a7a45;
+            --accent-gold: #d4a574;
+            --accent-light: #f5e6d3;
+            --text-dark: #1a1a1a;
+            --text-light: #ffffff;
+            --bg-gray: #f8f8f8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            background-color: #ffffff;
+        }
+
+        /* ==================== HEADER ==================== */
+        header {
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            padding: 1.5rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent-gold) !important;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            color: var(--text-light) !important;
+            margin-left: 2rem;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-gold) !important;
+        }
+
+        /* ==================== HERO SECTION ==================== */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+            color: var(--text-light);
+            padding: 150px 0 100px;
+            text-align: center;
+            margin-top: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300"><defs><pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="1000" height="300" fill="url(%23grid)"/></svg>');
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.95;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-top: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        /* ==================== STATS SECTION ==================== */
+        .stats-section {
+            background-color: var(--bg-gray);
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .stat-box {
+            padding: 2rem;
+            margin: 1rem 0;
+            border-left: 4px solid var(--accent-gold);
+            background-color: white;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-dark);
+        }
+
+        .stat-label {
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        /* ==================== GALLERY SECTION ==================== */
+        .gallery-section {
+            padding: 60px 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: var(--primary-dark);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            aspect-ratio: 1;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(13, 79, 45, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* ==================== TIMELINE SECTION ==================== */
+        .timeline-section {
+            background-color: var(--bg-gray);
+            padding: 60px 0;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background-color: var(--accent-gold);
+        }
+
+        .timeline-item {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: 0;
+            margin-right: 52%;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 52%;
+            margin-right: 0;
+            text-align: left;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            background-color: var(--primary-dark);
+            border: 4px solid var(--accent-gold);
+            border-radius: 50%;
+            z-index: 1;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-marker:hover {
+            transform: translateX(-50%) scale(1.3);
+        }
+
+        .timeline-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .timeline-year {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.1rem;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .timeline-desc {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Modal styles for timeline details */
+        .timeline-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content-box {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.3);
+            animation: slideDown 0.3s ease;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--accent-gold);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h2 {
+            color: var(--primary-dark);
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .close-btn {
+            font-size: 2rem;
+            cursor: pointer;
+            color: #aaa;
+            border: none;
+            background: none;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: var(--primary-dark);
+        }
+
+        .modal-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .modal-image {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .modal-details h3 {
+            color: var(--primary-dark);
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .modal-details p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .modal-video {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--accent-light);
+        }
+
+        .modal-video p {
+            color: var(--primary-dark);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .modal-video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .modal-video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ==================== VIDEO SECTION ==================== */
+        .video-section {
+            background-color: white;
+            padding: 60px 0;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* ==================== FOOTER ==================== */
+        footer {
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            padding: 3rem 0 1rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .footer-section h5 {
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .footer-section p, .footer-section a {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-gold);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 2rem;
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .timeline::before {
+                left: 15px;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                margin-left: 60px;
+                margin-right: 0;
+                text-align: left;
+            }
+
+            .timeline-marker {
+                left: 15px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .nav-link {
+                margin-left: 1rem;
+            }
+
+            /* Modal responsive */
+            .modal-body {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content-box {
+                width: 95%;
+                margin: 20% auto;
+                padding: 1.5rem;
+            }
+        }
+
+        /* ==================== ANIMATIONS ==================== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ==================== HEADER ==================== -->
+<header
+      id="main-header"
+      class="sticky-top bg-dark text-white py-3 shadow-sm"
+    >
+      <nav class="container d-flex justify-content-between align-items-center">
+        <h3 class="m-0">Lịch sử tài chính</h3>
+        <ul class="nav">
+          <li class="nav-item">
+            <a href="../index.html" class="nav-link text-white">Trang chủ</a>
+          </li>
+          <li class="nav-item">
+            <a href="1-origin.html" class="nav-link text-white">Cổ đại</a>
+          </li>
+          <li class="nav-item">
+            <a href="2-origin.html" class="nav-link text-white">Trọng thương</a>
+          </li>
+          <li class="nav-item">
+            <a href="3-origin.html" class="nav-link text-white">Công nghiệp</a>
+          </li>
+          <li class="nav-item">
+            <a href="4-origin.html" class="nav-link text-white">Mác - Lênin</a>
+          </li>
+          <li class="nav-item">
+            <a href="5-crisis.html" class="nav-link text-white">Khủng hoảng</a>
+          </li>
+          <li class="nav-item">
+            <a href="6-origin.html" class="nav-link text-white">Việt Nam</a>
+          </li>
+          <li class="nav-item">
+            <a href="7-modern.html" class="nav-link text-white">Quiz</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+<!-- ==================== HERO SECTION ==================== -->
+<section class="hero" id="home">
+    <div class="container">
+        <div class="hero-content">
+            <h1>Lịch Sử Tài Chính Việt Nam</h1>
+            <p>Khám phá hành trình phát triển kinh tế và tài chính từ quá khứ đến hiện tại</p>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== STATS SECTION ==================== -->
+<section class="stats-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-6">
+                <div class="stat-box">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">Năm lịch sử</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="stat-box">
+                    <div class="stat-number">50</div>
+                    <div class="stat-label">Giai đoạn phát triển</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="stat-box">
+                    <div class="stat-number">7%</div>
+                    <div class="stat-label">Tăng trưởng trung bình</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="stat-box">
+                    <div class="stat-number">98M</div>
+                    <div class="stat-label">Dân số tham gia</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== GALLERY SECTION ==================== -->
+<section class="gallery-section" id="gallery">
+    <div class="container">
+        <h2 class="section-title">Hình Ảnh Tiêu Biểu</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://nghiencuulichsu.com/wp-content/uploads/2017/03/b343f6d14964cf58cef21d93245105e2.jpg" alt="Thương mại cổ đại">
+                <div class="gallery-overlay">Thương mại cổ đại</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://nghiencuulichsu.com/wp-content/uploads/2017/06/expo1889.jpg" alt="Thời kỳ thuộc địa">
+                <div class="gallery-overlay">Thời kỳ thuộc địa</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://media.tapchikinhtetaichinh.vn/w1480/images/upload/phammaihanh/2015_07_22/bank_jpg2_OCDW.jpg" alt="Ngân hàng hiện đại">
+                <div class="gallery-overlay">Ngân hàng hiện đại</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMMnVHnmOTIze1U4WHpPkz87Upde5DKzlqcg&s" alt="Sàn giao dịch chứng khoán">
+                <div class="gallery-overlay">Sàn giao dịch chứng khoán</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://nghiencuuchienluoc.org/wp-content/uploads/2023/06/kinh-te-1-1685360376929850055204.png" alt="Phát triển thương mại">
+                <div class="gallery-overlay">Phát triển thương mại</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://tapchinganhang.gov.vn/stores/news_dataimages/2025/072025/07/16/in_article/cw-fintech-mobile-payments-digital-currency-global-transactions-by-nazarkru-gettyimages-940953880-3x2-2400x1600-100791731-orig20250707160739.jpg?rt=20250707160739" alt="Thanh toán kỹ thuật số">
+                <div class="gallery-overlay">Thanh toán kỹ thuật số</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== TIMELINE SECTION ==================== -->
+<section class="timeline-section" id="timeline">
+    <div class="container">
+        <h2 class="section-title">Dòng Thời Gian Phát Triển</h2>
+        <div class="timeline">
+            <!-- Added clickable timeline items with data attributes -->
+            <div class="timeline-item fade-in" style="animation-delay: 0s;" data-modal="modal1">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">1010</div>
+                    <div class="timeline-title">Thành lập nhà nước độc lập</div>
+                    <div class="timeline-desc">Nền tảng cho phát triển kinh tế Việt Nam</div>
+                </div>
+            </div>
+
+            <div class="timeline-item fade-in" style="animation-delay: 0.1s;" data-modal="modal2">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">1858</div>
+                    <div class="timeline-title">Thời kỳ thuộc địa</div>
+                    <div class="timeline-desc">Ảnh hưởng của Pháp đến kinh tế Việt Nam</div>
+                </div>
+            </div>
+
+            <div class="timeline-item fade-in" style="animation-delay: 0.2s;" data-modal="modal3">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">1954</div>
+                    <div class="timeline-title">Độc lập hoàn toàn</div>
+                    <div class="timeline-desc">Xây dựng nền kinh tế độc lập</div>
+                </div>
+            </div>
+
+            <div class="timeline-item fade-in" style="animation-delay: 0.3s;" data-modal="modal4">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">1986</div>
+                    <div class="timeline-title">Đổi mới kinh tế</div>
+                    <div class="timeline-desc">Chuyển sang nền kinh tế thị trường định hướng xã hội chủ nghĩa</div>
+                </div>
+            </div>
+
+            <div class="timeline-item fade-in" style="animation-delay: 0.4s;" data-modal="modal5">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">1995</div>
+                    <div class="timeline-title">Gia nhập WTO</div>
+                    <div class="timeline-desc">Mở cửa nền kinh tế, tích hợp quốc tế</div>
+                </div>
+            </div>
+
+            <div class="timeline-item fade-in" style="animation-delay: 0.5s;" data-modal="modal6">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2020</div>
+                    <div class="timeline-title">Chiến lược số</div>
+                    <div class="timeline-desc">Chuyển đổi số trong tài chính và ngân hàng</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal templates for timeline details -->
+<div id="modal1" class="timeline-modal">
+    <div class="modal-content-box">
+        <div class="modal-header">
+            <h2>1010 - Thành lập nhà nước độc lập</h2>
+            <button class="close-btn" onclick="closeModal('modal1')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e2/T%C6%B0%E1%BB%A3ng_L%C3%BD_Th%C3%A1i_T%E1%BB%95.jpeg" alt="Thành lập nhà nước độc lập" class="modal-image">
+            <div class="modal-details">
+                <h3>Nền tảng cho phát triển kinh tế</h3>
+                <p>Năm 1010, Lý Công Uẩn thành lập nhà nước Đại Cồ Việt, đánh dấu sự khởi đầu của một nền kinh tế độc lập. Sự kiện này mở ra một kỷ nguyên mới trong lịch sử tài chính Việt Nam.</p>
+                <p>Hệ thống thương mại cổ đại được hình thành, tạo nền tảng cho sự phát triển kinh tế xã hội trong hàng trăm năm tiếp theo.</p>
+                <div class="modal-video">
+                    <p><i class="fas fa-video"></i> Tài liệu lịch sử</p>
+                    <div class="modal-video-container">
+                        <iframe src="https://www.youtube.com/embed/JUTzQadKqAc" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal2" class="timeline-modal">
+    <div class="modal-content-box">
+        <div class="modal-header">
+            <h2>1858 - Thời kỳ thuộc địa</h2>
+            <button class="close-btn" onclick="closeModal('modal2')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <img src="https://www.pacificatrocities.org/uploads/1/2/2/9/12298219/editor/frenchcol1.jpg?1636729673=" alt="Thời kỳ thuộc địa" class="modal-image">
+           
+            <div class="modal-details">
+                <h3>Ảnh hưởng kinh tế từ Pháp</h3>
+                <p>Từ năm 1858, Việt Nam trở thành thuộc địa của Pháp. Thời kỳ này mang lại những thay đổi lớn trong cấu trúc kinh tế với sự xuất hiện của các công ty Pháp và hệ thống tài chính mới.</p>
+                <p>Mặc dù có những ảnh hưởng tiêu cực, nhưng hình ảnh của nền kinh tế hiện đại bắt đầu hình thành trong giai đoạn này.</p>
+                <div class="modal-video">
+                    <p><i class="fas fa-video"></i> Tài liệu lịch sử</p>
+                    <div class="modal-video-container">
+                        <iframe src="https://www.youtube.com/embed/3FgwE4mF-lU" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal3" class="timeline-modal">
+    <div class="modal-content-box">
+        <div class="modal-header">
+            <h2>1954 - Độc lập hoàn toàn</h2>
+            <button class="close-btn" onclick="closeModal('modal3')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <img src="https://mediaen.vietnamplus.vn/images/cc571c067c64d4f85fb35f04673bf296d930be9d8ac27426387f37ec47eff357477d851a9eeb0d0c494aad572e484536/3_2.jpg" alt="Độc lập hoàn toàn" class="modal-image">
+            <div class="modal-details">
+                <h3>Xây dựng nền kinh tế độc lập</h3>
+                <p>Năm 1954 đánh dấu sự kết thúc của cuộc chiến tranh Pháp-Việt và sự ra đời của Việt Nam Dân chủ Cộng hòa. Bắt đầu xây dựng nền kinh tế độc lập theo định hướng xã hội chủ nghĩa.</p>
+                <p>Quá trình này bao gồm quốc hữu hóa các công ty và xây dựng lại hệ thống tài chính quốc gia.</p>
+                <div class="modal-video">
+                    <p><i class="fas fa-video"></i> Tài liệu lịch sử</p>
+                    <div class="modal-video-container">
+                        <iframe src="https://www.youtube.com/embed/7B1p8ICdT8M" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal4" class="timeline-modal">
+    <div class="modal-content-box">
+        <div class="modal-header">
+            <h2>1986 - Đổi mới kinh tế</h2>
+            <button class="close-btn" onclick="closeModal('modal4')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <img src="https://imgnvsk.vnanet.vn/MediaUpload/Org/2023/08/19/dhvi-619-16-48-13.png" alt="Đổi mới kinh tế" class="modal-image">
+            <div class="modal-details">
+                <h3>Chuyển sang nền kinh tế thị trường</h3>
+                <p>Năm 1986 là năm bản lề trong lịch sử Việt Nam khi khởi động chính sách Đổi mới. Chuyển từ nền kinh tế kế hoạch hóa tập trung sang nền kinh tế thị trường định hướng xã hội chủ nghĩa.</p>
+                <p>Sự mở cửa này mở ra cơ hội mới cho phát triển kinh tế, thu hút đầu tư nước ngoài, và tích hợp với thế giới.</p>
+                <div class="modal-video">
+                    <p><i class="fas fa-video"></i> Tài liệu lịch sử</p>
+                    <div class="modal-video-container">
+                        <iframe src="https://www.youtube.com/embed/YZZkGk0QNrs" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal5" class="timeline-modal">
+    <div class="modal-content-box">
+        <div class="modal-header">
+            <h2>1995 - Gia nhập WTO</h2>
+            <button class="close-btn" onclick="closeModal('modal5')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <img src="https://vstatic.vietnam.vn/vietnam/resource/IMAGE/2025/1/23/6a9b251db27247829586b8df483a6c26" alt="Gia nhập WTO" class="modal-image">
+            <div class="modal-details">
+                <h3>Hội nhập kinh tế quốc tế</h3>
+                <p>Năm 2007, Việt Nam chính thức gia nhập Tổ chức Thương mại Thế giới (WTO). Đây là bước ngoặt quan trọng trong quá trình tích hợp kinh tế quốc tế.</p>
+                <p>Sự gia nhập WTO mở ra cơ hội tiếp cận thị trường toàn cầu, thu hút các doanh nghiệp đa quốc gia, và thúc đẩy cạnh tranh trong nền kinh tế.</p>
+                <div class="modal-video">
+                    <p><i class="fas fa-video"></i> Tài liệu lịch sử</p>
+                    <div class="modal-video-container">
+                        <iframe src="https://www.youtube.com/embed/lyY-J-aRlMQ" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal6" class="timeline-modal">
+    <div class="modal-content-box">
+        <div class="modal-header">
+            <h2>2020 - Chiến lược số</h2>
+            <button class="close-btn" onclick="closeModal('modal6')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <img src="https://fintechnews.sg/wp-content/uploads/2020/11/Fintech-Vietnam-Startup-Map-2020-3.png" alt="Chiến lược số" class="modal-image">
+            <div class="modal-details">
+                <h3>Chuyển đổi số toàn diện</h3>
+                <p>Năm 2020 đánh dấu bước ngoặt trong lịch sử tài chính Việt Nam với chiến lược chuyển đổi số. Các ngân hàng, công ty tài chính, và nền kinh tế toàn bộ chuyển hướng sang phương thức hoạt động số hóa.</p>
+                <p>Sự phát triển của công nghệ FinTech, thanh toán di động, và tiền điện tử đánh dấu một thời đại mới trong tài chính Việt Nam.</p>
+                <div class="modal-video">
+                    <p><i class="fas fa-video"></i> Tài liệu lịch sử</p>
+                    <div class="modal-video-container">
+                        <iframe src="https://www.youtube.com/embed/sAuY5OzbThE" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== VIDEO SECTION ==================== -->
+<section class="video-section" id="video">
+    <div class="container">
+        <h2 class="section-title">Tài Liệu Video</h2>
+        <div class="video-grid">
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/zFHiQ9VeIq8" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/yqerP_TOS0c?start=1" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function openModal(modalId) {
+        document.getElementById(modalId).style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
+    // Close modal when clicking outside
+    window.addEventListener('click', function(event) {
+        if (event.target.classList.contains('timeline-modal')) {
+            event.target.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    });
+
+    // Add click event listeners to timeline items
+    document.querySelectorAll('[data-modal]').forEach(item => {
+        item.addEventListener('click', function() {
+            const modalId = this.getAttribute('data-modal');
+            openModal(modalId);
+        });
+
+        // Also add hover effect to marker
+        const marker = item.querySelector('.timeline-marker');
+        if (marker) {
+            marker.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const modalId = item.getAttribute('data-modal');
+                openModal(modalId);
+            });
+        }
+    });
+
+    // Fade In Animation on Scroll
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+        observer.observe(el);
+    });
+
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
