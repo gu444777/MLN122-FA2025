@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Lịch Sử Tài Chính Việt Nam</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #c41e3a;
+            --secondary: #ffd700;
+            --dark: #1a1a1a;
+            --light: #f8f9fa;
+        }
+
+        * {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark) 0%, #2d2d2d 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .navbar-custom {
+            background-color: var(--primary);
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-custom .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: white !important;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .container-main {
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        /* HOME PAGE */
+        .hero-section {
+            background: white;
+            border-radius: 15px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+
+        .hero-section h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .hero-section p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .btn-custom {
+            padding: 12px 40px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary-custom {
+            background-color: var(--primary);
+            border: none;
+            color: white;
+        }
+
+        .btn-primary-custom:hover {
+            background-color: #a01a2f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(196, 30, 58, 0.3);
+            color: white;
+        }
+
+        .btn-secondary-custom {
+            background-color: var(--secondary);
+            border: none;
+            color: var(--dark);
+        }
+
+        .btn-secondary-custom:hover {
+            background-color: #ffed4e;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
+            color: var(--dark);
+        }
+
+        .stats-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 15px;
+        }
+
+        .stats-box h3 {
+            color: var(--primary);
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .stats-box p {
+            color: #666;
+            margin-top: 10px;
+        }
+
+        /* QUIZ PAGE */
+        .quiz-header {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .timer {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .timer.warning {
+            background: linear-gradient(135deg, #ffa502, #ff8c00);
+        }
+
+        .timer.danger {
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .question-counter {
+            background: var(--light);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .quiz-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .question-box {
+            margin-bottom: 40px;
+        }
+
+        .question-number {
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            background: var(--light);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .option-label:hover {
+            background-color: #e9ecef;
+            border-color: var(--primary);
+        }
+
+        .option-label input[type="radio"] {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        .option-label input[type="radio"]:checked + span {
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        /* CHANGE: Added styles for answer feedback display */
+        .option-label.correct {
+            background-color: #d4edda;
+            border-color: #28a745;
+        }
+
+        .option-label.incorrect {
+            background-color: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        .option-label.correct .option-text,
+        .option-label.incorrect .option-text {
+            font-weight: 600;
+        }
+
+        .correct-indicator {
+            margin-left: 10px;
+            color: #28a745;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .incorrect-indicator {
+            margin-left: 10px;
+            color: #dc3545;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .feedback-message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
+        .feedback-message.show {
+            display: block;
+        }
+
+        .feedback-message.correct-feedback {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .feedback-message.incorrect-feedback {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .option-text {
+            flex: 1;
+            font-size: 1rem;
+        }
+
+        .btn-navigation {
+            display: flex;
+            gap: 15px;
+            margin-top: 40px;
+            justify-content: space-between;
+        }
+
+        .btn-navigation button {
+            flex: 1;
+            padding: 12px 30px;
+        }
+
+        /* RESULTS PAGE */
+        .results-container {
+            background: white;
+            border-radius: 15px;
+            padding: 50px 40px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .score-circle.excellent {
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+        }
+
+        .score-circle.good {
+            background: linear-gradient(135deg, #0093E9, #80D0C7);
+        }
+
+        .score-circle.average {
+            background: linear-gradient(135deg, #ffa502, #ffb84d);
+        }
+
+        .score-circle.poor {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+        }
+
+        .results-info {
+            margin: 30px 0;
+        }
+
+        .results-info p {
+            font-size: 1.1rem;
+            margin: 10px 0;
+            color: #666;
+        }
+
+        .results-detail {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .detail-card {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .detail-card h5 {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .detail-card p {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--dark);
+            margin-top: 10px;
+        }
+
+        /* DOCUMENT PAGE */
+        .documents-section {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .document-item {
+            background: var(--light);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .document-item:hover {
+            border-color: var(--primary);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .document-info h4 {
+            color: var(--primary);
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .document-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .page-hidden {
+            display: none;
+        }
+
+        .page-visible {
+            display: block;
+        }
+
+        /* HISTORY PAGE */
+        #historyPage .documents-section {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        #historyPage .detail-card {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+        }
+
+        #historyPage .detail-card h5 {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        #historyPage .detail-card p {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--dark);
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 40px 20px;
+            }
+
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+
+            .quiz-container {
+                padding: 20px;
+            }
+
+            .quiz-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .timer, .question-counter {
+                width: 100%;
+                text-align: center;
+            }
+
+            .stats-box {
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-custom">
+        <div class="container-fluid">
+            <span class="navbar-brand">
+                <i class="fas fa-graduation-cap"></i>
+                Quiz Lịch Sử Tài Chính Việt Nam
+            </span>
+        </div>
+    </nav>
+
+    <!-- CONTAINER -->
+    <div class="container-main">
+        <!-- HOME PAGE -->
+        <div id="homePage" class="page-visible">
+            <div class="hero-section">
+                <h1>🎓 Quiz Lịch Sử Tài Chính Việt Nam</h1>
+                <p>Kiểm tra kiến thức của bạn về lịch sử tài chính và phát triển kinh tế Việt Nam</p>
+                
+                <div class="row g-4 mt-4 mb-4">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="stats-box">
+                            <h3>500</h3>
+                            <p>Câu Hỏi</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="stats-box">
+                            <h3>50</h3>
+                            <p>Câu/Bài</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="stats-box">
+                            <h3>35'</h3>
+                            <p>Thời Gian</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="stats-box">
+                            <h3><span id="totalAttempts">0</span></h3>
+                            <p>Lần Hoàn Thành</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-5 d-flex gap-3 justify-content-center flex-wrap">
+                    <button class="btn btn-custom btn-primary-custom" onclick="startQuiz()">
+                        <i class="fas fa-play"></i> Bắt Đầu Quiz
+                    </button>
+                    <button class="btn btn-custom btn-secondary-custom" onclick="goToDocuments()">
+                        <i class="fas fa-book"></i> Tài Liệu Ôn Tập
+                    </button>
+                    <button class="btn btn-custom btn-outline-dark" onclick="showHistory()" style="border-color: var(--primary); color: var(--primary);">
+                        <i class="fas fa-history"></i> Lịch Sử
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUIZ PAGE -->
+        <div id="quizPage" class="page-hidden">
+            <div class="quiz-header">
+                <div class="question-counter">
+                    Câu <span id="currentQuestion">1</span> / <span id="totalQuestions">50</span>
+                </div>
+                <div class="timer" id="timer">35:00</div>
+                <button class="btn btn-outline-danger btn-sm" onclick="quitQuiz()" style="white-space: nowrap;">
+                    <i class="fas fa-times"></i> Thoát
+                </button>
+            </div>
+
+            <div class="quiz-container">
+                <div class="question-box">
+                    <div class="question-number" id="questionNumber">Câu 1</div>
+                    <div class="question-text" id="questionText">Câu hỏi sẽ hiển thị ở đây</div>
+                    <div class="options-group" id="optionsGroup">
+                        <!-- Options sẽ được thêm bằng JavaScript -->
+                    </div>
+
+                    <!-- Added feedback message container -->
+                    <div class="feedback-message" id="feedbackMessage"></div>
+                </div>
+
+                <div class="btn-navigation">
+                    <button class="btn btn-custom btn-outline-secondary" id="prevBtn" onclick="previousQuestion()" disabled>
+                        <i class="fas fa-arrow-left"></i> Trước
+                    </button>
+                    <button class="btn btn-custom btn-primary-custom" id="nextBtn" onclick="nextQuestion()" disabled>
+                        Tiếp <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESULTS PAGE -->
+        <div id="resultsPage" class="page-hidden">
+            <div class="results-container">
+                <h1 style="color: var(--primary); margin-bottom: 30px;">Kết Quả Bài Quiz</h1>
+                
+                <div class="score-circle" id="scoreCircle">0/50</div>
+
+                <div class="results-info">
+                    <p><strong>Xếp Loại:</strong> <span id="rankText" style="font-size: 1.3rem; color: var(--primary);">—</span></p>
+                </div>
+
+                <div class="results-detail">
+                    <div class="detail-card">
+                        <h5>Đúng</h5>
+                        <p id="correctCount">0</p>
+                    </div>
+                    <div class="detail-card">
+                        <h5>Sai</h5>
+                        <p id="wrongCount">0</p>
+                    </div>
+                    <div class="detail-card">
+                        <h5>Tỷ Lệ</h5>
+                        <p id="percentage">0%</p>
+                    </div>
+                    <div class="detail-card">
+                        <h5>Thời Gian</h5>
+                        <p id="timeTaken">—</p>
+                    </div>
+                </div>
+
+                <div class="mt-5 d-flex gap-3 justify-content-center flex-wrap">
+                    <button class="btn btn-custom btn-primary-custom" onclick="startQuiz()">
+                        <i class="fas fa-redo"></i> Làm Lại
+                    </button>
+                    <button class="btn btn-custom btn-secondary-custom" onclick="goHome()">
+                        <i class="fas fa-home"></i> Trang Chủ
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- DOCUMENTS PAGE -->
+        <div id="documentsPage" class="page-hidden">
+            <div class="documents-section">
+                <h1 style="color: var(--primary); margin-bottom: 30px;">
+                    <i class="fas fa-book"></i> Tài Liệu Ôn Tập
+                </h1>
+
+                <div class="document-item">
+                    <div class="document-info">
+                        <h4>📚 Đề Cương Ôn Tập - 500 Câu Hỏi</h4>
+                        <p>Bộ 500 câu hỏi trắc nghiệm về lịch sử tài chính Việt Nam (PDF)</p>
+                    </div>
+                    <button class="btn btn-custom btn-primary-custom" onclick="downloadPDF()">
+                        <i class="fas fa-download"></i> Tải PDF
+                    </button>
+                </div>
+
+                <div class="mt-5">
+                    <button class="btn btn-custom btn-secondary-custom" onclick="goHome()">
+                        <i class="fas fa-arrow-left"></i> Quay Lại
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- HISTORY PAGE -->
+        <div id="historyPage" class="page-hidden">
+            <div class="documents-section">
+                <h1 style="color: var(--primary); margin-bottom: 30px;">
+                    <i class="fas fa-history"></i> Lịch Sử Làm Quiz
+                </h1>
+
+                <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 30px;">
+                    <h4 style="color: var(--primary); margin-bottom: 20px;">📊 Thống Kê Chung</h4>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="detail-card">
+                                <h5>Tổng Lần Hoàn Thành</h5>
+                                <p id="histTotalAttempts">0</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="detail-card">
+                                <h5>Điểm Cao Nhất</h5>
+                                <p id="histHighestScore">0%</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="detail-card">
+                                <h5>Điểm Trung Bình</h5>
+                                <p id="histAverageScore">0%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 style="color: var(--primary); margin-bottom: 20px;">📝 Chi Tiết Từng Lần</h4>
+                <div id="historyList" style="background: white; padding: 20px; border-radius: 10px;">
+                    <p style="text-align: center; color: #999;">Chưa có lịch sử làm quiz</p>
+                </div>
+
+                <div class="mt-5 d-flex gap-3 justify-content-center flex-wrap">
+                    <button class="btn btn-custom btn-secondary-custom" onclick="clearHistory()" style="background-color: #dc3545; color: white;">
+                        <i class="fas fa-trash"></i> Xóa Lịch Sử
+                    </button>
+                    <button class="btn btn-custom btn-primary-custom" onclick="goHome()">
+                        <i class="fas fa-arrow-left"></i> Quay Lại
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Replace pdfmake with html2pdf library for better Vietnamese support -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <script>
+        // ===== DATABASE QUESTIONS =====
+        const allQuestions = [
+            // 1-100
+            { id: 1, question: "Năm nào Việt Nam lập được các vương quốc độc lập đầu tiên?", options: ["938", "968", "1009", "1054"], correct: 0 },
+            { id: 2, question: "Đại Việt đã thống nhất cả nước vào năm nào?", options: ["1427", "1471", "1594", "1631"], correct: 1 },
+            { id: 3, question: "Triều đại nào có ảnh hưởng lớn nhất đến phát triển tài chính Việt?", options: ["Trần", "Lý", "Tây Sơn", "Nguyễn"], correct: 3 },
+            { id: 4, question: "Hệ thống tiền tệ đầu tiên của Việt Nam được thiết lập khi nào?", options: ["Thế kỷ X", "Thế kỷ XI", "Thế kỷ XIII", "Thế kỷ XV"], correct: 2 },
+            { id: 5, question: "Nhà Nguyễn đã mở cửa kinh tế với phương Tây vào năm nào?", options: ["1858", "1887", "1893", "1902"], correct: 0 },
+            { id: 6, question: "Đơn vị tiền tệ chính của Việt Nam trong thời kỳ Pháp thuộc là gì?", options: ["Đồng bạc", "Franc", "Rupee", "Peso"], correct: 1 },
+            { id: 7, question: "Cuộc Cách Mạng Tư Bản Chủ Nghĩa của Phần Lan lệ thuộc chủ yếu vào yếu tố nào?", options: ["Lâm nghiệp", "Khai thác mỏ", "Nông nghiệp", "Thương mại"], correct: 0 },
+            { id: 8, question: "Khi nào Ngân Hàng Đông Dương được thành lập?", options: ["1875", "1888", "1901", "1912"], correct: 2 },
+            { id: 9, question: "Hệ thống thuế của Việt Nam dưới thời Pháp thuộc dựa trên mô hình nào?", options: ["Thuế quý tính", "Thuế suất cố định", "Hệ thống thuế độc quyền", "Thuế đặc sản"], correct: 2 },
+            { id: 10, question: "Thương cảng nào là trung tâm thương mại lớn nhất thời Pháp thuộc?", options: ["Hải Phòng", "Sài Gòn", "Hà Nội", "Đà Nẵng"], correct: 1 },
+            { id: 11, question: "Năm 1945, Việt Nam độc lập, tiền tệ được đặt tên là gì?", options: ["Piaster", "Đồng Việt Nam", "Franc Việt", "Đồng Mỹ"], correct: 1 },
+            { id: 12, question: "Chính sách kinh tế đầu tiên của Việt Nam sau 1945 tập trung vào điều gì?", options: ["Công nghiệp hóa", "Cải tổ nông nghiệp", "Xây dựng hệ thống kế hoạch", "Phát triển dịch vụ"], correct: 2 },
+            { id: 13, question: "Khi nào Việt Nam bắt đầu thực hiện chính sách Đổi Mới?", options: ["1975", "1980", "1986", "1990"], correct: 2 },
+            { id: 14, question: "Mục tiêu chính của chính sách Đổi Mới là gì?", options: ["Tăng cường quốc phòng", "Phát triển kinh tế hàng hóa", "Giảm tỷ lệ thất nghiệp", "Tập trung vào nông nghiệp"], correct: 1 },
+            { id: 15, question: "Năm 1995, Việt Nam gia nhập tổ chức nào?", options: ["APEC", "WTO", "ASEAN", "IMF"], correct: 2 },
+            { id: 16, question: "Ngân hàng Nhà nước Việt Nam được thành lập lại vào năm nào?", options: ["1951", "1957", "1970", "1990"], correct: 0 },
+            { id: 17, question: "Chế độ tiền tệ nào được áp dụng ở Việt Nam từ 1995?", options: ["Cố định hoàn toàn", "Nổi lệch", "Floating managed", "Hai tầng"], correct: 2 },
+            { id: 18, question: "Việt Nam gia nhập WTO vào năm nào?", options: ["2002", "2006", "2007", "2010"], correct: 1 },
+            { id: 19, question: "Lạm phát cao nhất trong lịch sử Việt Nam xảy ra vào năm nào?", options: ["1988", "1992", "1995", "2008"], correct: 0 },
+            { id: 20, question: "Hỗ trợ xã hội nào được thực hiện lần đầu tiên vào năm 1994?", options: ["Bảo hiểm xã hội", "Trợ cấp thất nghiệp", "Hỗ trợ trẻ em", "Hỗ trợ người già"], correct: 1 },
+            { id: 21, question: "Ngành nào đóng góp lớn nhất vào GDP Việt Nam hiện nay?", options: ["Nông nghiệp", "Công nghiệp", "Dịch vụ", "Xây dựng"], correct: 2 },
+            { id: 22, question: "Tỷ lệ tăng trưởng GDP trung bình của Việt Nam sau Đổi Mới là bao nhiêu?", options: ["5%", "6%", "7%", "8%"], correct: 2 },
+            { id: 23, question: "Sàn giao dịch chứng khoán Việt Nam được thành lập vào năm nào?", options: ["1998", "2000", "2005", "2010"], correct: 1 },
+            { id: 24, question: "HOSE đại diện cho sàn giao dịch nào?", options: ["Hà Nội", "Sài Gòn", "Hải Phòng", "Đà Nẵng"], correct: 1 },
+            { id: 25, question: "Cuộc khủng hoảng tài chính 2008 ảnh hưởng Việt Nam như thế nào?", options: ["Không ảnh hưởng", "Ảnh hưởng nhẹ", "Giảm tăng trưởng nhưng vẫn dương", "Suy thoái kinh tế"], correct: 2 },
+            { id: 26, question: "Việt Nam áp dụng chế độ ngoại hối nào từ năm 2000?", options: ["Cố định 100%", "Floating hoàn toàn", "Managed floating", "Bảng giá điều chỉnh hàng ngày"], correct: 2 },
+            { id: 27, question: "Diện tích canh tác được mở rộng chủ yếu là do chính sách nào?", options: ["Tư hữu hóa", "Khôi phục quản lý", "Phân bổ lại đất đai", "Khai hoang"], correct: 3 },
+            { id: 28, question: "Tiêu dùng nội địa của Việt Nam năm 2010 chiếm bao nhiêu % GDP?", options: ["60%", "65%", "70%", "75%"], correct: 2 },
+            { id: 29, question: "Tỷ lệ nợ công so với GDP vào năm 2020 là khoảng bao nhiêu?", options: ["40%", "50%", "60%", "70%"], correct: 2 },
+            { id: 30, question: "Chính sách mở cửa của Việt Nam bắt đầu từ khu vực nào?", options: ["Miền Bắc", "Miền Trung", "Miền Nam", "Quần đảo"], correct: 2 },
+            { id: 31, question: "Năm nào Hợp tác xã được hình thành ở Việt Nam hiện đại?", options: ["1954", "1960", "1975", "1990"], correct: 1 },
+            { id: 32, question: "Độ tuổi tham gia lực lượng lao động tiêu chuẩn ở Việt Nam là mấy tuổi?", options: ["14", "15", "16", "18"], correct: 1 },
+            { id: 33, question: "Quy hoạch 5 năm đầu tiên của Việt Nam độc lập từ năm nào đến năm nào?", options: ["1945-1950", "1950-1955", "1955-1960", "1960-1965"], correct: 1 },
+            { id: 34, question: "Chương trình phát triển các ngành công nghiệp nặng nên nhất vào khi nào?", options: ["1955-1960", "1960-1965", "1965-1970", "1970-1975"], correct: 1 },
+            { id: 35, question: "Khu công nghiệp đầu tiên của Việt Nam được thành lập ở đâu?", options: ["Tân Tạo", "Thủ Đức", "Bình Dương", "Long An"], correct: 0 },
+            { id: 36, question: "Thỏa thuận thương mại tự do đầu tiên của Việt Nam ký với nước nào?", options: ["Thái Lan", "Singapore", "Nhật Bản", "Hàn Quốc"], correct: 1 },
+            { id: 37, question: "Năm 2015, Việt Nam ký kết hiệp định nào để tham gia?", options: ["CPTPP", "RCEP", "FTAAP", "TPP"], correct: 3 },
+            { id: 38, question: "Tỷ suất lợi nhuận trung bình của các doanh nghiệp Việt Nam là bao nhiêu?", options: ["5-7%", "8-10%", "12-15%", "18-20%"], correct: 1 },
+            { id: 39, question: "Tỷ lệ lạm phát bình thường của Việt Nam hiện nay là bao nhiêu?", options: ["1-2%", "2-3%", "4-5%", "6-7%"], correct: 1 },
+            { id: 40, question: "Doanh thu thuế chính sách so với GDP vào năm 2021 chiếm bao nhiêu %?", options: ["15%", "16%", "17%", "18%"], correct: 2 },
+            { id: 41, question: "Chỉ số phát triển con người (HDI) của Việt Nam xếp hạng mấy?", options: ["115", "120", "125", "130"], correct: 1 },
+            { id: 42, question: "Tổng nợ công Việt Nam vào năm 2019 là khoảng bao nhiêu tỷ USD?", options: ["150", "200", "250", "300"], correct: 2 },
+            { id: 43, question: "Năm 2019, Việt Nam có bao nhiêu doanh nghiệp ghi danh?", options: ["800 nghìn", "900 nghìn", "1 triệu", "1,1 triệu"], correct: 2 },
+            { id: 44, question: "Mức lương tối thiểu vùng cao nhất hiện nay ở Việt Nam là bao nhiêu?", options: ["5,3 triệu", "5,5 triệu", "5,7 triệu", "5,9 triệu"], correct: 1 },
+            { id: 45, question: "Tỷ suất thất nghiệp của Việt Nam vào năm 2020 là bao nhiêu?", options: ["2%", "2.5%", "3%", "3.5%"], correct: 2 },
+            { id: 46, question: "Nhóm hàng xuất khẩu nào chiếm tỷ lệ lớn nhất của Việt Nam?", options: ["Hàng điện tử", "Hàng dệt may", "Thủy sản", "Nông sản"], correct: 0 },
+            { id: 47, question: "Đối tác thương mại lớn nhất của Việt Nam hiện nay là nước nào?", options: ["Mỹ", "Trung Quốc", "Nhật Bản", "EU"], correct: 1 },
+            { id: 48, question: "Thủ đô Việt Nam là thành phố nào?", options: ["Hồ Chí Minh", "Hà Nội", "Hải Phòng", "Đà Nẵng"], correct: 1 },
+            { id: 49, question: "Quốc kỳ Việt Nam có bao nhiêu sao?", options: ["1", "3", "5", "7"], correct: 2 },
+            { id: 50, question: "Độc lập Việt Nam là ngày nào?", options: ["1/9", "2/9", "1/1", "5/1"], correct: 1 },
+            { id: 51, question: "Hệ thống bảo hiểm y tế Việt Nam bắt đầu từ năm nào?", options: ["1992", "1995", "1998", "2002"], correct: 2 },
+            { id: 52, question: "Quỹ Lương Hưu được tích lũy từ năm nào?", options: ["1990", "1993", "1995", "1998"], correct: 2 },
+            { id: 53, question: "Độ tuổi hưu trí tiêu chuẩn ở Việt Nam là mấy tuổi?", options: ["55 (nữ), 60 (nam)", "60 (nữ), 65 (nam)", "55 (nữ), 58 (nam)", "60 (nữ), 62 (nam)"], correct: 0 },
+            { id: 54, question: "Ngân sách nhà nước Việt Nam có mấy thành phần chính?", options: ["1", "2", "3", "4"], correct: 1 },
+            { id: 55, question: "Bộ Tài Chính Việt Nam được thành lập vào năm nào?", options: ["1945", "1954", "1975", "1986"], correct: 0 },
+            { id: 56, question: "Cơ chế giá nào được áp dụng ở Việt Nam từ năm 1989?", options: ["Giá kế hoạch 100%", "Giá thị trường 100%", "Giá hai vòng", "Giá điều tiết"], correct: 2 },
+            { id: 57, question: "Phương pháp tính thu nhập quốc dân nào được Việt Nam áp dụng?", options: ["MPS", "SNA", "Cả hai", "Khác"], correct: 1 },
+            { id: 58, question: "Tổ chức quốc tế nào đầu tiên hỗ trợ tài chính cho Việt Nam?", options: ["IMF", "ADB", "World Bank", "UNDP"], correct: 2 },
+            { id: 59, question: "Năm nào Việt Nam nhận được viện trợ ODA lần đầu?", options: ["1990", "1993", "1995", "1998"], correct: 1 },
+            { id: 60, question: "Chương trình cơ cấu lại Ngân hàng bắt đầu từ năm nào?", options: ["1998", "2001", "2004", "2007"], correct: 1 },
+            // Câu 61-120
+            { id: 61, question: "Lạm phát cao nhất thế kỷ XX của Việt Nam là bao nhiêu %?", options: ["100%", "200%", "300%", "400%"], correct: 2 },
+            { id: 62, question: "Cuộc Khủng hoảng Tài chính Châu Á 1997 ảnh hưởng Việt Nam như thế nào?", options: ["Rất nặng", "Khá nặng", "Vừa phải", "Nhẹ"], correct: 2 },
+            { id: 63, question: "Tỷ giá VND/USD năm 2000 là khoảng bao nhiêu?", options: ["10.000", "13.000", "15.000", "20.000"], correct: 1 },
+            { id: 64, question: "Năm 2008, Việt Nam có lạm phát kỷ lục là bao nhiêu %?", options: ["15%", "19%", "23%", "28%"], correct: 2 },
+            { id: 65, question: "Sàn giao dịch chứng khoán Hà Nội được thành lập vào năm nào?", options: ["2005", "2008", "2010", "2012"], correct: 0 },
+            { id: 66, question: "HOSE là viết tắt của gì?", options: ["Ho Chi Minh Stock Exchange", "Hanoi Organization Stock Exchange", "Ho Chi Minh Official Stock Exchange", "Hanoi Open Stock Exchange"], correct: 0 },
+            { id: 67, question: "HNX là viết tắt của gì?", options: ["Hanoi Stock Exchange", "Ha Noi Exchange", "Hanoi National Exchange", "Ha Noi X-change"], correct: 0 },
+            { id: 68, question: "Năm 2020, VN-Index cao nhất là khoảng bao nhiêu điểm?", options: ["900", "950", "1000", "1050"], correct: 2 },
+            { id: 69, question: "Năm 2000, Việt Nam bắt đầu cấp phép cho ngân hàng nước ngoài từ nước nào?", options: ["Mỹ", "Nhật Bản", "Thái Lan", "Singapore"], correct: 3 },
+            { id: 70, question: "Ngân hàng Techcombank được thành lập vào năm nào?", options: ["1999", "2000", "2001", "2002"], correct: 2 },
+            { id: 71, question: "Ngân hàng BIDV được thành lập vào năm nào?", options: ["1957", "1970", "1990", "1995"], correct: 0 },
+            { id: 72, question: "Số lượng ngân hàng thương mại ở Việt Nam hiện nay là khoảng bao nhiêu?", options: ["20", "30", "40", "50"], correct: 2 },
+            { id: 73, question: "Tỷ lệ nợ xấu cao nhất của hệ thống ngân hàng Việt Nam?", options: ["3%", "5%", "8%", "12%"], correct: 2 },
+            { id: 74, question: "Năm 2019, nợ xấu của hệ thống ngân hàng Việt Nam là bao nhiêu %?", options: ["1.5%", "2.0%", "2.5%", "3.0%"], correct: 1 },
+            { id: 75, question: "Độ tuổi dân số Việt Nam là mấy tuổi?", options: ["29", "31", "33", "35"], correct: 1 },
+            { id: 76, question: "Dân số Việt Nam năm 2023 là khoảng bao nhiêu?", options: ["95 triệu", "98 triệu", "100 triệu", "105 triệu"], correct: 1 },
+            { id: 77, question: "Năm nào Việt Nam bắt đầu áp dụng hệ thống thế kỷ 20?", options: ["1999", "2000", "2001", "2002"], correct: 2 },
+            { id: 78, question: "Năm 2021, tỷ lệ thất nghiệp ở Việt Nam là bao nhiêu?", options: ["2.0%", "2.2%", "2.4%", "2.6%"], correct: 2 },
+            { id: 79, question: "Thu nhập bình quân đầu người Việt Nam năm 2022 là khoảng bao nhiêu USD?", options: ["3000", "3500", "4000", "4500"], correct: 2 },
+            { id: 80, question: "Tỷ lệ ưu tiên công nghiệp nặng trong Đổi Mới là bao nhiêu %?", options: ["30%", "40%", "50%", "60%"], correct: 1 },
+            { id: 81, question: "Thành lập công ty cổ phần lần đầu tiên ở Việt Nam là năm nào?", options: ["1989", "1991", "1993", "1995"], correct: 1 },
+            { id: 82, question: "Luật Doanh Nghiệp Việt Nam lần đầu được ban hành vào năm nào?", options: ["1990", "1991", "1992", "1993"], correct: 1 },
+            { id: 83, question: "Kinh tế Việt Nam bắt đầu tăng trưởng nhanh từ năm nào?", options: ["1987", "1989", "1991", "1993"], correct: 1 },
+            { id: 84, question: "Chỉ tiêu tăng trưởng GDP đầu tiên của Việt Nam là bao nhiêu %?", options: ["3%", "4%", "5%", "6%"], correct: 2 },
+            { id: 85, question: "Năm 2000, GDP Việt Nam là khoảng bao nhiêu tỷ USD?", options: ["25", "30", "35", "40"], correct: 1 },
+            { id: 86, question: "Năm 2010, GDP Việt Nam tăng gấp mấy lần so với năm 2000?", options: ["2 lần", "2.5 lần", "3 lần", "3.5 lần"], correct: 2 },
+            { id: 87, question: "Năm 2020, GDP Việt Nam là khoảng bao nhiêu tỷ USD?", options: ["250", "270", "290", "310"], correct: 2 },
+            { id: 88, question: "Tỷ suất lợi nhuận trung bình ngành công nghiệp Việt Nam là bao nhiêu?", options: ["8%", "10%", "12%", "15%"], correct: 1 },
+            { id: 89, question: "Lợi nhuận trước thuế trung bình ở Việt Nam là bao nhiêu %?", options: ["5%", "8%", "12%", "15%"], correct: 1 },
+            { id: 90, question: "Đầu tư nước ngoài trực tiếp (FDI) vào Việt Nam bắt đầu từ năm nào?", options: ["1987", "1990", "1993", "1995"], correct: 1 },
+            { id: 91, question: "Số vốn FDI vào Việt Nam năm 1995 là khoảng bao nhiêu tỷ USD?", options: ["2", "3", "4", "5"], correct: 2 },
+            { id: 92, question: "Tổng FDI vào Việt Nam từ 1990-2020 là khoảng bao nhiêu tỷ USD?", options: ["200", "250", "300", "350"], correct: 2 },
+            { id: 93, question: "Nước đầu tư nhiều nhất vào Việt Nam là nước nào?", options: ["Mỹ", "Nhật Bản", "Singapore", "Trung Quốc"], correct: 3 },
+            { id: 94, question: "Khối doanh nghiệp nước ngoài đóng góp bao nhiêu % xuất khẩu Việt Nam?", options: ["50%", "60%", "70%", "80%"], correct: 2 },
+            { id: 95, question: "Năm 2019, Việt Nam có tổng cộng bao nhiêu công ty nước ngoài?", options: ["15000", "17000", "19000", "21000"], correct: 1 },
+            { id: 96, question: "Ngành nào hút FDI nhiều nhất ở Việt Nam?", options: ["Dệt may", "Điện tử", "Bán lẻ", "Viễn thông"], correct: 1 },
+            { id: 97, question: "Năm 2020, FDI vào Việt Nam giảm do tác động gì?", options: ["Chiến tranh thương mại", "Khủng hoảng tài chính", "Đại dịch COVID-19", "Suy thoái toàn cầu"], correct: 2 },
+            { id: 98, question: "Số giấy phép FDI bình quân mỗi năm từ 2010-2020 là bao nhiêu?", options: ["2000", "3000", "4000", "5000"], correct: 2 },
+            { id: 99, question: "Tỷ lệ lao động ở khu công nghiệp trong tổng lao động là bao nhiêu?", options: ["15%", "20%", "25%", "30%"], correct: 1 },
+            { id: 100, question: "Năm 2018, Việt Nam trở thành nước nằm top mấy của thế giới về tăng trưởng?", options: ["3", "4", "5", "6"], correct: 1 },
+            // Câu 101-200
+            { id: 101, question: "Chế độ tỷ giá cố định được duy trì bao lâu?", options: ["1995-2000", "1995-2005", "1995-2010", "1995-2015"], correct: 1 },
+            { id: 102, question: "Đơn vị tiền tệ Việt Nam ghi danh ở IMF là gì?", options: ["VND", "VN$", "₫", "Tất cả đúng"], correct: 3 },
+            { id: 103, question: "Tỷ giá USD/VND năm 2022 là khoảng bao nhiêu?", options: ["20000", "22000", "24000", "26000"], correct: 2 },
+            { id: 104, question: "Năm 2023, VND suy yếu chủ yếu do tác động nào?", options: ["Lạm phát", "Thâm hụt nhập khẩu", "Lãi suất cao Mỹ", "Khủng hoảng châu Âu"], correct: 2 },
+            { id: 105, question: "Chỉ số CPI của Việt Nam tăng nhanh nhất vào năm nào?", options: ["2007", "2008", "2011", "2015"], correct: 1 },
+            { id: 106, question: "Năm 2011, lạm phát Việt Nam tăng đến bao nhiêu %?", options: ["15%", "18%", "19%", "20%"], correct: 2 },
+            { id: 107, question: "Lạm phát cơ bản của Việt Nam năm 2022 là bao nhiêu %?", options: ["2%", "3%", "4%", "5%"], correct: 2 },
+            { id: 108, question: "Năm 2020, lạm phát Việt Nam là bao nhiêu %?", options: ["2.5%", "3.0%", "3.2%", "3.5%"], correct: 1 },
+            { id: 109, question: "Mục tiêu lạm phát của Ngân hàng Nhà nước Việt Nam là bao nhiêu %?", options: ["2%", "3%", "4%", "5%"], correct: 2 },
+            { id: 110, question: "Lãi suất cơ bản của Việt Nam hiện nay là bao nhiêu?", options: ["3%", "4%", "5%", "6%"], correct: 2 },
+            { id: 111, question: "Tỷ lệ dự trữ bắt buộc của ngân hàng thương mại là bao nhiêu?", options: ["3%", "5%", "8%", "10%"], correct: 2 },
+            { id: 112, question: "Lãi suất tiền gửi bình quân hiện nay ở Việt Nam là bao nhiêu?", options: ["2%", "3%", "4%", "5%"], correct: 1 },
+            { id: 113, question: "Lãi suất cho vay bình quân hiện nay ở Việt Nam là bao nhiêu?", options: ["5%", "6%", "7%", "8%"], correct: 2 },
+            { id: 114, question: "Margin giữa lãi suất cho vay và tiền gửi là bao nhiêu?", options: ["2%", "2.5%", "3%", "3.5%"], correct: 2 },
+            { id: 115, question: "Chỉ số thanh khoản của các ngân hàng Việt Nam hiện nay là bao nhiêu?", options: ["1.2", "1.5", "1.8", "2.0"], correct: 1 },
+            { id: 116, question: "Tỷ lệ cho vay trên tiền gửi (LTD) của Việt Nam là bao nhiêu?", options: ["80%", "85%", "90%", "95%"], correct: 2 },
+            { id: 117, question: "Năm 2020, tỷ lệ độc lập vốn (CAR) trung bình ngân hàng là bao nhiêu?", options: ["8%", "10%", "12%", "14%"], correct: 2 },
+            { id: 118, question: "Basel III được áp dụng ở Việt Nam từ năm nào?", options: ["2015", "2016", "2017", "2018"], correct: 2 },
+            { id: 119, question: "Mức vốn tối thiểu CAR theo Basel III là bao nhiêu?", options: ["8%", "9%", "10%", "11%"], correct: 2 },
+            { id: 120, question: "Quỹ Bảo vệ Tiền gửi Việt Nam được thành lập vào năm nào?", options: ["2005", "2008", "2009", "2010"], correct: 2 },
+            // Câu 121-200
+            { id: 121, question: "Mức bảo vệ tiền gửi tối đa hiện nay là bao nhiêu triệu VND?", options: ["50", "75", "100", "150"], correct: 2 },
+            { id: 122, question: "Năm 2008, Quỹ Bảo vệ Tiền gửi phải trích lập bao nhiêu?", options: ["500 tỷ", "1000 tỷ", "2000 tỷ", "3000 tỷ"], correct: 2 },
+            { id: 123, question: "Lợi tức bán lẻ bảo hiểm nhân thọ Việt Nam là bao nhiêu %?", options: ["5%", "8%", "12%", "15%"], correct: 1 },
+            { id: 124, question: "Mức bảo phí bất động sản tối thiểu ở Việt Nam là bao nhiêu?", options: ["0.1%", "0.3%", "0.5%", "1%"], correct: 2 },
+            { id: 125, question: "Số công ty bảo hiểm hiện nay ở Việt Nam là bao nhiêu?", options: ["25", "30", "35", "40"], correct: 2 },
+            { id: 126, question: "Tỷ trọng bảo hiểm so với GDP Việt Nam là bao nhiêu %?", options: ["1%", "1.5%", "2%", "2.5%"], correct: 1 },
+            { id: 127, question: "Năm nào thị trường bảo hiểm Việt Nam tăng trưởng nhanh nhất?", options: ["2005", "2010", "2015", "2020"], correct: 1 },
+            { id: 128, question: "Thu nhập bảo hiểm Việt Nam năm 2020 là khoảng bao nhiêu tỷ VND?", options: ["130000", "150000", "170000", "190000"], correct: 1 },
+            { id: 129, question: "Tỷ lệ bảo hiểm nhân thọ trong tổng bảo hiểm là bao nhiêu %?", options: ["50%", "60%", "70%", "80%"], correct: 2 },
+            { id: 130, question: "Năm 2022, tỷ lệ lợi suất vốn chủ sở hữu (ROE) trung bình là bao nhiêu?", options: ["8%", "10%", "12%", "15%"], correct: 2 },
+            { id: 131, question: "Tỷ lệ lợi suất trên tổng tài sản (ROA) trung bình ngân hàng Việt Nam là bao nhiêu?", options: ["0.5%", "0.8%", "1%", "1.2%"], correct: 1 },
+            { id: 132, question: "Tổng tài sản hệ thống ngân hàng Việt Nam năm 2020 là khoảng bao nhiêu tỷ USD?", options: ["400", "450", "500", "550"], correct: 2 },
+            { id: 133, question: "Tỷ lệ nợ phải trả trên tổng tài sản ngân hàng là bao nhiêu?", options: ["70%", "75%", "80%", "85%"], correct: 2 },
+            { id: 134, question: "Năm 2021, số tiền gửi của cá nhân và tổ chức là bao nhiêu tỷ VND?", options: ["8000", "9000", "10000", "11000"], correct: 2 },
+            { id: 135, question: "Tỷ lệ tăng trưởng tiền gửi bình quân hàng năm là bao nhiêu?", options: ["8%", "10%", "12%", "15%"], correct: 1 },
+            { id: 136, question: "Năm 2021, số dư cho vay của hệ thống ngân hàng là bao nhiêu tỷ VND?", options: ["8000", "9000", "10000", "11000"], correct: 2 },
+            { id: 137, question: "Tỷ lệ tăng trưởng tín dụng bình quân hàng năm là bao nhiêu?", options: ["15%", "18%", "20%", "22%"], correct: 1 },
+            { id: 138, question: "Tỷ lệ giữa cho vay trong nước và cho vay toàn bộ là bao nhiêu?", options: ["85%", "88%", "90%", "92%"], correct: 2 },
+            { id: 139, question: "Tỷ lệ giữa vay của khu vực nhà nước trong tổng cho vay là bao nhiêu?", options: ["20%", "25%", "30%", "35%"], correct: 1 },
+            { id: 140, question: "Tỷ lệ giữa vay của doanh nghiệp tư nhân trong tổng cho vay là bao nhiêu?", options: ["40%", "50%", "60%", "70%"], correct: 2 },
+            { id: 141, question: "Năm 2020, chỉ số giá tiêu dùng tháng cuối năm tăng bao nhiêu % so với tháng 1?", options: ["1%", "2%", "3%", "4%"], correct: 1 },
+            { id: 142, question: "Tỷ lệ thất nghiệp cao nhất của Việt Nam trong thế kỷ 20 là bao nhiêu?", options: ["5%", "8%", "10%", "12%"], correct: 2 },
+            { id: 143, question: "Năm nào Việt Nam áp dụng bảo hiểm thất nghiệp?", options: ["1995", "2000", "2006", "2010"], correct: 2 },
+            { id: 144, question: "Mức bảo hiểm thất nghiệp là bao nhiêu % lương?", options: ["50%", "60%", "70%", "80%"], correct: 1 },
+            { id: 145, question: "Thời gian hưởng bảo hiểm thất nghiệp tối đa là bao lâu?", options: ["6 tháng", "9 tháng", "12 tháng", "18 tháng"], correct: 2 },
+            { id: 146, question: "Mức đóng góp bảo hiểm thất nghiệp là bao nhiêu % lương?", options: ["0.5%", "1%", "1.5%", "2%"], correct: 1 },
+            { id: 147, question: "Năm 2020, có bao nhiêu người đăng ký thất nghiệp?", options: ["1.5 triệu", "2 triệu", "2.5 triệu", "3 triệu"], correct: 1 },
+            { id: 148, question: "Tỷ lệ lao động nông nghiệp của Việt Nam hiện nay là bao nhiêu %?", options: ["30%", "35%", "40%", "45%"], correct: 1 },
+            { id: 149, question: "Tỷ lệ lao động công nghiệp của Việt Nam hiện nay là bao nhiêu %?", options: ["30%", "35%", "40%", "45%"], correct: 1 },
+            { id: 150, question: "Tỷ lệ lao động dịch vụ của Việt Nam hiện nay là bao nhiêu %?", options: ["25%", "30%", "35%", "40%"], correct: 2 },
+            // Câu 151-250
+            { id: 151, question: "Đầu tư Công cộng (Public Investment) chiếm bao nhiêu % GDP?", options: ["4%", "5%", "6%", "7%"], correct: 2 },
+            { id: 152, question: "Đầu tư Tư nhân (Private Investment) chiếm bao nhiêu % GDP?", options: ["20%", "22%", "24%", "26%"], correct: 2 },
+            { id: 153, question: "Tổng đầu tư trong nước chiếm bao nhiêu % GDP?", options: ["25%", "28%", "30%", "32%"], correct: 2 },
+            { id: 154, question: "Năm 2020, đầu tư từ tư nhân trong nước là bao nhiêu tỷ VND?", options: ["2000", "2500", "3000", "3500"], correct: 2 },
+            { id: 155, question: "Năm 2020, đầu tư công từ ngân sách trung ương là bao nhiêu %?", options: ["40%", "50%", "60%", "70%"], correct: 1 },
+            { id: 156, question: "Năm 2020, đầu tư công từ ngân sách địa phương là bao nhiêu %?", options: ["30%", "40%", "50%", "60%"], correct: 2 },
+            { id: 157, question: "Lợi suất nội bộ (IRR) của dự án công cộng Việt Nam là bao nhiêu?", options: ["8%", "10%", "12%", "15%"], correct: 1 },
+            { id: 158, question: "Thời gian hoàn vốn trung bình của dự án công cộng là bao lâu?", options: ["8 năm", "10 năm", "12 năm", "15 năm"], correct: 2 },
+            { id: 159, question: "Năm 2020, Việt Nam có bao nhiêu dự án PPP?", options: ["100", "150", "200", "250"], correct: 2 },
+            { id: 160, question: "Tổng vốn các dự án PPP Việt Nam là khoảng bao nhiêu tỷ USD?", options: ["20", "25", "30", "35"], correct: 1 },
+            { id: 161, question: "Năm nào Việt Nam bắt đầu đầu tư vào năng lượng tái tạo?", options: ["2000", "2005", "2010", "2015"], correct: 2 },
+            { id: 162, question: "Tỷ lệ năng lượng tái tạo so với tổng năng lượng Việt Nam là bao nhiêu?", options: ["10%", "15%", "20%", "25%"], correct: 1 },
+            { id: 163, question: "Năm 2021, Việt Nam có bao nhiêu MW năng lượng mặt trời?", options: ["15000", "17000", "19000", "21000"], correct: 1 },
+            { id: 164, question: "Năm 2021, Việt Nam có bao nhiêu MW năng lượng gió?", options: ["10000", "12000", "14000", "16000"], correct: 2 },
+            { id: 165, question: "Tiêu thụ điện bình quân một người tại Việt Nam là bao nhiêu kWh/năm?", options: ["1200", "1500", "1800", "2000"], correct: 2 },
+            { id: 166, question: "Tỷ lệ điện từ thủy điện so với tổng điện là bao nhiêu?", options: ["25%", "30%", "35%", "40%"], correct: 2 },
+            { id: 167, question: "Tỷ lệ điện từ nhiệt điện so với tổng điện là bao nhiêu?", options: ["35%", "40%", "45%", "50%"], correct: 3 },
+            { id: 168, question: "Tỷ lệ điện từ năng lượng tái tạo so với tổng điện là bao nhiêu?", options: ["10%", "15%", "20%", "25%"], correct: 1 },
+            { id: 169, question: "Năm 2021, tỷ giá giao dịch bình quân USD/VND là bao nhiêu?", options: ["22000", "23000", "23500", "24000"], correct: 1 },
+            { id: 170, question: "Năm 2022, tỷ giá giao dịch bình quân USD/VND là bao nhiêu?", options: ["23000", "24000", "24500", "25000"], correct: 2 },
+            { id: 171, question: "Năm 2020, xuất khẩu Việt Nam là bao nhiêu tỷ USD?", options: ["260", "270", "280", "290"], correct: 2 },
+            { id: 172, question: "Năm 2021, xuất khẩu Việt Nam là bao nhiêu tỷ USD?", options: ["300", "320", "340", "360"], correct: 2 },
+            { id: 173, question: "Năm 2020, nhập khẩu Việt Nam là bao nhiêu tỷ USD?", options: ["240", "250", "260", "270"], correct: 1 },
+            { id: 174, question: "Năm 2021, nhập khẩu Việt Nam là bao nhiêu tỷ USD?", options: ["280", "300", "320", "340"], correct: 1 },
+            { id: 175, question: "Cán cân thương mại Việt Nam năm 2020 dư hay thiếu?", options: ["Dư 20 tỷ", "Dư 30 tỷ", "Dư 40 tỷ", "Thiếu"], correct: 0 },
+            { id: 176, question: "Cán cân thương mại Việt Nam năm 2021 dư bao nhiêu tỷ USD?", options: ["20", "30", "40", "50"], correct: 2 },
+            { id: 177, question: "Tỷ suất tiết kiệm quốc dân Việt Nam là bao nhiêu % GDP?", options: ["25%", "30%", "35%", "40%"], correct: 2 },
+            { id: 178, question: "Tỷ suất đầu tư quốc dân Việt Nam là bao nhiêu % GDP?", options: ["25%", "30%", "35%", "40%"], correct: 2 },
+            { id: 179, question: "Tỷ lệ thâm hụt ngân sách so với GDP là bao nhiêu?", options: ["3%", "4%", "5%", "6%"], correct: 2 },
+            { id: 180, question: "Thu nhập từ ngoại tệ Việt Nam chủ yếu từ đâu?", options: ["Xuất khẩu", "Du lịch", "Kiều hối", "Tất cả"], correct: 3 },
+            { id: 181, question: "Dự trữ ngoại hối Việt Nam năm 2020 là bao nhiêu tỷ USD?", options: ["90", "100", "110", "120"], correct: 1 },
+            { id: 182, question: "Dự trữ ngoại hối Việt Nam năm 2022 là bao nhiêu tỷ USD?", options: ["90", "95", "100", "105"], correct: 2 },
+            { id: 183, question: "Năm 2020, kiều hối vào Việt Nam là bao nhiêu tỷ USD?", options: ["15", "17", "19", "21"], correct: 2 },
+            { id: 184, question: "Năm 2021, kiều hối vào Việt Nam là bao nhiêu tỷ USD?", options: ["19", "21", "23", "25"], correct: 1 },
+            { id: 185, question: "Tỷ lệ kiều hối so với GDP Việt Nam là bao nhiêu %?", options: ["5%", "7%", "9%", "11%"], correct: 1 },
+            { id: 186, question: "Năm 2020, du lịch quốc tế tạo ra bao nhiêu tỷ USD?", options: ["10", "15", "20", "25"], correct: 2 },
+            { id: 187, question: "Số lượng khách du lịch quốc tế năm 2020 là bao nhiêu triệu lượt?", options: ["3", "4", "5", "6"], correct: 0 },
+            { id: 188, question: "Năm 2019, du lịch quốc tế tạo ra bao nhiêu tỷ USD?", options: ["18", "20", "22", "24"], correct: 1 },
+            { id: 189, question: "Số lượng khách du lịch quốc tế năm 2019 là bao nhiêu triệu lượt?", options: ["15", "17", "19", "21"], correct: 2 },
+            { id: 190, question: "Tỷ lệ du lịch so với tổng doanh thu dịch vụ là bao nhiêu?", options: ["20%", "25%", "30%", "35%"], correct: 2 },
+            { id: 191, question: "Số lượng doanh nghiệp nhỏ và vừa (SME) Việt Nam là bao nhiêu?", options: ["1 triệu", "1.2 triệu", "1.5 triệu", "1.8 triệu"], correct: 3 },
+            { id: 192, question: "Tỷ lệ SME tạo ra GDP so với tổng GDP là bao nhiêu?", options: ["40%", "45%", "50%", "55%"], correct: 2 },
+            { id: 193, question: "Tỷ lệ SME tạo việc làm so với tổng lao động là bao nhiêu?", options: ["50%", "55%", "60%", "65%"], correct: 2 },
+            { id: 194, question: "Năm 2021, số doanh nghiệp thành lập mới là bao nhiêu?", options: ["100000", "130000", "160000", "190000"], correct: 1 },
+            { id: 195, question: "Năm 2021, số doanh nghiệp ngừng hoạt động là bao nhiêu?", options: ["50000", "70000", "90000", "110000"], correct: 1 },
+            { id: 196, question: "Tỷ lệ thành công của doanh nghiệp mới sau 5 năm là bao nhiêu %?", options: ["50%", "60%", "70%", "80%"], correct: 1 },
+            { id: 197, question: "Chỉ số cạnh tranh toàn cầu (GCI) của Việt Nam xếp thứ mấy trong thế giới?", options: ["60", "65", "70", "75"], correct: 2 },
+            { id: 198, question: "Chỉ số phát triển con người (HDI) của Việt Nam xếp thứ mấy trong ASEAN?", options: ["3", "4", "5", "6"], correct: 2 },
+            { id: 199, question: "Năm nào Việt Nam tham gia CPTPP?", options: ["2015", "2016", "2017", "2018"], correct: 2 },
+            { id: 200, question: "CPTPP là viết tắt của gì?", options: ["Comprehensive Trade Partnership", "Comprehensive Progressive Agreement", "Comprehensive Partnership Treaty", "Comprehensive Protection Policy"], correct: 1 },
+            // Câu 201-300
+            { id: 201, question: "Năm nào Việt Nam ký kết RCEP?", options: ["2020", "2021", "2022", "2023"], correct: 0 },
+            { id: 202, question: "Năm 2022, Việt Nam gia nhập tổ chức nào mới?", options: ["CPTPP", "RCEP", "DEPA", "Tất cả"], correct: 2 },
+            { id: 203, question: "DEPA là viết tắt của gì?", options: ["Digital Economy Partnership Agreement", "Digital European Partnership Alliance", "Digital Enterprise Policy Act", "Digital Exchange Protocol Agreement"], correct: 0 },
+            { id: 204, question: "Chiến lược công nghiệp Việt Nam 4.0 được phát triển từ năm nào?", options: ["2015", "2016", "2017", "2018"], correct: 2 },
+            { id: 205, question: "Mục tiêu của Chiến lược công nghiệp 4.0 là gì?", options: ["Tăng sản xuất", "Hiện đại hóa công nghiệp", "Xuất khẩu nhiều hơn", "Tất cả"], correct: 3 },
+            { id: 206, question: "Năm 2025, Việt Nam hướng tới GDP bao nhiêu USD?", options: ["300 tỷ", "350 tỷ", "400 tỷ", "450 tỷ"], correct: 1 },
+            { id: 207, question: "Tỷ lệ nợ công dự kiến năm 2025 so với GDP là bao nhiêu?", options: ["55%", "60%", "65%", "70%"], correct: 2 },
+            { id: 208, question: "Mục tiêu lạm phát năm 2025 là bao nhiêu %?", options: ["3%", "4%", "5%", "6%"], correct: 1 },
+            { id: 209, question: "Mục tiêu tăng trưởng GDP năm 2025 là bao nhiêu %?", options: ["6%", "6.5%", "7%", "7.5%"], correct: 1 },
+            { id: 210, question: "Ngân hàng nào lớn nhất ở Việt Nam?", options: ["BIDV", "VCB", "MB", "ACB"], correct: 1 },
+            { id: 211, question: "Năm 2022, lợi nhuận sau thuế của VCB là bao nhiêu tỷ VND?", options: ["20000", "25000", "30000", "35000"], correct: 2 },
+            { id: 212, question: "Năm 2022, lợi nhuận sau thuế của BIDV là bao nhiêu tỷ VND?", options: ["15000", "20000", "25000", "30000"], correct: 2 },
+            { id: 213, question: "VCB là viết tắt của gì?", options: ["Vietnam Commercial Bank", "Vietcombank", "Vietnam Cent Bank", "Vietnam Capital Bank"], correct: 1 },
+            { id: 214, question: "Năm 2022, lợi nhuận sau thuế của MB là bao nhiêu tỷ VND?", options: ["8000", "10000", "12000", "14000"], correct: 1 },
+            { id: 215, question: "MB là viết tắt của gì?", options: ["Military Bank", "Maritime Bank", "Merchant Bank", "Multibank"], correct: 0 },
+            { id: 216, question: "Năm 2022, lợi nhuận sau thuế của ACB là bao nhiêu tỷ VND?", options: ["3000", "4000", "5000", "6000"], correct: 2 },
+            { id: 217, question: "ACB là viết tắt của gì?", options: ["Asia Commercial Bank", "ABC Bank", "Asian Credit Bank", "America Capital Bank"], correct: 0 },
+            { id: 218, question: "Đặc điểm chính của nền kinh tế Việt Nam hiện nay là gì?", options: ["Nông nghiệp", "Công nghiệp", "Dịch vụ", "Hỗn hợp"], correct: 3 },
+            { id: 219, question: "Xu hướng phát triển chính của Việt Nam là gì?", options: ["Tăng trưởng", "Bền vững", "Bao trùm", "Tất cả"], correct: 3 },
+            { id: 220, question: "Năm 2030, Việt Nam hướng tới GDP bao nhiêu USD?", options: ["500 tỷ", "600 tỷ", "700 tỷ", "800 tỷ"], correct: 1 },
+            { id: 221, question: "Mục tiêu 2050 của Việt Nam là gì?", options: ["Nước ngoài tư", "Nước phát triển cao", "Nước giàu có", "Nước hạnh phúc"], correct: 1 },
+            { id: 222, question: "Tỷ lệ phụ thuộc vào nhập khẩu năng lượng của Việt Nam là bao nhiêu?", options: ["50%", "60%", "70%", "80%"], correct: 1 },
+            { id: 223, question: "Năm 2050, Việt Nam hướng tới GDP bao nhiêu USD?", options: ["1 tỷ", "1.5 tỷ", "2 tỷ", "2.5 tỷ"], correct: 1 },
+            { id: 224, question: "Lĩnh vực nào đóng góp lớn nhất vào tăng trưởng Việt Nam?", options: ["Nông nghiệp", "Công nghiệp", "Dịch vụ", "Xây dựng"], correct: 2 },
+            { id: 225, question: "Lĩnh vực nào tăng trưởng nhanh nhất?", options: ["Bán lẻ", "Viễn thông", "Tài chính", "Công nghệ"], correct: 3 },
+            { id: 226, question: "Công nghệ nào được Việt Nam ưu tiên?", options: ["AI", "IoT", "Blockchain", "Tất cả"], correct: 3 },
+            { id: 227, question: "Năm 2022, số startup công nghệ Việt Nam là bao nhiêu?", options: ["3000", "4000", "5000", "6000"], correct: 2 },
+            { id: 228, question: "Unicorn nào đầu tiên của Việt Nam?", options: ["Grab", "Tiki", "Shopee", "Sendo"], correct: 2 },
+            { id: 229, question: "Năm nào Shopee trở thành Unicorn?", options: ["2018", "2019", "2020", "2021"], correct: 1 },
+            { id: 230, question: "Năm 2022, Việt Nam có bao nhiêu Unicorn?", options: ["3", "4", "5", "6"], correct: 1 },
+            { id: 231, question: "Triệu phú USD ở Việt Nam năm 2020 là bao nhiêu?", options: ["300", "400", "500", "600"], correct: 1 },
+            { id: 232, question: "Triệu phú USD ở Việt Nam năm 2022 là bao nhiêu?", options: ["500", "600", "700", "800"], correct: 2 },
+            { id: 233, question: "Doanh nhân giàu nhất Việt Nam năm 2022 là ai?", options: ["Phạm Nhật Vượng", "Trần Bá Dương", "Nguyễn Đức Tài", "Nguyễn Tuấn Hải"], correct: 0 },
+            { id: 234, question: "Tài sản ròng của người giàu nhất Việt Nam là bao nhiêu tỷ USD?", options: ["10", "15", "20", "25"], correct: 2 },
+            { id: 235, question: "Ngành nào đóng góp lớn nhất vào tài chính quốc gia?", options: ["Dệt may", "Điện tử", "Bán lẻ", "Ngân hàng"], correct: 3 },
+            { id: 236, question: "Công nghiệp nào là mối quan tâm chiến lược?", options: ["Bán dẻ", "Logistics", "Năng lượng", "Tất cả"], correct: 3 },
+            { id: 237, question: "Chính sách ưu tiên phát triển lĩnh vực nào?", options: ["Công nghiệp", "Dịch vụ", "Nông nghiệp", "Tất cả"], correct: 3 },
+            { id: 238, question: "Năm 2022, chỉ số tin tưởng người tiêu dùng là bao nhiêu?", options: ["110", "115", "120", "125"], correct: 2 },
+            { id: 239, question: "Năm 2022, chỉ số tin tưởng doanh nghiệp là bao nhiêu?", options: ["100", "105", "110", "115"], correct: 2 },
+            { id: 240, question: "Xu hướng chi tiêu của người Việt là gì?", options: ["Giảm", "Ổn định", "Tăng", "Biến động"], correct: 2 },
+            { id: 241, question: "Tỷ lệ người dùng internet Việt Nam là bao nhiêu %?", options: ["60%", "70%", "80%", "90%"], correct: 2 },
+            { id: 242, question: "Tỷ lệ người dùng smartphone Việt Nam là bao nhiêu %?", options: ["70%", "75%", "80%", "85%"], correct: 2 },
+            { id: 243, question: "Thương mại điện tử Việt Nam năm 2022 là bao nhiêu tỷ USD?", options: ["10", "12", "14", "16"], correct: 2 },
+            { id: 244, question: "Tỷ lệ tăng trưởng thương mại điện tử bình quân là bao nhiêu?", options: ["25%", "30%", "35%", "40%"], correct: 1 },
+            { id: 245, question: "Sàn thương mại điện tử nào lớn nhất Việt Nam?", options: ["Lazada", "Shopee", "Tiki", "Sendo"], correct: 1 },
+            { id: 246, question: "Thanh toán di động Việt Nam năm 2022 là bao nhiêu tỷ USD?", options: ["5", "10", "15", "20"], correct: 1 },
+            { id: 247, question: "Tỷ lệ tăng trưởng thanh toán di động bình quân là bao nhiêu?", options: ["50%", "60%", "70%", "80%"], correct: 2 },
+            { id: 248, question: "Fintech nào lớn nhất Việt Nam?", options: ["Momo", "ZaloPay", "Payoo", "VNPay"], correct: 0 },
+            { id: 249, question: "Năm 2022, Momo có bao nhiêu người dùng?", options: ["40 triệu", "50 triệu", "60 triệu", "70 triệu"], correct: 2 },
+            { id: 250, question: "Định giá Momo năm 2022 là bao nhiêu tỷ USD?", options: ["2", "3", "4", "5"], correct: 2 },
+            // Thêm 200 câu nữa (301-500)
+            { id: 251, question: "Năm nào Việt Nam bắt đầu áp dụng hệ thống kế toán đơn?", options: ["1960", "1970", "1980", "1990"], correct: 2 },
+            { id: 252, question: "Năm nào Việt Nam bắt đầu áp dụng hệ thống kế toán kép?", options: ["1990", "1995", "2000", "2005"], correct: 2 },
+            { id: 253, question: "Chuẩn mực kế toán Việt Nam dựa trên tiêu chuẩn nào?", options: ["GAAP", "IFRS", "VAS", "Khác"], correct: 2 },
+            { id: 254, question: "Năm nào Luật Kế toán được ban hành lần đầu?", options: ["1990", "1995", "2000", "2003"], correct: 3 },
+            { id: 255, question: "Chu kỳ kiểm toán năm một lần hay hai lần?", options: ["Một", "Hai", "Ba", "Hàng quý"], correct: 0 },
+            { id: 256, question: "Năm nào Việt Nam thiết lập Cục Thuế thống nhất?", options: ["1990", "1992", "1994", "1996"], correct: 2 },
+            { id: 257, question: "Thuế giá trị gia tăng (VAT) Việt Nam là bao nhiêu %?", options: ["8%", "9%", "10%", "11%"], correct: 2 },
+            { id: 258, question: "Thuế thu nhập doanh nghiệp (CIT) Việt Nam là bao nhiêu %?", options: ["18%", "20%", "22%", "25%"], correct: 1 },
+            { id: 259, question: "Thuế thu nhập cá nhân (PIT) Việt Nam tối đa là bao nhiêu %?", options: ["30%", "35%", "40%", "45%"], correct: 2 },
+            { id: 260, question: "Năm 2022, tổng doanh thu thuế là bao nhiêu tỷ VND?", options: ["1500000", "1600000", "1700000", "1800000"], correct: 2 },
+            { id: 261, question: "Năm 2022, tỷ trọng thuế VAT trong tổng doanh thu thuế là bao nhiêu?", options: ["30%", "35%", "40%", "45%"], correct: 1 },
+            { id: 262, question: "Năm 2022, tỷ trọng thuế CIT trong tổng doanh thu thuế là bao nhiêu?", options: ["20%", "25%", "30%", "35%"], correct: 2 },
+            { id: 263, question: "Năm 2022, tỷ trọng thuế PIT trong tổng doanh thu thuế là bao nhiêu?", options: ["12%", "15%", "18%", "20%"], correct: 1 },
+            { id: 264, question: "Công khai thuế trong doanh nghiệp bắt đầu từ năm nào?", options: ["1998", "2000", "2002", "2004"], correct: 2 },
+            { id: 265, question: "Hóa đơn điện tử bắt đầu được sử dụng từ năm nào?", options: ["2010", "2012", "2014", "2016"], correct: 2 },
+            { id: 266, question: "Năm 2022, số doanh nghiệp xóa sổ đăng ký là bao nhiêu?", options: ["50000", "70000", "90000", "110000"], correct: 1 },
+            { id: 267, question: "Tỷ lệ doanh nghiệp xóa sổ so với số doanh nghiệp hoạt động là bao nhiêu?", options: ["3%", "4%", "5%", "6%"], correct: 2 },
+            { id: 268, question: "Năm 2022, số doanh nghiệp nợ lâu dài thuế là bao nhiêu?", options: ["50000", "60000", "70000", "80000"], correct: 2 },
+            { id: 269, question: "Tổng nợ lâu dài thuế năm 2022 là bao nhiêu tỷ VND?", options: ["5000", "10000", "15000", "20000"], correct: 2 },
+            { id: 270, question: "Chính sách ưu tiên thuế cho doanh nghiệp nào?", options: ["Công nghiệp", "Công nghệ", "Nông nghiệp", "Tất cả"], correct: 3 },
+            { id: 271, question: "Năm 2022, Việt Nam có bao nhiêu khoản vay nước ngoài?", options: ["100", "150", "200", "250"], correct: 2 },
+            { id: 272, question: "Tổng vay nước ngoài Việt Nam năm 2022 là bao nhiêu tỷ USD?", options: ["150", "160", "170", "180"], correct: 2 },
+            { id: 273, question: "Tỷ lệ vay nước ngoài so với GDP là bao nhiêu?", options: ["45%", "50%", "55%", "60%"], correct: 1 },
+            { id: 274, question: "Nước cho vay chính yếu cho Việt Nam là nước nào?", options: ["Nhật Bản", "ADB", "World Bank", "Trung Quốc"], correct: 1 },
+            { id: 275, question: "Lãi suất vay nước ngoài trung bình là bao nhiêu?", options: ["1%", "2%", "3%", "4%"], correct: 2 },
+            { id: 276, question: "Thời hạn vay nước ngoài trung bình là bao lâu?", options: ["10 năm", "15 năm", "20 năm", "25 năm"], correct: 2 },
+            { id: 277, question: "Tỷ lệ nợ nước ngoài so với nợ công Việt Nam là bao nhiêu?", options: ["40%", "50%", "60%", "70%"], correct: 1 },
+            { id: 278, question: "Năm 2022, Việt Nam có bao nhiêu khoản viện trợ?", options: ["50", "100", "150", "200"], correct: 2 },
+            { id: 279, question: "Tổng viện trợ ODA năm 2022 là bao nhiêu triệu USD?", options: ["3000", "3500", "4000", "4500"], correct: 2 },
+            { id: 280, question: "Nước viện trợ chính yếu cho Việt Nam là nước nào?", options: ["Nhật Bản", "Hàn Quốc", "Mỹ", "Đức"], correct: 0 },
+            { id: 281, question: "Lĩnh vực nhận viện trợ lớn nhất là gì?", options: ["Giao thông", "Năng lượng", "Nước sạch", "Tất cả"], correct: 0 },
+            { id: 282, question: "Năm 2022, Việt Nam có bao nhiêu khoản vay IMF?", options: ["0", "1", "2", "3"], correct: 0 },
+            { id: 283, question: "Năm 2020, Việt Nam vay IMF bao nhiêu triệu USD?", options: ["0", "500", "1000", "1500"], correct: 0 },
+            { id: 284, question: "Mức độ phục thuộc vào vay nước ngoài của Việt Nam là bao nhiêu?", options: ["Cao", "Trung bình", "Thấp", "Rất thấp"], correct: 1 },
+            { id: 285, question: "Nhân tố nào tác động lớn nhất đến kinh tế Việt Nam?", options: ["Nước ngoài", "Nội bộ", "Cả hai", "Khác"], correct: 2 },
+            { id: 286, question: "Năm 2025, mục tiêu tỷ lệ lao động được đào tạo là bao nhiêu %?", options: ["40%", "50%", "60%", "70%"], correct: 2 },
+            { id: 287, question: "Năm 2025, mục tiêu tỷ lệ lao động qua đào tạo kỹ năng là bao nhiêu %?", options: ["20%", "25%", "30%", "35%"], correct: 2 },
+            { id: 288, question: "Năm 2025, mục tiêu tỷ lệ thất nghiệp là bao nhiêu %?", options: ["1.5%", "2%", "2.5%", "3%"], correct: 1 },
+            { id: 289, question: "Năm 2025, mục tiêu tỷ lệ hưởng bảo hiểm xã hội là bao nhiêu %?", options: ["20%", "25%", "30%", "35%"], correct: 2 },
+            { id: 290, question: "Năm 2050, mục tiêu tỷ lệ lao động được đào tạo đại học là bao nhiêu %?", options: ["30%", "40%", "50%", "60%"], correct: 2 },
+            { id: 291, question: "Điểm yếu chính của nền kinh tế Việt Nam là gì?", options: ["Năng suất", "Chất lượng", "Cấu trúc", "Tất cả"], correct: 3 },
+            { id: 292, question: "Mục tiêu chính của Việt Nam là gì?", options: ["Tăng trưởng", "Bền vững", "Bao trùm", "Tất cả"], correct: 3 },
+            { id: 293, question: "Thách thức lớn nhất của Việt Nam là gì?", options: ["Lạm phát", "Thất nghiệp", "Nợ công", "Tất cả"], correct: 3 },
+            { id: 294, question: "Cơ hội phát triển lớn nhất của Việt Nam là gì?", options: ["Công nghệ", "Tư nhân hóa", "Cải cách", "Tất cả"], correct: 3 },
+            { id: 295, question: "Chính sách ưu tiên tới năm 2050 là gì?", options: ["Tăng trưởng xanh", "Chuyển đổi kỹ thuật số", "Phát triển bền vững", "Tất cả"], correct: 3 },
+            { id: 296, question: "Năm 2050, GDP Việt Nam theo giá hiện tại sẽ là bao nhiêu tỷ USD?", options: ["1", "1.5", "2", "2.5"], correct: 2 },
+            { id: 297, question: "Năm 2050, GDP bình quân đầu người Việt Nam sẽ là bao nhiêu USD?", options: ["15000", "20000", "25000", "30000"], correct: 2 },
+            { id: 298, question: "Năm 2050, tỷ lệ đô thị hóa Việt Nam sẽ là bao nhiêu %?", options: ["60%", "65%", "70%", "75%"], correct: 2 },
+            { id: 299, question: "Năm 2050, tỷ lệ dân số ở nông thôn sẽ là bao nhiêu %?", options: ["25%", "30%", "35%", "40%"], correct: 1 },
+            { id: 300, question: "Phạm vi đổi mới của Việt Nam tới 2050 là gì?", options: ["Kinh tế", "Chính trị", "Xã hội", "Tất cả"], correct: 3 },
+            // Thêm 200 câu nữa (301-500)
+            { id: 301, question: "Năm 2022, lợi nhuận toàn bộ hệ thống ngân hàng là bao nhiêu tỷ VND?", options: ["200000", "220000", "240000", "260000"], correct: 2 },
+            { id: 302, question: "Tỷ lệ nợ xấu hiện nay ở Việt Nam là bao nhiêu %?", options: ["1%", "1.5%", "2%", "2.5%"], correct: 1 },
+            { id: 303, question: "Năm 2022, tổng tiền gửi tại các ngân hàng là bao nhiêu tỷ VND?", options: ["10000", "11000", "12000", "13000"], correct: 2 },
+            { id: 304, question: "Năm 2022, tổng dư cho vay tại các ngân hàng là bao nhiêu tỷ VND?", options: ["10000", "11000", "12000", "13000"], correct: 2 },
+            { id: 305, question: "Lĩnh vực cho vay nào chiếm tỷ lệ lớn nhất?", options: ["Công nghiệp", "Dịch vụ", "Nông nghiệp", "Bất động sản"], correct: 3 },
+            { id: 306, question: "Năm 2022, số nợ xấu tuyệt đối là bao nhiêu tỷ VND?", options: ["200", "250", "300", "350"], correct: 2 },
+            { id: 307, question: "Chỉ số thanh khoản LCR (Liquidity Coverage Ratio) là bao nhiêu?", options: ["100%", "110%", "120%", "130%"], correct: 2 },
+            { id: 308, question: "Chỉ số NSFR (Net Stable Funding Ratio) là bao nhiêu?", options: ["100%", "110%", "120%", "130%"], correct: 2 },
+            { id: 309, question: "Mức vốn CAR tối thiểu yêu cầu là bao nhiêu?", options: ["8%", "10%", "12%", "15%"], correct: 1 },
+            { id: 310, question: "Năm nào Việt Nam áp dụng quy định Basel III hoàn toàn?", options: ["2018", "2019", "2020", "2021"], correct: 2 },
+            { id: 311, question: "Tỷ lệ nợ xấu được dự phòng là bao nhiêu %?", options: ["50%", "70%", "100%", "150%"], correct: 2 },
+            { id: 312, question: "Năm 2022, tổng dự phòng của hệ thống ngân hàng là bao nhiêu tỷ VND?", options: ["300", "350", "400", "450"], correct: 2 },
+            { id: 313, question: "Năm 2022, lợi suất vốn chủ sở hữu (ROE) trung bình ngân hàng là bao nhiêu?", options: ["15%", "18%", "20%", "22%"], correct: 1 },
+            { id: 314, question: "Năm 2022, lợi suất trên tổng tài sản (ROA) trung bình ngân hàng là bao nhiêu?", options: ["1%", "1.2%", "1.5%", "1.8%"], correct: 2 },
+            { id: 315, question: "Mức lãi suất chiết khấu cơ bản của NHNN là bao nhiêu?", options: ["4%", "5%", "6%", "7%"], correct: 2 },
+            { id: 316, question: "Mức lãi suất huy động bao quanh cơ bản là bao nhiêu?", options: ["4%", "5%", "6%", "7%"], correct: 2 },
+            { id: 317, question: "Lệnh mở liên ngân hàng ngắn hạn bao lâu một lần?", options: ["Hàng ngày", "2-3 ngày", "Hàng tuần", "Hàng tháng"], correct: 0 },
+            { id: 318, question: "Năm nào Sàn giao dịch chứng khoán Hà Nội được thành lập?", options: ["2003", "2005", "2006", "2008"], correct: 1 },
+            { id: 319, question: "Năm 2022, chỉ số HNX30 cao nhất là bao nhiêu?", options: ["500", "520", "540", "560"], correct: 2 },
+            { id: 320, question: "Năm 2022, chỉ số VN-Index cao nhất là bao nhiêu?", options: ["1100", "1150", "1200", "1250"], correct: 1 },
+            { id: 321, question: "Năm 2022, giá trị giao dịch bình quân hàng ngày là bao nhiêu tỷ VND?", options: ["1000", "1200", "1400", "1600"], correct: 2 },
+            { id: 322, question: "Năm 2022, số công ty cổ phần niêm yết là bao nhiêu?", options: ["2200", "2400", "2600", "2800"], correct: 1 },
+            { id: 323, question: "Năm 2022, vốn hóa thị trường chứng khoán là bao nhiêu % GDP?", options: ["50%", "55%", "60%", "65%"], correct: 2 },
+            { id: 324, question: "Lĩnh vực nào chiếm tỷ lệ lớn nhất vốn hóa thị trường?", options: ["Ngân hàng", "Bất động sản", "Hóa dầu", "Viễn thông"], correct: 0 },
+            { id: 325, question: "Năm 2022, số nhà đầu tư cá nhân là bao nhiêu triệu?", options: ["2", "2.5", "3", "3.5"], correct: 1 },
+            { id: 326, question: "Tỷ lệ sở hữu nước ngoài tối đa là bao nhiêu %?", options: ["20%", "30%", "49%", "Không giới hạn"], correct: 2 },
+            { id: 327, question: "Ngành nào được hạn chế nước ngoài mua cổ phần?", options: ["Viễn thông", "Năng lượng", "Quốc phòng", "Tất cả"], correct: 3 },
+            { id: 328, question: "Năm 2022, lượng nước ngoài mua ròng chứng chỉ là bao nhiêu tỷ VND?", options: ["20", "30", "40", "50"], correct: 1 },
+            { id: 329, question: "Năm 2022, lượng nước ngoài bán ròng chứng chỉ là bao nhiêu tỷ VND?", options: ["20", "30", "40", "50"], correct: 1 },
+            { id: 330, question: "Phí ghi danh công ty niêm yết là bao nhiêu tỷ VND?", options: ["1", "2", "3", "4"], correct: 1 },
+            { id: 331, question: "Tỷ lệ phí quản lý cho nhà đầu tư năm là bao nhiêu?", options: ["0.05%", "0.1%", "0.2%", "0.3%"], correct: 2 },
+            { id: 332, question: "Năm nào Quỹ Hỗ trợ Thanh Niên được thành lập?", options: ["2000", "2005", "2008", "2010"], correct: 0 },
+            { id: 333, question: "Quỹ Hỗ trợ Thanh Niên cho vay bao nhiêu tỷ VND mỗi năm?", options: ["1000", "1500", "2000", "2500"], correct: 1 },
+            { id: 334, question: "Lãi suất của Quỹ Hỗ trợ Thanh Niên là bao nhiêu?", options: ["4%", "5%", "6%", "7%"], correct: 1 },
+            { id: 335, question: "Số doanh nhân được hỗ trợ của Quỹ là bao nhiêu?", options: ["100 ngàn", "150 ngàn", "200 ngàn", "250 ngàn"], correct: 2 },
+            { id: 336, question: "Quỹ Hỗ trợ Nữ Doanh Nhân cho vay bao nhiêu tỷ VND mỗi năm?", options: ["500", "750", "1000", "1250"], correct: 2 },
+            { id: 337, question: "Năm nào Quỹ Hỗ trợ Nữ Doanh Nhân được thành lập?", options: ["2005", "2008", "2010", "2012"], correct: 1 },
+            { id: 338, question: "Số nữ doanh nhân được hỗ trợ là bao nhiêu?", options: ["30 ngàn", "50 ngàn", "70 ngàn", "90 ngàn"], correct: 1 },
+            { id: 339, question: "Tỷ lệ phụ nữ kinh doanh so với tổng doanh nhân là bao nhiêu?", options: ["20%", "25%", "30%", "35%"], correct: 1 },
+            { id: 340, question: "Lĩnh vực kinh doanh yêu thích của nữ doanh nhân là gì?", options: ["Bán lẻ", "Dịch vụ", "Nông sản", "Công nghệ"], correct: 1 },
+            { id: 341, question: "Năm 2022, số bình luận tiêu cực về kinh tế là bao nhiêu %?", options: ["20%", "25%", "30%", "35%"], correct: 1 },
+            { id: 342, question: "Chỉ số niềm tin vào tương lai kinh tế là bao nhiêu?", options: ["60", "65", "70", "75"], correct: 2 },
+            { id: 343, question: "Mục tiêu giảm nghèo tới 2050 là bao nhiêu %?", options: ["99%", "99.5%", "99.9%", "100%"], correct: 1 },
+            { id: 344, question: "Tỷ lệ người nghèo hiện nay là bao nhiêu %?", options: ["2%", "3%", "4%", "5%"], correct: 1 },
+            { id: 345, question: "Năm 2020, số người nghèo là bao nhiêu triệu?", options: ["3", "3.5", "4", "4.5"], correct: 0 },
+            { id: 346, question: "Tỷ lệ mất cơn xứ sở sinh là bao nhiêu %?", options: ["15%", "20%", "25%", "30%"], correct: 1 },
+            { id: 347, question: "Mục tiêu giảm bất bình đẳng Gini là bao nhiêu?", options: ["0.3", "0.32", "0.35", "0.38"], correct: 1 },
+            { id: 348, question: "Chỉ số bất bình đẳng Gini hiện nay là bao nhiêu?", options: ["0.43", "0.44", "0.45", "0.46"], correct: 1 },
+            { id: 349, question: "Năm 2025, tỷ lệ tiếp cận điện là bao nhiêu %?", options: ["99%", "99.5%", "99.8%", "100%"], correct: 3 },
+            { id: 350, question: "Năm 2025, tỷ lệ tiếp cận nước sạch là bao nhiêu %?", options: ["85%", "88%", "90%", "92%"], correct: 2 },
+            // Câu 351-500
+            { id: 351, question: "Tỷ lệ tiếp cận viễn thông là bao nhiêu %?", options: ["90%", "95%", "98%", "99%"], correct: 2 },
+            { id: 352, question: "Năm nào Việt Nam phê chuẩn Hiệp ước Kyoto?", options: ["2000", "2002", "2004", "2006"], correct: 2 },
+            { id: 353, question: "Mục tiêu giảm khí nhà kính Việt Nam tới 2050 là bao nhiêu %?", options: ["30%", "50%", "70%", "90%"], correct: 2 },
+            { id: 354, question: "Năm 2025, tỷ lệ năng lượng tái tạo sẽ là bao nhiêu?", options: ["20%", "25%", "30%", "35%"], correct: 2 },
+            { id: 355, question: "Năm 2050, tỷ lệ năng lượng tái tạo sẽ là bao nhiêu?", options: ["40%", "50%", "60%", "70%"], correct: 2 },
+            { id: 356, question: "Mục tiêu trung hòa carbon Việt Nam là năm nào?", options: ["2040", "2045", "2050", "2060"], correct: 2 },
+            { id: 357, question: "Chỉ số phát thải carbon hiện nay là bao nhiêu tấn/USD GDP?", options: ["0.3", "0.35", "0.4", "0.45"], correct: 1 },
+            { id: 358, question: "Mục tiêu giảm phát thải carbon tới 2050 là bao nhiêu %?", options: ["50%", "60%", "70%", "80%"], correct: 2 },
+            { id: 359, question: "Năm 2025, tỷ lệ rừng sẽ là bao nhiêu %?", options: ["35%", "37%", "39%", "41%"], correct: 2 },
+            { id: 360, question: "Mục tiêu tỷ lệ rừng tới 2050 là bao nhiêu %?", options: ["40%", "42%", "45%", "50%"], correct: 2 },
+            { id: 361, question: "Tỷ lệ phế thải được tái chế là bao nhiêu %?", options: ["20%", "25%", "30%", "35%"], correct: 2 },
+            { id: 362, question: "Mục tiêu tái chế phế thải tới 2050 là bao nhiêu %?", options: ["50%", "60%", "70%", "80%"], correct: 2 },
+            { id: 363, question: "Năm 2025, chỉ số phát triển con người sẽ là bao nhiêu?", options: ["0.70", "0.72", "0.73", "0.75"], correct: 2 },
+            { id: 364, question: "Mục tiêu chỉ số HDI tới 2050 là bao nhiêu?", options: ["0.80", "0.82", "0.85", "0.88"], correct: 2 },
+            { id: 365, question: "Năm 2025, tỷ lệ bao phủ giáo dục sẽ là bao nhiêu %?", options: ["95%", "96%", "97%", "98%"], correct: 2 },
+            { id: 366, question: "Mục tiêu bao phủ giáo dục tới 2050 là bao nhiêu %?", options: ["98%", "99%", "99.5%", "100%"], correct: 2 },
+            { id: 367, question: "Năm 2025, tỷ lệ ký kết hôn đơn là bao nhiêu %?", options: ["30%", "32%", "34%", "36%"], correct: 1 },
+            { id: 368, question: "Tỷ lệ ly dị hiện nay là bao nhiêu %?", options: ["2%", "2.5%", "3%", "3.5%"], correct: 2 },
+            { id: 369, question: "Mục tiêu tỷ lệ sinh năm 2050 là bao nhiêu?", options: ["1.5", "1.8", "2.0", "2.1"], correct: 1 },
+            { id: 370, question: "Năm 2050, dân số Việt Nam sẽ là bao nhiêu triệu?", options: ["105", "110", "115", "120"], correct: 1 },
+            { id: 371, question: "Tỷ lệ già hóa dân số năm 2050 sẽ là bao nhiêu %?", options: ["20%", "25%", "30%", "35%"], correct: 2 },
+            { id: 372, question: "Năm nào dân số Việt Nam sẽ đạt đỉnh?", options: ["2040", "2050", "2060", "2070"], correct: 1 },
+            { id: 373, question: "Mục tiêu tỷ lệ lao động nông nghiệp năm 2050 là bao nhiêu %?", options: ["10%", "12%", "15%", "18%"], correct: 1 },
+            { id: 374, question: "Mục tiêu tỷ lệ lao động công nghiệp năm 2050 là bao nhiêu %?", options: ["20%", "22%", "25%", "28%"], correct: 1 },
+            { id: 375, question: "Mục tiêu tỷ lệ lao động dịch vụ năm 2050 là bao nhiêu %?", options: ["55%", "60%", "65%", "70%"], correct: 3 },
+            { id: 376, question: "Năm nào Việt Nam sẽ thành nước thu nhập cao?", options: ["2030", "2035", "2040", "2045"], correct: 2 },
+            { id: 377, question: "Tiêu chuẩn nước thu nhập cao theo World Bank là bao nhiêu USD?", options: ["10000", "12000", "15000", "18000"], correct: 2 },
+            { id: 378, question: "Năm 2050, GDP bình quân đầu người sẽ là bao nhiêu USD?", options: ["20000", "25000", "30000", "35000"], correct: 2 },
+            { id: 379, question: "Mục tiêu tăng trưởng bình quân hàng năm tới 2050 là bao nhiêu %?", options: ["5%", "5.5%", "6%", "6.5%"], correct: 1 },
+            { id: 380, question: "Bộ máy chính phủ sẽ được cải cách như thế nào tới 2050?", options: ["Giảm quy mô", "Tăng hiệu suất", "Cả hai", "Khác"], correct: 2 },
+            { id: 381, question: "Năm 2025, chỉ số tham nhũng sẽ tăng hay giảm?", options: ["Tăng", "Giảm", "Ổn định", "Biến động"], correct: 1 },
+            { id: 382, question: "Mục tiêu lương tối thiểu năm 2025 là bao nhiêu triệu VND?", options: ["6", "6.5", "7", "7.5"], correct: 1 },
+            { id: 383, question: "Năm 2022, lương tối thiểu bình quân là bao nhiêu triệu VND?", options: ["5", "5.3", "5.6", "5.9"], correct: 2 },
+            { id: 384, question: "Tỷ lệ tăng lương bình quân hàng năm là bao nhiêu %?", options: ["3%", "4%", "5%", "6%"], correct: 2 },
+            { id: 385, question: "Cách tính lương tối thiểu ở Việt Nam dựa trên tiêu chí nào?", options: ["CPI", "Năng suất", "Cả hai", "Khác"], correct: 2 },
+            { id: 386, question: "Lương tối thiểu có mấy mức khác nhau?", options: ["2", "3", "4", "5"], correct: 2 },
+            { id: 387, question: "Năm 2022, lương tối thiểu vùng thành phố lớn là bao nhiêu?", options: ["5.2 triệu", "5.5 triệu", "5.8 triệu", "6.1 triệu"], correct: 1 },
+            { id: 388, question: "Lương tối thiểu vùng nào thấp nhất?", options: ["Thành phố", "Tỉnh lớn", "Tỉnh nhỏ", "Vùng sâu"], correct: 3 },
+            { id: 389, question: "Năm 2022, lương tối thiểu vùng sâu là bao nhiêu?", options: ["4.3 triệu", "4.5 triệu", "4.7 triệu", "4.9 triệu"], correct: 1 },
+            { id: 390, question: "Hợp đồng lao động tối thiểu bao lâu một lần?", options: ["1 năm", "2 năm", "3 năm", "Không giới hạn"], correct: 1 },
+            { id: 391, question: "Tuổi lao động tối thiểu ở Việt Nam là mấy tuổi?", options: ["14", "15", "16", "18"], correct: 1 },
+            { id: 392, question: "Giờ làm việc tiêu chuẩn hàng tuần là bao nhiêu giờ?", options: ["35", "36", "40", "42"], correct: 2 },
+            { id: 393, question: "Thời gian làm thêm giờ tối đa hàng tuần là bao nhiêu giờ?", options: ["4", "6", "8", "10"], correct: 1 },
+            { id: 394, question: "Lương làm thêm giờ bình thường là bao nhiêu % lương?", options: ["100%", "125%", "150%", "200%"], correct: 1 },
+            { id: 395, question: "Lương làm thêm giờ ngày lễ là bao nhiêu % lương?", options: ["150%", "200%", "250%", "300%"], correct: 2 },
+            { id: 396, question: "Ngày phép năm của lao động là bao nhiêu ngày?", options: ["12", "14", "15", "16"], correct: 1 },
+            { id: 397, question: "Lương khi không làm việc vì lý do của doanh nghiệp là bao nhiêu?", options: ["0%", "50%", "70%", "100%"], correct: 2 },
+            { id: 398, question: "Thời gian thử việc tối đa là bao lâu?", options: ["1 tháng", "2 tháng", "3 tháng", "4 tháng"], correct: 1 },
+            { id: 399, question: "Quy mô doanh nghiệp theo số lao động nhỏ là bao nhiêu?", options: ["1-10", "1-50", "11-20", "1-100"], correct: 1 },
+            { id: 400, question: "Quy mô doanh nghiệp theo số lao động vừa là bao nhiêu?", options: ["51-100", "100-200", "200-300", "300-500"], correct: 2 },
+            // Câu 401-500
+            { id: 401, question: "Quy mô doanh nghiệp theo số lao động lớn là bao nhiêu?", options: ["Trên 500", "Trên 1000", "Trên 3000", "Trên 5000"], correct: 0 },
+            { id: 402, question: "Năm 2022, số doanh nghiệp nhỏ là bao nhiêu?", options: ["600 ngàn", "700 ngàn", "800 ngàn", "900 ngàn"], correct: 2 },
+            { id: 403, question: "Năm 2022, số doanh nghiệp vừa là bao nhiêu?", options: ["100 ngàn", "150 ngàn", "200 ngàn", "250 ngàn"], correct: 2 },
+            { id: 404, question: "Năm 2022, số doanh nghiệp lớn là bao nhiêu?", options: ["30 ngàn", "40 ngàn", "50 ngàn", "60 ngàn"], correct: 1 },
+            { id: 405, question: "Tỷ lệ doanh nghiệp nhỏ so với tổng là bao nhiêu?", options: ["70%", "75%", "80%", "85%"], correct: 2 },
+            { id: 406, question: "Tỷ lệ doanh nghiệp vừa so với tổng là bao nhiêu?", options: ["12%", "15%", "18%", "20%"], correct: 1 },
+            { id: 407, question: "Tỷ lệ doanh nghiệp lớn so với tổng là bao nhiêu?", options: ["3%", "4%", "5%", "6%"], correct: 2 },
+            { id: 408, question: "Năm 2022, tổng vốn đăng ký của SME là bao nhiêu tỷ VND?", options: ["5000", "7500", "10000", "12500"], correct: 2 },
+            { id: 409, question: "Tỷ lệ SME tạo lợi nhuận so với tất cả doanh nghiệp là bao nhiêu?", options: ["30%", "40%", "50%", "60%"], correct: 2 },
+            { id: 410, question: "Năm 2022, tỷ lệ thất bại của SME là bao nhiêu %?", options: ["5%", "8%", "10%", "12%"], correct: 2 },
+            { id: 411, question: "Lý do chính dẫn đến thất bại của SME là gì?", options: ["Thiếu vốn", "Thiếu kỹ năng", "Cạnh tranh", "Tất cả"], correct: 3 },
+            { id: 412, question: "Năm 2022, số SME được hỗ trợ tín dụng là bao nhiêu?", options: ["200 ngàn", "300 ngàn", "400 ngàn", "500 ngàn"], correct: 2 },
+            { id: 413, question: "Tỷ lệ SME tiếp cận tín dụng là bao nhiêu %?", options: ["30%", "40%", "50%", "60%"], correct: 1 },
+            { id: 414, question: "Lãi suất cho vay SME bình quân là bao nhiêu?", options: ["6%", "7%", "8%", "9%"], correct: 2 },
+            { id: 415, question: "Thời hạn cho vay SME trung bình là bao lâu?", options: ["2 năm", "3 năm", "5 năm", "7 năm"], correct: 2 },
+            { id: 416, question: "Năm 2022, số SME xuất khẩu là bao nhiêu?", options: ["50 ngàn", "75 ngàn", "100 ngàn", "125 ngàn"], correct: 2 },
+            { id: 417, question: "Tỷ lệ SME xuất khẩu so với tổng SME là bao nhiêu?", options: ["8%", "10%", "12%", "15%"], correct: 1 },
+            { id: 418, question: "Năm 2022, số SME sử dụng công nghệ số là bao nhiêu?", options: ["200 ngàn", "300 ngàn", "400 ngàn", "500 ngàn"], correct: 2 },
+            { id: 419, question: "Tỷ lệ SME chuyển đổi số là bao nhiêu %?", options: ["30%", "40%", "50%", "60%"], correct: 1 },
+            { id: 420, question: "Năm 2022, số SME có website là bao nhiêu?", options: ["200 ngàn", "300 ngàn", "400 ngàn", "500 ngàn"], correct: 1 },
+            { id: 421, question: "Tỷ lệ SME có website là bao nhiêu %?", options: ["25%", "30%", "35%", "40%"], correct: 1 },
+            { id: 422, question: "Năm 2022, số SME bán hàng online là bao nhiêu?", options: ["100 ngàn", "150 ngàn", "200 ngàn", "250 ngàn"], correct: 2 },
+            { id: 423, question: "Tỷ lệ SME bán hàng online là bao nhiêu %?", options: ["15%", "20%", "25%", "30%"], correct: 1 },
+            { id: 424, question: "Năm 2022, doanh thu bán hàng online của SME là bao nhiêu tỷ VND?", options: ["500", "750", "1000", "1250"], correct: 2 },
+            { id: 425, question: "Tỷ lệ tăng trưởng bán hàng online của SME là bao nhiêu?", options: ["30%", "40%", "50%", "60%"], correct: 2 },
+            { id: 426, question: "Năm 2022, số SME sử dụng phần mềm quản lý là bao nhiêu?", options: ["100 ngàn", "150 ngàn", "200 ngàn", "250 ngàn"], correct: 1 },
+            { id: 427, question: "Tỷ lệ SME sử dụng phần mềm quản lý là bao nhiêu %?", options: ["15%", "20%", "25%", "30%"], correct: 1 },
+            { id: 428, question: "Năm 2022, số SME sử dụng cloud là bao nhiêu?", options: ["50 ngàn", "75 ngàn", "100 ngàn", "125 ngàn"], correct: 2 },
+            { id: 429, question: "Tỷ lệ SME sử dụng cloud là bao nhiêu %?", options: ["8%", "10%", "12%", "15%"], correct: 1 },
+            { id: 430, question: "Năm 2022, số SME sử dụng AI là bao nhiêu?", options: ["10 ngàn", "20 ngàn", "30 ngàn", "40 ngàn"], correct: 1 },
+            { id: 431, question: "Tỷ lệ SME sử dụng AI là bao nhiêu %?", options: ["2%", "3%", "4%", "5%"], correct: 1 },
+            { id: 432, question: "Năm 2022, số SME sử dụng blockchain là bao nhiêu?", options: ["5 ngàn", "10 ngàn", "15 ngàn", "20 ngàn"], correct: 1 },
+            { id: 433, question: "Tỷ lệ SME sử dụng blockchain là bao nhiêu %?", options: ["0.5%", "1%", "1.5%", "2%"], correct: 1 },
+            { id: 434, question: "Năm 2022, số SME có chứng chỉ ISO là bao nhiêu?", options: ["50 ngàn", "75 ngàn", "100 ngàn", "125 ngàn"], correct: 2 },
+            { id: 435, question: "Tỷ lệ SME có chứng chỉ ISO là bao nhiêu %?", options: ["8%", "10%", "12%", "15%"], correct: 1 },
+            { id: 436, question: "Năm 2022, số SME tham gia hội chợ quốc tế là bao nhiêu?", options: ["10 ngàn", "15 ngàn", "20 ngàn", "25 ngàn"], correct: 2 },
+            { id: 437, question: "Tỷ lệ SME tham gia hội chợ quốc tế là bao nhiêu %?", options: ["2%", "3%", "4%", "5%"], correct: 1 },
+            { id: 438, question: "Năm 2022, số SME có nhân viên nước ngoài là bao nhiêu?", options: ["20 ngàn", "30 ngàn", "40 ngàn", "50 ngàn"], correct: 2 },
+            { id: 439, question: "Tỷ lệ SME có nhân viên nước ngoài là bao nhiêu %?", options: ["3%", "4%", "5%", "6%"], correct: 2 },
+            { id: 440, question: "Năm 2022, số SME có chi nhánh nước ngoài là bao nhiêu?", options: ["5 ngàn", "10 ngàn", "15 ngàn", "20 ngàn"], correct: 1 },
+            { id: 441, question: "Tỷ lệ SME có chi nhánh nước ngoài là bao nhiêu %?", options: ["1%", "1.5%", "2%", "2.5%"], correct: 1 },
+            { id: 442, question: "Năm 2022, số SME hợp tác với doanh nghiệp nước ngoài là bao nhiêu?", options: ["50 ngàn", "75 ngàn", "100 ngàn", "125 ngàn"], correct: 2 },
+            { id: 443, question: "Tỷ lệ SME hợp tác với doanh nghiệp nước ngoài là bao nhiêu %?", options: ["8%", "10%", "12%", "15%"], correct: 1 },
+            { id: 444, question: "Năm 2022, số SME có R&D là bao nhiêu?", options: ["30 ngàn", "40 ngàn", "50 ngàn", "60 ngàn"], correct: 1 },
+            { id: 445, question: "Tỷ lệ SME có R&D là bao nhiêu %?", options: ["4%", "5%", "6%", "7%"], correct: 1 },
+            { id: 446, question: "Năm 2022, chi tiêu R&D của SME là bao nhiêu tỷ VND?", options: ["500", "750", "1000", "1250"], correct: 2 },
+            { id: 447, question: "Tỷ lệ chi tiêu R&D so với doanh thu là bao nhiêu %?", options: ["0.5%", "1%", "1.5%", "2%"], correct: 1 },
+            { id: 448, question: "Năm 2022, số SME có bằng sáng chế là bao nhiêu?", options: ["5 ngàn", "10 ngàn", "15 ngàn", "20 ngàn"], correct: 1 },
+            { id: 449, question: "Tỷ lệ SME có bằng sáng chế là bao nhiêu %?", options: ["1%", "1.5%", "2%", "2.5%"], correct: 1 },
+            { id: 450, question: "Năm 2022, số SME có nhãn hiệu là bao nhiêu?", options: ["50 ngàn", "75 ngàn", "100 ngàn", "125 ngàn"], correct: 2 },
+            { id: 451, question: "Tỷ lệ SME có nhãn hiệu là bao nhiêu %?", options: ["8%", "10%", "12%", "15%"], correct: 1 },
+            { id: 452, question: "Năm 2022, số SME có quyền tác giả là bao nhiêu?", options: ["20 ngàn", "30 ngàn", "40 ngàn", "50 ngàn"], correct: 2 },
+            { id: 453, question: "Tỷ lệ SME có quyền tác giả là bao nhiêu %?", options: ["3%", "4%", "5%", "6%"], correct: 2 },
+            { id: 454, question: "Năm 2022, số SME có chứng chỉ môi trường là bao nhiêu?", options: ["30 ngàn", "40 ngàn", "50 ngàn", "60 ngàn"], correct: 1 },
+            { id: 455, question: "Tỷ lệ SME có chứng chỉ môi trường là bao nhiêu %?", options: ["4%", "5%", "6%", "7%"], correct: 1 },
+            { id: 456, question: "Năm 2022, số SME tuân thủ tiêu chuẩn lao động là bao nhiêu?", options: ["400 ngàn", "500 ngàn", "600 ngàn", "700 ngàn"], correct: 2 },
+            { id: 457, question: "Tỷ lệ SME tuân thủ tiêu chuẩn lao động là bao nhiêu %?", options: ["50%", "60%", "70%", "80%"], correct: 2 },
+            { id: 458, question: "Năm 2022, số SME có công đoàn là bao nhiêu?", options: ["200 ngàn", "300 ngàn", "400 ngàn", "500 ngàn"], correct: 1 },
+            { id: 459, question: "Tỷ lệ SME có công đoàn là bao nhiêu %?", options: ["25%", "30%", "35%", "40%"], correct: 1 },
+            { id: 460, question: "Năm 2022, số SME có chương trình đào tạo là bao nhiêu?", options: ["300 ngàn", "400 ngàn", "500 ngàn", "600 ngàn"], correct: 2 },
+            { id: 461, question: "Tỷ lệ SME có chương trình đào tạo là bao nhiêu %?", options: ["40%", "50%", "60%", "70%"], correct: 2 },
+            { id: 462, question: "Năm 2022, chi tiêu đào tạo của SME là bao nhiêu tỷ VND?", options: ["5000", "7500", "10000", "12500"], correct: 2 },
+            { id: 463, question: "Tỷ lệ chi tiêu đào tạo so với doanh thu là bao nhiêu %?", options: ["1%", "1.5%", "2%", "2.5%"], correct: 1 },
+            { id: 464, question: "Năm 2022, số SME có kế hoạch phát triển là bao nhiêu?", options: ["300 ngàn", "400 ngàn", "500 ngàn", "600 ngàn"], correct: 2 },
+            { id: 465, question: "Tỷ lệ SME có kế hoạch phát triển là bao nhiêu %?", options: ["40%", "50%", "60%", "70%"], correct: 2 },
+            { id: 466, question: "Năm 2022, số SME có quản lý rủi ro là bao nhiêu?", options: ["200 ngàn", "300 ngàn", "400 ngàn", "500 ngàn"], correct: 1 },
+            { id: 467, question: "Tỷ lệ SME có quản lý rủi ro là bao nhiêu %?", options: ["25%", "30%", "35%", "40%"], correct: 1 },
+            { id: 468, question: "Năm 2022, số SME có kiểm toán nội bộ là bao nhiêu?", options: ["100 ngàn", "150 ngàn", "200 ngàn", "250 ngàn"], correct: 2 },
+            { id: 469, question: "Tỷ lệ SME có kiểm toán nội bộ là bao nhiêu %?", options: ["12%", "15%", "18%", "20%"], correct: 1 },
+            { id: 470, question: "Năm 2022, số SME có kiểm toán độc lập là bao nhiêu?", options: ["150 ngàn", "200 ngàn", "250 ngàn", "300 ngàn"], correct: 2 },
+            { id: 471, question: "Tỷ lệ SME có kiểm toán độc lập là bao nhiêu %?", options: ["18%", "20%", "22%", "25%"], correct: 1 },
+            { id: 472, question: "Năm 2022, số SME công bố báo cáo tài chính là bao nhiêu?", options: ["400 ngàn", "500 ngàn", "600 ngàn", "700 ngàn"], correct: 2 },
+            { id: 473, question: "Tỷ lệ SME công bố báo cáo tài chính là bao nhiêu %?", options: ["50%", "60%", "70%", "80%"], correct: 2 },
+            { id: 474, question: "Năm 2022, số SME nộp thuế đầy đủ là bao nhiêu?", options: ["600 ngàn", "700 ngàn", "800 ngàn", "900 ngàn"], correct: 2 },
+            { id: 475, question: "Tỷ lệ SME nộp thuế đầy đủ là bao nhiêu %?", options: ["75%", "80%", "85%", "90%"], correct: 2 },
+            { id: 476, question: "Năm 2022, số SME nợ thuế là bao nhiêu?", options: ["100 ngàn", "150 ngàn", "200 ngàn", "250 ngàn"], correct: 2 },
+            { id: 477, question: "Tỷ lệ SME nợ thuế là bao nhiêu %?", options: ["10%", "15%", "20%", "25%"], correct: 2 },
+            { id: 478, question: "Tổng nợ thuế của SME là bao nhiêu tỷ VND?", options: ["5000", "10000", "15000", "20000"], correct: 2 },
+            { id: 479, question: "Năm 2022, số SME được miễn thuế là bao nhiêu?", options: ["50 ngàn", "75 ngàn", "100 ngàn", "125 ngàn"], correct: 2 },
+            { id: 480, question: "Tỷ lệ SME được miễn thuế là bao nhiêu %?", options: ["6%", "8%", "10%", "12%"], correct: 2 },
+            { id: 481, question: "Năm 2022, số SME được ưu tiên thuế là bao nhiêu?", options: ["100 ngàn", "150 ngàn", "200 ngàn", "250 ngàn"], correct: 2 },
+            { id: 482, question: "Tỷ lệ SME được ưu tiên thuế là bao nhiêu %?", options: ["12%", "15%", "18%", "20%"], correct: 1 },
+            { id: 483, question: "Năm 2022, số SME được hỗ trợ tài chính là bao nhiêu?", options: ["200 ngàn", "300 ngàn", "400 ngàn", "500 ngàn"], correct: 1 },
+            { id: 484, question: "Tỷ lệ SME được hỗ trợ tài chính là bao nhiêu %?", options: ["25%", "30%", "35%", "40%"], correct: 1 },
+            { id: 485, question: "Tổng hỗ trợ tài chính cho SME là bao nhiêu tỷ VND?", options: ["10000", "15000", "20000", "25000"], correct: 2 },
+            { id: 486, question: "Năm 2022, số SME được hỗ trợ kỹ thuật là bao nhiêu?", options: ["100 ngàn", "150 ngàn", "200 ngàn", "250 ngàn"], correct: 2 },
+            { id: 487, question: "Tỷ lệ SME được hỗ trợ kỹ thuật là bao nhiêu %?", options: ["12%", "15%", "18%", "20%"], correct: 1 },
+            { id: 488, question: "Năm 2022, số SME được hỗ trợ thị trường là bao nhiêu?", options: ["150 ngàn", "200 ngàn", "250 ngàn", "300 ngàn"], correct: 2 },
+            { id: 489, question: "Tỷ lệ SME được hỗ trợ thị trường là bao nhiêu %?", options: ["18%", "20%", "22%", "25%"], correct: 1 },
+            { id: 490, question: "Năm 2022, số SME được hỗ trợ nhân lực là bao nhiêu?", options: ["200 ngàn", "300 ngàn", "400 ngàn", "500 ngàn"], correct: 1 },
+            { id: 491, question: "Tỷ lệ SME được hỗ trợ nhân lực là bao nhiêu %?", options: ["25%", "30%", "35%", "40%"], correct: 1 },
+            { id: 492, question: "Năm 2022, số SME được hỗ trợ công nghệ là bao nhiêu?", options: ["100 ngàn", "150 ngàn", "200 ngàn", "250 ngàn"], correct: 2 },
+            { id: 493, question: "Tỷ lệ SME được hỗ trợ công nghệ là bao nhiêu %?", options: ["12%", "15%", "18%", "20%"], correct: 1 },
+            { id: 494, question: "Năm 2022, số SME được hỗ trợ môi trường là bao nhiêu?", options: ["50 ngàn", "75 ngàn", "100 ngàn", "125 ngàn"], correct: 2 },
+            { id: 495, question: "Tỷ lệ SME được hỗ trợ môi trường là bao nhiêu %?", options: ["6%", "8%", "10%", "12%"], correct: 2 },
+            { id: 496, question: "Năm 2022, số SME được hỗ trợ xã hội là bao nhiêu?", options: ["100 ngàn", "150 ngàn", "200 ngàn", "250 ngàn"], correct: 2 },
+            { id: 497, question: "Tỷ lệ SME được hỗ trợ xã hội là bao nhiêu %?", options: ["12%", "15%", "18%", "20%"], correct: 1 },
+            { id: 498, question: "Năm 2022, số SME được hỗ trợ pháp lý là bao nhiêu?", options: ["50 ngàn", "75 ngàn", "100 ngàn", "125 ngàn"], correct: 2 },
+            { id: 499, question: "Tỷ lệ SME được hỗ trợ pháp lý là bao nhiêu %?", options: ["6%", "8%", "10%", "12%"], correct: 2 },
+            { id: 500, question: "Năm 2022, số SME được hỗ trợ toàn diện là bao nhiêu?", options: ["50 ngàn", "75 ngàn", "100 ngàn", "125 ngàn"], correct: 2 }
+        ];
+
+        // ===== VARIABLES =====
+        let currentQuestionIndex = 0;
+        let selectedAnswers = {};
+        let quizStartTime = null;
+        let timerInterval = null;
+        let quizQuestions = [];
+
+        // ===== FUNCTIONS =====
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        function startQuiz() {
+            clearInterval(timerInterval);
+            
+            // Chọn 50 câu ngẫu nhiên
+            quizQuestions = shuffleArray(allQuestions).slice(0, 50);
+            selectedAnswers = {};
+            currentQuestionIndex = 0;
+            quizStartTime = Date.now();
+
+            // Hiển thị trang quiz
+            document.getElementById('homePage').classList.add('page-hidden');
+            document.getElementById('quizPage').classList.remove('page-hidden');
+            document.getElementById('resultsPage').classList.add('page-hidden');
+            document.getElementById('documentsPage').classList.add('page-hidden');
+            document.getElementById('historyPage').classList.add('page-hidden');
+
+            // Cập nhật tổng số câu
+            document.getElementById('totalQuestions').textContent = quizQuestions.length;
+
+            // Hiển thị câu hỏi đầu tiên
+            displayQuestion();
+
+            // Bắt đầu bộ đếm thời gian
+            startTimer();
+        }
+
+        function displayQuestion() {
+            const question = quizQuestions[currentQuestionIndex];
+            
+            document.getElementById('questionNumber').textContent = `Câu ${currentQuestionIndex + 1}`;
+            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+            document.getElementById('questionText').textContent = question.question;
+
+            // Tạo các tùy chọn
+            const optionsGroup = document.getElementById('optionsGroup');
+            optionsGroup.innerHTML = '';
+
+            document.getElementById('feedbackMessage').classList.remove('show');
+            document.getElementById('nextBtn').disabled = true;
+
+            question.options.forEach((option, index) => {
+                const label = document.createElement('label');
+                label.className = 'option-label';
+
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = 'answer';
+                input.value = index;
+                input.checked = selectedAnswers[question.id] !== undefined && selectedAnswers[question.id] === index;
+
+                const span = document.createElement('span');
+                span.className = 'option-text';
+                span.textContent = option;
+
+                label.appendChild(input);
+                label.appendChild(span);
+                optionsGroup.appendChild(label);
+
+                input.addEventListener('change', () => {
+                    selectedAnswers[question.id] = index;
+                    showAnswerFeedback(question, index, label);
+                });
+
+                if (selectedAnswers[question.id] !== undefined && selectedAnswers[question.id] === index) {
+                    if (index === question.correct) {
+                        label.classList.add('correct');
+                    } else {
+                        label.classList.add('incorrect');
+                    }
+                }
+            });
+
+            if (selectedAnswers[question.id] !== undefined) {
+                document.getElementById('nextBtn').disabled = false;
+            }
+
+            // Cập nhật trạng thái nút
+            document.getElementById('prevBtn').disabled = currentQuestionIndex === 0;
+            document.getElementById('nextBtn').textContent = currentQuestionIndex === quizQuestions.length - 1 ? 'Hoàn Thành' : 'Tiếp';
+        }
+
+        function showAnswerFeedback(question, selectedIndex, selectedLabel) {
+            const isCorrect = selectedIndex === question.correct;
+            const feedbackElement = document.getElementById('feedbackMessage');
+            const allOptions = document.querySelectorAll('.option-label');
+
+            // Reset all options
+            allOptions.forEach((label, index) => {
+                label.classList.remove('correct', 'incorrect');
+                // Also remove any indicators that might have been added previously
+                const correctIndicator = label.querySelector('.correct-indicator');
+                if (correctIndicator) correctIndicator.remove();
+                const incorrectIndicator = label.querySelector('.incorrect-indicator');
+                if (incorrectIndicator) incorrectIndicator.remove();
+            });
+
+            // Highlight selected answer
+            if (isCorrect) {
+                selectedLabel.classList.add('correct');
+                feedbackElement.className = 'feedback-message show correct-feedback';
+                feedbackElement.innerHTML = '<i class="fas fa-check-circle"></i> Chính xác! ✓';
+            } else {
+                selectedLabel.classList.add('incorrect');
+                // Highlight correct answer
+                const correctOptionLabel = document.querySelectorAll('.option-label')[question.correct];
+                correctOptionLabel.classList.add('correct');
+                
+                feedbackElement.className = 'feedback-message show incorrect-feedback';
+                feedbackElement.innerHTML = `<i class="fas fa-times-circle"></i> Sai rồi! Đáp án đúng là: <strong>${question.options[question.correct]}</strong>`;
+            }
+
+            // Enable next button
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+
+        function nextQuestion() {
+            if (currentQuestionIndex < quizQuestions.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion();
+            }
+        }
+
+        function startTimer() {
+            let timeLeft = 35 * 60; // 35 phút
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                const display = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+                const timerElement = document.getElementById('timer');
+                timerElement.textContent = display;
+
+                // Thay đổi màu sắc dựa trên thời gian còn lại
+                if (timeLeft <= 60) {
+                    timerElement.classList.add('danger');
+                    timerElement.classList.remove('warning');
+                } else if (timeLeft <= 300) {
+                    timerElement.classList.add('warning');
+                    timerElement.classList.remove('danger');
+                } else {
+                    timerElement.classList.remove('warning', 'danger');
+                }
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    finishQuiz();
+                }
+            }, 1000);
+        }
+
+        function finishQuiz() {
+            clearInterval(timerInterval);
+
+            // Tính toán kết quả
+            let correctCount = 0;
+            quizQuestions.forEach(question => {
+                if (selectedAnswers[question.id] === question.correct) {
+                    correctCount++;
+                }
+            });
+
+            const wrongCount = quizQuestions.length - correctCount;
+            const percentage = Math.round((correctCount / quizQuestions.length) * 100);
+
+            // Tính thời gian làm bài
+            const timeTaken = Math.floor((Date.now() - quizStartTime) / 1000);
+            const minutes = Math.floor(timeTaken / 60);
+            const seconds = timeTaken % 60;
+            const timeDisplay = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+            // Xác định xếp loại
+            let rank = '';
+            let scoreClass = '';
+            if (percentage >= 90) {
+                rank = 'Xuất Sắc 🌟';
+                scoreClass = 'excellent';
+            } else if (percentage >= 80) {
+                rank = 'Giỏi 👍';
+                scoreClass = 'good';
+            } else if (percentage >= 70) {
+                rank = 'Khá 📚';
+                scoreClass = 'average';
+            } else {
+                rank = 'Cần Cố Gắng 💪';
+                scoreClass = 'poor';
+            }
+
+            saveQuizResult(correctCount, quizQuestions.length, percentage, timeDisplay);
+
+            // Cập nhật kết quả
+            document.getElementById('scoreCircle').textContent = `${correctCount}/${quizQuestions.length}`;
+            document.getElementById('scoreCircle').className = `score-circle ${scoreClass}`;
+            document.getElementById('rankText').textContent = rank;
+            document.getElementById('correctCount').textContent = correctCount;
+            document.getElementById('wrongCount').textContent = wrongCount;
+            document.getElementById('percentage').textContent = `${percentage}%`;
+            document.getElementById('timeTaken').textContent = timeDisplay;
+
+            // Hiển thị trang kết quả
+            document.getElementById('quizPage').classList.add('page-hidden');
+            document.getElementById('resultsPage').classList.remove('page-hidden');
+        }
+
+        function quitQuiz() {
+            if (confirm('Bạn có chắc chắn muốn thoát? Tiến độ sẽ bị mất.')) {
+                clearInterval(timerInterval);
+                goHome();
+            }
+        }
+
+        function goHome() {
+            document.getElementById('homePage').classList.remove('page-hidden');
+            document.getElementById('quizPage').classList.add('page-hidden');
+            document.getElementById('resultsPage').classList.add('page-hidden');
+            document.getElementById('documentsPage').classList.add('page-hidden');
+            document.getElementById('historyPage').classList.add('page-hidden');
+        }
+
+        function goToDocuments() {
+            clearInterval(timerInterval);
+            
+            document.getElementById('homePage').classList.add('page-hidden');
+            document.getElementById('quizPage').classList.add('page-hidden');
+            document.getElementById('resultsPage').classList.add('page-hidden');
+            document.getElementById('documentsPage').classList.remove('page-hidden');
+            document.getElementById('historyPage').classList.add('page-hidden');
+        }
+
+        function downloadPDF() {
+            const element = document.createElement('div');
+            element.style.padding = '20px';
+            element.style.fontFamily = 'Arial, sans-serif';
+            element.style.lineHeight = '1.6';
+            
+            let pdfContent = `
+                <h1 style="text-align: center; color: #c41e3a;">ĐỀ CƯƠNG ÔN TẬP</h1>
+                <h2 style="text-align: center; color: #333;">Lịch Sử Tài Chính Việt Nam</h2>
+                <p style="text-align: center; color: #666; font-size: 14px; margin-bottom: 30px;">500 Câu Hỏi Trắc Nghiệm</p>
+                <hr style="border-top: 2px solid #c41e3a; margin: 30px 0;">
+            `;
+            
+            allQuestions.forEach((q) => {
+                pdfContent += `
+                    <div style="margin-bottom: 20px; page-break-inside: avoid;">
+                        <p style="font-weight: bold; font-size: 14px; margin: 10px 0 8px 0;">
+                            <strong>${q.id}. ${q.question}</strong>
+                        </p>
+                        <div style="margin-left: 20px;">
+                `;
+                
+                q.options.forEach((option, optIndex) => {
+                    const letter = String.fromCharCode(65 + optIndex);
+                    const isCorrect = optIndex === q.correct;
+                    const color = isCorrect ? '#28a745' : '#333';
+                    const weight = isCorrect ? 'bold' : 'normal';
+                    
+                    pdfContent += `
+                        <p style="margin: 4px 0; font-size: 12px; color: ${color}; font-weight: ${weight};">
+                            ${letter}. ${option}${isCorrect ? ' <strong>✓ (Đáp án)</strong>' : ''}
+                        </p>
+                    `;
+                });
+                
+                pdfContent += `
+                        </div>
+                        <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 8px 0;">
+                    </div>
+                `;
+            });
+            
+            element.innerHTML = pdfContent;
+            
+            const opt = {
+                margin: 10,
+                filename: 'De-Cuong-On-Tap-Lich-Su-Tai-Chinh-Viet-Nam.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            html2pdf().set(opt).from(element).save();
+        }
+
+        function loadQuizHistory() {
+            const history = JSON.parse(localStorage.getItem('quizHistory') || '[]');
+            document.getElementById('totalAttempts').textContent = history.length;
+            return history;
+        }
+
+        function saveQuizResult(correctCount, totalQuestions, percentage, timeTaken) {
+            const history = JSON.parse(localStorage.getItem('quizHistory') || '[]');
+            
+            const result = {
+                id: Date.now(),
+                date: new Date().toLocaleString('vi-VN'),
+                correct: correctCount,
+                total: totalQuestions,
+                percentage: percentage,
+                time: timeTaken,
+                rank: getRankName(percentage)
+            };
+            
+            history.push(result);
+            localStorage.setItem('quizHistory', JSON.stringify(history));
+            document.getElementById('totalAttempts').textContent = history.length;
+        }
+
+        function getRankName(percentage) {
+            if (percentage >= 90) return 'Xuất Sắc';
+            if (percentage >= 80) return 'Giỏi';
+            if (percentage >= 70) return 'Khá';
+            return 'Cần Cố Gắng';
+        }
+
+        function showHistory() {
+            const history = JSON.parse(localStorage.getItem('quizHistory') || '[]');
+            
+            document.getElementById('homePage').classList.add('page-hidden');
+            document.getElementById('quizPage').classList.add('page-hidden');
+            document.getElementById('resultsPage').classList.add('page-hidden');
+            document.getElementById('documentsPage').classList.add('page-hidden');
+            document.getElementById('historyPage').classList.remove('page-hidden');
+
+            // Update statistics
+            if (history.length > 0) {
+                document.getElementById('histTotalAttempts').textContent = history.length;
+                
+                const scores = history.map(h => h.percentage);
+                const highest = Math.max(...scores);
+                const average = Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
+                
+                document.getElementById('histHighestScore').textContent = `${highest}%`;
+                document.getElementById('histAverageScore').textContent = `${average}%`;
+
+                // Display history list
+                let historyHTML = '';
+                history.slice().reverse().forEach((item, index) => {
+                    const rankColor = item.percentage >= 90 ? '#28a745' : item.percentage >= 80 ? '#0093E9' : item.percentage >= 70 ? '#ffa502' : '#ff6b6b';
+                    historyHTML += `
+                        <div style="padding: 15px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                            <div>
+                                <p style="margin: 0; font-weight: bold; color: var(--primary);">Lần ${history.length - index}</p>
+                                <p style="margin: 5px 0; color: #666; font-size: 0.9rem;">${item.date}</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <p style="margin: 0; font-weight: bold; color: ${rankColor}; font-size: 1.1rem;">${item.correct}/${item.total} (${item.percentage}%)</p>
+                                <p style="margin: 5px 0; color: #666; font-size: 0.9rem;">${item.rank} | ⏱️ ${item.time}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+                document.getElementById('historyList').innerHTML = historyHTML;
+            } else {
+                document.getElementById('historyList').innerHTML = '<p style="text-align: center; color: #999;">Chưa có lịch sử làm quiz</p>';
+            }
+        }
+
+        function clearHistory() {
+            if (confirm('Bạn có chắc chắn muốn xóa toàn bộ lịch sử?')) {
+                localStorage.removeItem('quizHistory');
+                document.getElementById('totalAttempts').textContent = '0';
+                showHistory();
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadQuizHistory();
+        });
+    </script>
+</body>
+</html>
