@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Thu Thập Đồng Xu - Cách mạng Công nghiệp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            min-height: 100vh;
+            background: #8B7355;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #2F1B0C;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.1"><rect fill="%232F1B0C" width="100" height="100"/></svg>');
+        }
+
+        .game-container {
+            background: #DEB887;
+            border-radius: 4px;
+            padding: 30px;
+            box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.4);
+            border: 8px solid #8B4513;
+            text-align: center;
+            max-width: 800px;
+            width: 90%;
+        }
+
+        .game-header {
+            margin-bottom: 25px;
+            border-bottom: 3px double #8B4513;
+            padding-bottom: 15px;
+        }
+
+        .game-header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            color: #2F1B0C;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-weight: bold;
+        }
+
+        .game-header p {
+            font-size: 1.1em;
+            color: #654321;
+            font-style: italic;
+        }
+
+        .game-canvas-container {
+            position: relative;
+            margin: 25px 0;
+        }
+
+        #gameCanvas {
+            background: #A0522D;
+            border-radius: 4px;
+            border: 5px solid #654321;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .game-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            background: #F5DEB3;
+            padding: 15px;
+            border-radius: 2px;
+            border: 3px solid #8B4513;
+        }
+
+        .score-display {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #8B4513;
+        }
+
+        .time-display {
+            font-size: 1.2em;
+            color: #654321;
+            font-weight: bold;
+        }
+
+        .controls {
+            background: #F5DEB3;
+            padding: 20px;
+            border-radius: 2px;
+            margin-top: 20px;
+            border: 3px solid #8B4513;
+        }
+
+        .controls h3 {
+            margin-bottom: 15px;
+            color: #8B4513;
+            border-bottom: 2px solid #8B4513;
+            padding-bottom: 8px;
+        }
+
+        .control-keys {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            max-width: 180px;
+            margin: 0 auto;
+        }
+
+        .key {
+            background: #DEB887;
+            padding: 12px;
+            border-radius: 2px;
+            font-weight: bold;
+            border: 2px solid #8B4513;
+            color: #2F1B0C;
+        }
+
+        .key.up {
+            grid-column: 2;
+        }
+
+        .game-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        button {
+            background: #8B4513;
+            color: #F5DEB3;
+            border: 2px solid #654321;
+            padding: 12px 25px;
+            border-radius: 2px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: "Georgia", serif;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            background: #A0522D;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .restart-btn {
+            background: #654321;
+        }
+
+        .theme-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #F5DEB3;
+            border-radius: 2px;
+            font-size: 0.9em;
+            border: 2px solid #8B4513;
+            color: #2F1B0C;
+        }
+
+        .vintage-button {
+            background: #8B4513;
+            color: #F5DEB3;
+            border: 2px solid #654321;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 2px;
+            cursor: pointer;
+            font-family: "Georgia", serif;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .game-container {
+                padding: 20px;
+            }
+
+            .game-header h1 {
+                font-size: 1.8em;
+            }
+
+            #gameCanvas {
+                width: 100%;
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="game-container">
+        <div class="game-header">
+            <h1> Thu Thập Vốn Công Nghiệp</h1>
+            <p>Thu thập đồng xu để tích lũy vốn đầu tư cho các dự án công nghiệp!</p>
+            <button onclick="goToMainGame()"> quay lại</button>
+        </div>
+
+        <div class="game-stats">
+            <div class="score-display"> Vốn: <span id="score">0</span> đồng xu</div>
+            <div class="time-display"> Thời gian: <span id="timer">60</span>s</div>
+        </div>
+
+        <div id="modalCanvas" class="game-canvas-container">
+            <canvas id="gameCanvas" width="760" height="400"></canvas>
+
+        </div>
+
+        <div class="controls">
+            <h3> Điều Khiển</h3>
+            <div class="control-keys">
+                <div class="key"></div>
+                <div class="key up">↑</div>
+                <div class="key"></div>
+                <div class="key">←</div>
+                <div class="key">↓</div>
+                <div class="key">→</div>
+            </div>
+            <p style="margin-top: 10px; opacity: 0.8;">Sử dụng phím mũi tên để di chuyển</p>
+        </div>
+
+        <div class="game-buttons">
+            <button onclick="startGame()">Bắt Đầu</button>
+            <button class="restart-btn" onclick="restartGame()">Chơi Lại</button>
+        </div>
+
+        <div class="theme-info">
+            <strong>📚 Lịch sử:</strong> Trong Cách mạng Công nghiệp, việc tích lũy vốn là yếu tố then chốt
+            để đầu tư vào nhà máy, máy móc và đường sắt. Mỗi đồng xu đại diện cho nguồn vốn cần thiết
+            để phát triển công nghiệp!
+        </div>
+    </div>
+    <div id="gameend" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div id="modalTitle" class="modal-header">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const canvasenemy = document.getElementById("modalCanvas");
+
+        const scoreDisplay = document.getElementById("score");
+        const timerDisplay = document.getElementById("timer");
+
+        // Nhân vật - Đại diện cho nhà công nghiệp
+        let player = {
+            x: 300,
+            y: 200,
+            size: 40,
+            speed: 6,
+            color: '#3498db'
+        };
+
+        let enemy = {
+            x: 200,
+            y: 100,
+            size: 50,
+            speed: 3,
+            direction: Math.random() * Math.PI * 2, // Thêm hướng di chuyển
+
+            image: new Image()
+        };
+        // Đồng xu - Đại diện cho vốn đầu tư
+        let coin = {
+            x: Math.random() * (canvas.width - 30),
+            y: Math.random() * (canvas.height - 30),
+            size: 25,
+            color: 'gold'
+        };
+
+        let score = 0;
+        let gameTime = 60;
+        let timer;
+        let gameStarted = false;
+
+        // Điều khiển
+        let keys = {};
+        document.addEventListener("keydown", (e) => {
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+                keys[e.key] = true;
+            }
+        });
+        document.addEventListener("keyup", (e) => {
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+                keys[e.key] = false;
+            }
+        });
+
+        // Hàm vẽ nhân vật (nhà công nghiệp)
+        function drawPlayer() {
+            ctx.fillStyle = player.color;
+            ctx.fillRect(player.x, player.y, player.size, player.size);
+
+            // Thêm chi tiết cho nhân vật
+            ctx.fillStyle = '#2c3e50';
+            ctx.fillRect(player.x + 10, player.y + 10, player.size - 20, player.size - 20);
+        }
+
+        enemy.image.src = 'anhgame/kha-banh-la-ai-35express-675x675.jpg';
+
+        function drawEnemy() {
+            if (enemy.image.complete) {
+                ctx.drawImage(enemy.image, enemy.x, enemy.y, enemy.size, enemy.size);
+            } else {
+                // Fallback: vẽ hình chữ nhật nếu ảnh chưa tải xong
+                ctx.fillStyle = 'red';
+                ctx.fillRect(enemy.x, enemy.y, enemy.size, enemy.size);
+
+                // Vẽ chữ "KB" như placeholder
+                ctx.fillStyle = 'white';
+                ctx.font = '12px Arial';
+                ctx.fillText('KB', enemy.x + 15, enemy.y + 25);
+            }
+
+        }
+
+
+        // Hàm vẽ đồng xu với hiệu ứng
+        function drawCoin() {
+            ctx.fillStyle = coin.color;
+            ctx.beginPath();
+            ctx.arc(coin.x, coin.y, coin.size / 2, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Hiệu ứng ánh sáng cho đồng xu
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            ctx.beginPath();
+            ctx.arc(coin.x - 5, coin.y - 5, coin.size / 6, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Ký hiệu £ trên đồng xu
+            ctx.fillStyle = '#b8860b';
+            ctx.font = 'bold 14px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('£', coin.x, coin.y);
+        }
+
+        // Hàm cập nhật vị trí
+        function update() {
+            if (!gameStarted) return;
+
+            // Di chuyển nhân vật
+            if (keys["ArrowUp"]) player.y -= player.speed;
+            if (keys["ArrowDown"]) player.y += player.speed;
+            if (keys["ArrowLeft"]) player.x -= player.speed;
+            if (keys["ArrowRight"]) player.x += player.speed;
+
+            // Giữ nhân vật trong khung
+            player.x = Math.max(0, Math.min(canvas.width - player.size, player.x));
+            player.y = Math.max(0, Math.min(canvas.height - player.size, player.y));
+
+            // Va chạm coin
+            const distance = Math.sqrt(
+                Math.pow(player.x + player.size / 2 - coin.x, 2) +
+                Math.pow(player.y + player.size / 2 - coin.y, 2)
+            );
+
+            if (distance < (player.size / 2 + coin.size / 2)) {
+                score+= 10;
+                scoreDisplay.textContent = score;
+
+                coin.x = Math.random() * (canvas.width - coin.size);
+                coin.y = Math.random() * (canvas.height - coin.size);
+
+            }
+        }
+
+        // Vẽ game
+        function draw() {
+            // Xóa canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Vẽ nền với hiệu ứng công nghiệp
+            drawBackground();
+
+            // Vẽ các đối tượng game
+            drawCoin();
+            drawPlayer();
+            drawEnemy()
+            // Vẽ thông tin
+            drawGameInfo();
+        }
+        function drawBackground() {
+            // Nền gradient
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, '#2c3e50');
+            gradient.addColorStop(1, '#34495e');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Thêm hiệu ứng nhà máy trong nền
+            ctx.fillStyle = 'rgba(52, 73, 94, 0.3)';
+            for (let i = 0; i < 5; i++) {
+                ctx.fillRect(i * 150 + 50, 50, 80, 120);
+                ctx.fillRect(i * 150 + 30, 170, 120, 20);
+            }
+        }
+        function drawGameInfo() {
+            ctx.fillStyle = 'white';
+            ctx.font = '16px Arial';
+            ctx.textAlign = 'left';
+            ctx.fillText(`Vốn: ${score} đồng xu`, 20, 30);
+            ctx.fillText(`Thời gian: ${gameTime}s`, 20, 60);
+        }
+
+        function updateEnemy() {
+            // Di chuyển theo hướng hiện tại
+            enemy.x += Math.cos(enemy.direction) * enemy.speed;
+            enemy.y += Math.sin(enemy.direction) * enemy.speed;
+
+            if (enemy.x <= 0 || enemy.x >= canvas.width - enemy.size) {
+                enemy.direction = Math.PI - enemy.direction; // Đổi hướng ngang
+            }
+            if (enemy.y <= 0 || enemy.y >= canvas.height - enemy.size) {
+                enemy.direction = -enemy.direction; // Đổi hướng dọc
+            }
+
+
+            // Giữ nhân vật trong khung
+            enemy.x = Math.max(0, Math.min(canvas.width - enemy.size, enemy.x));
+            enemy.y = Math.max(0, Math.min(canvas.height - enemy.size, enemy.y));
+
+            const distance1 = Math.sqrt(
+                Math.pow(enemy.x + enemy.size / 2 - player.x, 2) +
+                Math.pow(enemy.y + enemy.size / 2 - player.y, 2)
+            );
+
+            if (distance1 < (player.size / 2 + enemy.size / 2)) {
+
+                endGame2();
+            }
+        }
+        function gameLoop() {
+            if (!gameStarted) return; // QUAN TRỌNG: Dừng ngay nếu game không chạy
+            update();
+            draw();
+            updateEnemy();
+            if (gameStarted) {
+                requestAnimationFrame(gameLoop);
+            }
+        }
+
+        // Hàm hiển thị modal kết thúc game
+        function showGameEndModal() {
+            // Cập nhật nội dung modal
+            document.getElementById('modalTitle').innerHTML = `
+        <h3>Money you earn</h3>
+        <p>Số tiền kiếm được: £${score}</p>
+    `;
+
+            // Hiển thị modal bằng Bootstrap 5 JS
+            const modalElement = document.getElementById('gameend');
+            const modal = new bootstrap.Modal(modalElement); // tạo instance modal
+            modal.show(); // hiển thị modal
+        }
+        // Hàm đóng modal
+        function closeModal() {
+            document.getElementById('gameend').style.display = 'none';
+        }
+
+        // Hàm chơi lại game
+        function restartGame() {
+            closeModal();
+            startGame(); // Gọi hàm startGame của bạn để reset game
+        }
+
+        // Hàm bắt đầu game
+        function startGame() {
+            if (gameStarted) return;
+
+            gameStarted = true;
+            score = 0;
+            gameTime = 5;
+            scoreDisplay.textContent = score;
+            timerDisplay.textContent = gameTime;
+
+            // Reset vị trí
+            player.x = 300;
+            player.y = 200;
+
+            enemy.x = 100
+            enemy.y = 200
+
+            // Bắt đầu đếm ngược
+            timer = setInterval(() => {
+                gameTime--;
+                timerDisplay.textContent = gameTime;
+                score++
+                if (gameTime <= 0) {
+                    
+                    clearInterval(timer);
+                    endGame();
+                }
+            }, 1000);
+
+            gameLoop();
+        }
+
+        function endGame() {
+            gameStarted = false;
+            let currentMoney = parseInt(sessionStorage.getItem('money')) || 1000;
+            currentMoney += score * 10;
+            sessionStorage.setItem('money', currentMoney);
+
+            cancelAnimationFrame(gameLoop);
+
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = 'gold';
+            ctx.font = 'bold 36px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Hết giờ!', canvas.width / 2, canvas.height / 2 - 50);
+
+            ctx.fillStyle = 'white';
+            ctx.font = '24px Arial';
+            ctx.fillText(`Tổng vốn tích lũy: ${score * 10} tiền`, canvas.width / 2, canvas.height / 2);
+
+           
+
+            ctx.fillStyle = '#7f8c8d';
+            ctx.font = '18px Arial';
+            ctx.fillText('Nhấn "Chơi Lại" để tiếp tục đầu tư!', canvas.width / 2, canvas.height / 2 + 50);
+        }
+
+
+        function endGame2() {
+            clearInterval(timer);
+
+            gameStarted = false;
+           
+
+
+            cancelAnimationFrame(gameLoop);
+
+
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+
+            ctx.textAlign = 'center';
+
+            ctx.fillStyle = 'white';
+            ctx.font = '24px Arial';
+            ctx.fillText(`gà v ko có tiền đâu`, canvas.width / 2, canvas.height / 2);
+            ctx.fillStyle = '#7f8c8d';
+            ctx.font = '18px Arial';
+            ctx.fillText('Nhấn "Chơi Lại" để tiếp tục đầu tư!', canvas.width / 2, canvas.height / 2 + 50);
+        }
+        // Hàm chơi lại
+        function restartGame() { 
+            clearInterval(timer);
+            enemy.direction= Math.random() * Math.PI * 2
+            startGame();
+        }
+
+
+
+        // Trong Mini Game
+        function goToMainGame() {
+            // Chuyển về trang chính
+            window.location.href = 'game.html'; // hoặc index.html
+        }
+
+        // Khởi tạo game
+        draw();
+    </script>
+</body>
+
+</html>

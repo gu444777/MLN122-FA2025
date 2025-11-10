@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thành Phố Công Nghiệp 1800</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <style>
+    body {
+      background: #8B7355;
+      font-family: "Georgia", "Times New Roman", serif;
+      margin: 0;
+      color: #2F1B0C;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.1"><rect fill="%232F1B0C" width="100" height="100"/></svg>');
+    }
+
+    h1,
+    h2 {
+      text-align: center;
+      color: #2F1B0C;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      font-weight: bold;
+      margin: 20px 0;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      border-bottom: 3px double #2F1B0C;
+      padding-bottom: 10px;
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-start;
+      margin-top: 20px;
+      max-width: 1200px;
+    }
+
+    .city {
+      width: 60%;
+      height: 500px;
+      background: #A0522D;
+      border: 8px solid #654321;
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
+      background-image: linear-gradient(to bottom, #8B4513, #A0522D);
+    }
+
+    .stats,
+    .shop {
+      background: #DEB887;
+      padding: 20px;
+      border-radius: 4px;
+      width: 250px;
+      box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+      border: 3px solid #8B4513;
+    }
+
+    .stats h3,
+    .shop h3 {
+      color: #2F1B0C;
+      border-bottom: 2px solid #8B4513;
+      padding-bottom: 8px;
+      margin-bottom: 15px;
+      font-size: 1.3em;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      margin-top: 12px;
+      padding: 12px;
+      font-size: 16px;
+      border: 2px solid #654321;
+      background: #8B4513;
+      color: #F5DEB3;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: "Georgia", serif;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    button:hover {
+      background: #A0522D;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .building {
+      position: absolute;
+      bottom: 0;
+      filter: sepia(1) brightness(0.8);
+      transition: all 0.3s ease;
+    }
+
+    .building:hover {
+      filter: sepia(0.7) brightness(1);
+      transform: scale(1.05);
+    }
+
+    .stat-item {
+      background: #F5DEB3;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #8B4513;
+      border-radius: 2px;
+      font-weight: bold;
+    }
+
+    .stat-value {
+      float: right;
+      color: #8B4513;
+      font-weight: bold;
+    }
+
+    .modal-content {
+      background: #DEB887;
+      border: 5px solid #8B4513;
+      border-radius: 4px;
+    }
+
+    .modal-header {
+      background: #8B4513;
+      color: #F5DEB3;
+      border-bottom: 3px solid #654321;
+    }
+
+    .game-option {
+      background: #F5DEB3;
+      border: 2px solid #8B4513;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .game-option:hover {
+      background: #DEB887;
+      transform: translateX(5px);
+    }
+
+    .vintage-border {
+      border: 15px solid transparent;
+      border-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100" fill="none" stroke="%238B4513" stroke-width="8"/></svg>') 30 round;
+      padding: 20px;
+      margin: 20px;
+      background: #DEB887;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .city,
+      .stats,
+      .shop {
+        width: 90%;
+        margin-bottom: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="vintage-border">
+    <h1>THÀNH PHỐ CÔNG NGHIỆP </h1>
+    <h2>Mục tiêu: 10.000.000 VND</h2>
+
+    <div class="container">
+      <div class="stats">
+        <h3>THỐNG KÊ</h3>
+        <div class="stat-item">
+          Vốn: <span id="money" class="stat-value">0</span> VND
+        </div>
+        <div class="stat-item">
+          Thu nhập: <span id="moneys" class="stat-value">0</span> VND/giây
+        </div>
+
+        <button onclick="earnMoney()" data-bs-toggle="modal" data-bs-target="#Getmomey">
+          Làm việc kiếm tiền
+        </button>
+      </div>
+
+
+      <div class="city" id="city">
+        <!-- Công trình sẽ được thêm vào đây -->
+      </div>
+
+      <div class="shop">
+        <h3>Đầu tư</h3>
+        <button onclick="build('house', 1000)">
+          Khoáng sản (1.000 VND)
+        </button>
+        <button onclick="build('park', 3000)">
+          đất (3.000 VND)
+        </button>
+        <button onclick="build('factory', 5000)">
+          Nhà xưởng (5.000 VND)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="Getmomey" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>CÔNG VIỆC KIẾM TIỀN</h3>
+        </div>
+        <div class="modal-body">
+          <div class="game-option">
+            <h4>Thu thập vàng</h4>
+            <p>Làm việc tại mỏ vàng</p>
+            <small>60 giây • Kỹ năng</small>
+            <button onclick="goToMiniGame()" style="margin-top: 10px;">
+              Bắt đầu làm việc
+            </button>
+          </div>
+
+          <div class="game-option">
+            <h4>Đầu tư chứng khoán</h4>
+            <p>Giao dịch trên thị trường</p>
+            <small>Chiến lược • Phân tích</small>
+            <button onclick="startTradingGame()" style="margin-top: 10px;">
+              Bắt đầu giao dịch
+            </button>
+          </div>
+
+          <div class="game-option">
+            <h4>Xây dựng đường sắt</h4>
+            <p>Phát triển hạ tầng giao thông</p>
+            <small>Xây dựng • Quy hoạch</small>
+            <button onclick="startRailwayGame()" style="margin-top: 10px;">
+              Bắt đầu xây dựng
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+  <button onclick="thue()">
+    Nộp tiền
+  </button>
+  </div>
+  <div id="warning" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Nghèo thì kiếm tiền đi</h3>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  </div>
+  <script>
+    let house = 0
+    let park = 0
+    let factory = 0
+
+    let money = parseInt(sessionStorage.getItem('money')) || 10000;
+    let energy = parseInt(sessionStorage.getItem('energy')) || 50;
+    let happy = parseInt(sessionStorage.getItem('happy')) || 50;
+    let buildings = JSON.parse(sessionStorage.getItem('buildings')) || [];
+    let moneys = parseInt(sessionStorage.getItem('moneys')) || 0
+
+    function updateStats() {
+      document.getElementById('money').innerText = money.toLocaleString();
+      document.getElementById('moneys').innerText = moneys.toLocaleString();
+
+      sessionStorage.setItem('money', money);
+      sessionStorage.setItem('energy', energy);
+      sessionStorage.setItem('happy', happy);
+      sessionStorage.setItem('buildings', JSON.stringify(buildings));
+      sessionStorage.setItem('moneys', moneys);
+    }
+
+
+
+    function thue() {
+      if (money >= 10000000) {
+        window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1";
+      }
+      else {
+        const modal = new bootstrap.Modal(document.getElementById('warning'));
+        modal.show();
+      }
+    }
+
+    function checkEnd() {
+      if (happy <= 0) {
+        alert("Thành phố của bạn trở nên u ám. Kết thúc!");
+        reset();
+      }
+      if (energy <= 0) {
+        alert("Cạn năng lượng! Cần cân bằng lại hệ thống.");
+        reset();
+      }
+    }
+
+    function reset() {
+      city.innerHTML = '';
+      updateStats();
+    }
+
+    function renderBuildings() {
+      city.innerHTML = '';
+
+      buildings.forEach(building => {
+        let img = document.createElement('img');
+        img.className = 'building';
+        img.src = building.src;
+        img.style.left = building.left;
+        img.width = building.width || 80;
+        city.appendChild(img);
+      });
+    }
+
+    function build(type, cost) {
+      if (money < cost) {
+        alert("Không đủ vốn!");
+        return;
+      }
+      money -= cost;
+      moneys += cost / 100;
+      let img = document.createElement('img');
+      img.className = 'building';
+      let leftPosition = Math.random() * 70 + '%';
+
+      if (type === 'house') {
+        img.src = 'https://cdn-icons-png.flaticon.com/512/1027/1027855.png';
+        img.style.left = leftPosition;
+        img.width = 70;
+      } else if (type === 'park') {
+        img.src = 'https://cdn-icons-png.flaticon.com/512/619/619010.png';
+        img.style.left = leftPosition;
+
+        img.width = 90;
+      } else if (type === 'factory') {
+        img.src = 'https://cdn-icons-png.flaticon.com/512/1842/1842944.png';
+        img.style.left = leftPosition;
+        img.width = 100;
+      }
+
+      city.appendChild(img);
+
+      buildings.push({
+        type: type,
+        src: img.src,
+        left: leftPosition,
+        width: img.width
+      });
+      updateStats();
+    }
+
+    function startEarningMoney() {
+      setInterval(() => {
+        money += moneys;
+        updateStats();
+        if (money >= 10000000) {
+          alert("CHÚC MỪNG! Bạn đã đạt 10.000.000 VND!");
+        }
+      }, 1000);
+    }
+
+    function goToMiniGame() {
+      window.location.href = 'minigame1.html';
+    }
+
+    function startTradingGame() {
+      alert("Tính năng đang phát triển");
+    }
+
+    function startRailwayGame() {
+      alert("Tính năng đang phát triển");
+    }
+
+    window.addEventListener('load', function () {
+      renderBuildings();
+      updateStats();
+      startEarningMoney();
+    });
+  </script>
+</body>
+
+</html>
