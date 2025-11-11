@@ -16,69 +16,225 @@
 
      <style>
           body {
-               font-family: "Segoe UI", sans-serif;
-               line-height: 1.6;
+               font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+               line-height: 1.7;
                scroll-behavior: smooth;
+               color: #2c3e50;
           }
 
-          /* Hero Section (thay header) */
+          /* Hero Section */
           .hero {
-               background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-                    url("https://upload.wikimedia.org/wikipedia/commons/e/ed/Sales_contract_Shuruppak_Louvre_AO3766.jpg") center/cover;
+               background: 
+                    linear-gradient(135deg, rgba(26, 26, 46, 0.92) 0%, rgba(22, 33, 62, 0.9) 50%, rgba(15, 52, 96, 0.88) 100%),
+                    url("https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1920&q=80") center/cover no-repeat;
                color: #fff;
-               padding: 8rem 1rem;
+               padding: 10rem 2rem 8rem;
                text-align: center;
+               position: relative;
+               overflow: hidden;
+          }
+
+          .hero::before {
+               content: "";
+               position: absolute;
+               top: 0;
+               left: 0;
+               right: 0;
+               bottom: 0;
+               background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+               opacity: 0.3;
           }
 
           .hero h1 {
-               font-size: 2.8rem;
+               font-size: 3.5rem;
                font-weight: 700;
-          }
-
-          /* Horizontal Timeline */
-          .timeline-container {
-               overflow-x: auto;
-               padding: 2rem 0;
+               letter-spacing: -0.02em;
+               margin-bottom: 1.5rem;
                position: relative;
-               display: flex;
-               justify-content: center;
-               /* căn giữa timeline-bar */
+               z-index: 1;
           }
 
-          .timeline-bar {
-               display: flex;
-               gap: 2rem;
-               align-items: center;
+          .hero .lead {
+               font-size: 1.25rem;
+               font-weight: 300;
+               max-width: 800px;
+               margin: 0 auto;
+               line-height: 1.8;
                position: relative;
+               z-index: 1;
+               opacity: 0.95;
           }
 
-          .timeline-node {
-               background: #e9ecef;
-               border-radius: 10px;
-               padding: 1rem;
-               min-width: 180px;
+          .hero .badge {
+               font-weight: 500;
+               padding: 0.6rem 1.2rem;
+               border-radius: 6px;
+               font-size: 0.9rem;
+               letter-spacing: 0.02em;
+          }
+
+          /* Section Headers */
+          h2.fw-bold {
+               font-size: 2.5rem;
+               font-weight: 700;
+               color: #1a1a2e;
+               margin-bottom: 3rem;
+               letter-spacing: -0.02em;
+          }
+
+          /* Crisis Cards */
+          .crisis-card {
+               border: none;
+               border-radius: 12px;
+               overflow: hidden;
+               box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+               transition: all 0.3s ease;
+               margin-bottom: 2rem;
+          }
+
+          .crisis-card:hover {
+               transform: translateY(-8px);
+               box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+          }
+
+          .crisis-card .card-header {
+               background: #2c3e50;
+               color: white;
+               padding: 1.5rem 2rem;
+               border: none;
+          }
+
+          .crisis-card .card-header h3 {
+               font-size: 1.5rem;
+               font-weight: 600;
+               margin: 0;
+               letter-spacing: -0.01em;
+          }
+
+          .crisis-card .card-body {
+               padding: 2rem;
+          }
+
+          .crisis-card h5 {
+               font-size: 1.1rem;
+               font-weight: 600;
+               color: #2c3e50;
+               margin-bottom: 1rem;
+               text-transform: uppercase;
+               letter-spacing: 0.05em;
+               font-size: 0.9rem;
+          }
+
+          .crisis-card ul {
+               padding-left: 1.5rem;
+          }
+
+          .crisis-card li {
+               margin-bottom: 0.75rem;
+               line-height: 1.7;
+          }
+
+          /* Stats Section */
+          .stat-box {
+               background: white;
+               border-radius: 12px;
+               padding: 2.5rem 1.5rem;
                text-align: center;
-               transition: transform 0.3s, background 0.3s;
-               cursor: pointer;
-               flex-shrink: 0;
-               /* tránh bị co nhỏ */
+               box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+               transition: all 0.3s ease;
+               border: 1px solid #e9ecef;
           }
 
-          .timeline-node:hover {
-               background: #0d6efd;
-               color: #fff;
-               transform: scale(1.05);
+          .stat-box:hover {
+               transform: translateY(-5px);
+               box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+               border-color: #dee2e6;
           }
 
-          .timeline-line {
-               position: absolute;
-               top: 50%;
-               left: 0;
-               right: 0;
-               height: 4px;
-               background: #dee2e6;
-               z-index: -1;
-               transform: translateY(-50%);
+          .stat-number {
+               font-size: 3rem;
+               font-weight: 700;
+               color: #e74c3c;
+               margin-bottom: 0.5rem;
+               letter-spacing: -0.02em;
+          }
+
+          .stat-box p {
+               color: #6c757d;
+               font-size: 0.95rem;
+               margin: 0;
+               line-height: 1.5;
+          }
+
+          /* Lessons Section */
+          .lesson-item {
+               background: white;
+               border-left: 4px solid #3498db;
+               padding: 1.75rem 2rem;
+               margin-bottom: 1.25rem;
+               border-radius: 8px;
+               box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+               transition: all 0.3s ease;
+          }
+
+          .lesson-item:hover {
+               box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+               transform: translateX(5px);
+          }
+
+          .lesson-item h5 {
+               font-size: 1.15rem;
+               font-weight: 600;
+               color: #2c3e50;
+               margin-bottom: 0.75rem;
+          }
+
+          .lesson-item p {
+               margin: 0;
+               color: #5a6c7d;
+               line-height: 1.7;
+          }
+
+          /* Did You Know */
+          .did-you-know {
+               background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+               color: white;
+               border-radius: 12px;
+               padding: 3rem 2.5rem;
+               box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+          }
+
+          .did-you-know h3 {
+               font-size: 2rem;
+               margin-bottom: 2rem;
+               font-weight: 600;
+               letter-spacing: -0.01em;
+          }
+
+          .did-you-know p {
+               line-height: 1.8;
+               opacity: 0.95;
+          }
+
+          .did-you-know strong {
+               display: block;
+               margin-bottom: 0.5rem;
+               font-weight: 600;
+               font-size: 1.05rem;
+          }
+
+          /* Intro Section */
+          .text-muted {
+               font-size: 1.15rem;
+               line-height: 1.8;
+               max-width: 900px;
+               margin: 0 auto;
+          }
+
+          /* Timeline iframe */
+          iframe {
+               border-radius: 12px;
+               box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
           }
      </style>
 </head>
@@ -119,11 +275,11 @@
 
      <!-- Hero Section -->
      <section class="hero" data-aos="fade-in" data-aos-duration="1500">
-          <h1>Khởi nguồn của tài chính trong xã hội cổ đại</h1>
+          <h1>Khủng hoảng tài chính trong lịch sử</h1>
           <p class="lead mt-3">
-               Từ bảng đất sét Sumer đến đồng tiền Lydian — hành trình của tư duy kinh
-               tế đầu tiên.
+               Từ Đại khủng hoảng 1929 đến Khủng hoảng toàn cầu 2008 — những bài học đắt giá về sự mong manh của hệ thống tài chính
           </p>
+         
      </section>
 
      <main class="container my-5">
@@ -150,9 +306,206 @@
 
 
           <!-- Content Sections -->
+          <section class="my-5" data-aos="fade-up">
+               <h2 class="fw-bold text-center mb-5">Ba cuộc khủng hoảng lớn</h2>
+               
+               <!-- 1929 Great Depression -->
+               <div class="card crisis-card mb-4">
+                    <div class="card-header">
+                         <h3 class="mb-0">Đại khủng hoảng 1929</h3>
+                    </div>
+                    <div class="card-body">
+                         <div class="row">
+                              <div class="col-md-8">
+                                   <h5>Nguyên nhân</h5>
+                                   <ul>
+                                        <li>Đầu cơ quá mức trên thị trường chứng khoán</li>
+                                        <li>Mua cổ phiếu bằng tiền vay (margin buying)</li>
+                                        <li>Sản xuất vượt quá nhu cầu tiêu dùng</li>
+                                        <li>Chính sách tiền tệ không phù hợp</li>
+                                   </ul>
+                                   <h5 class="mt-3">Hậu quả</h5>
+                                   <ul>
+                                        <li>Thị trường chứng khoán Mỹ mất 89% giá trị</li>
+                                        <li>Tỷ lệ thất nghiệp lên đến 25%</li>
+                                        <li>Hàng nghìn ngân hàng phá sản</li>
+                                        <li>Khủng hoảng lan rộng toàn cầu</li>
+                                   </ul>
+                              </div>
+                              <div class="col-md-4">
+                                   <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400" 
+                                        class="img-fluid rounded" alt="Great Depression">
+                                   <p class="text-muted small mt-2">
+                                        <strong>Thứ Ba Đen (Black Tuesday)</strong> - 29/10/1929: 
+                                        Ngày sụp đổ của thị trường chứng khoán Mỹ
+                                   </p>
+                              </div>
+                         </div>
+                    </div>
+               </div>
 
+               <!-- 1997 Asian Crisis -->
+               <div class="card crisis-card mb-4">
+                    <div class="card-header">
+                         <h3 class="mb-0">Khủng hoảng tài chính châu Á 1997</h3>
+                    </div>
+                    <div class="card-body">
+                         <div class="row">
+                              <div class="col-md-8">
+                                   <h5>Nguyên nhân</h5>
+                                   <ul>
+                                        <li>Vay nợ ngoại tệ ngắn hạn quá mức</li>
+                                        <li>Tỷ giá hối đoái cố định không bền vững</li>
+                                        <li>Bong bóng bất động sản và chứng khoán</li>
+                                        <li>Hệ thống ngân hàng yếu kém</li>
+                                   </ul>
+                                   <h5 class="mt-3">Hậu quả</h5>
+                                   <ul>
+                                        <li>Đồng tiền các nước mất giá mạnh (Thái Lan -50%, Indonesia -80%)</li>
+                                        <li>GDP giảm mạnh, thất nghiệp tăng cao</li>
+                                        <li>IMF phải can thiệp với gói cứu trợ 40 tỷ USD</li>
+                                        <li>Khủng hoảng lan sang Nga và Brazil</li>
+                                   </ul>
+                              </div>
+                              <div class="col-md-4">
+                                   <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=400" 
+                                        class="img-fluid rounded" alt="Asian Crisis">
+                                   <p class="text-muted small mt-2">
+                                        <strong>Hiệu ứng domino</strong>: Khủng hoảng bắt đầu từ Thái Lan 
+                                        và lan nhanh sang các nước châu Á khác
+                                   </p>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+
+               <!-- 2008 Global Crisis -->
+               <div class="card crisis-card mb-4">
+                    <div class="card-header">
+                         <h3 class="mb-0">Khủng hoảng tài chính toàn cầu 2008</h3>
+                    </div>
+                    <div class="card-body">
+                         <div class="row">
+                              <div class="col-md-8">
+                                   <h5>Nguyên nhân</h5>
+                                   <ul>
+                                        <li>Bong bóng bất động sản Mỹ (subprime mortgage)</li>
+                                        <li>Chứng khoán hóa tài sản độc hại (CDO, MBS)</li>
+                                        <li>Đòn bẩy tài chính quá cao của các ngân hàng</li>
+                                        <li>Thiếu giám sát và quản lý rủi ro</li>
+                                   </ul>
+                                   <h5 class="mt-3">Hậu quả</h5>
+                                   <ul>
+                                        <li>Lehman Brothers phá sản - ngân hàng lớn thứ 4 Mỹ</li>
+                                        <li>Thị trường chứng khoán toàn cầu mất hàng nghìn tỷ USD</li>
+                                        <li>Suy thoái kinh tế nghiêm trọng nhất kể từ 1929</li>
+                                        <li>Chính phủ các nước phải giải cứu hệ thống ngân hàng</li>
+                                   </ul>
+                              </div>
+                              <div class="col-md-4">
+                                   <img src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=400" 
+                                        class="img-fluid rounded" alt="2008 Crisis">
+                                   <p class="text-muted small mt-2">
+                                        <strong>Lehman Brothers</strong> phá sản ngày 15/9/2008 
+                                        đánh dấu đỉnh điểm của khủng hoảng
+                                   </p>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+          </section>
+
+          <!-- Statistics Section -->
+          <section class="my-5 py-5 bg-light" data-aos="fade-up">
+               <div class="container">
+                    <h2 class="fw-bold text-center mb-5">Số liệu đáng chú ý</h2>
+                    <div class="row g-4">
+                         <div class="col-md-3">
+                              <div class="stat-box">
+                                   <div class="stat-number">89%</div>
+                                   <p class="mb-0">Giá trị mất đi của TTCK Mỹ (1929-1932)</p>
+                              </div>
+                         </div>
+                         <div class="col-md-3">
+                              <div class="stat-box">
+                                   <div class="stat-number">25%</div>
+                                   <p class="mb-0">Tỷ lệ thất nghiệp cao nhất (1933)</p>
+                              </div>
+                         </div>
+                         <div class="col-md-3">
+                              <div class="stat-box">
+                                   <div class="stat-number">$700B</div>
+                                   <p class="mb-0">Gói cứu trợ TARP của Mỹ (2008)</p>
+                              </div>
+                         </div>
+                         <div class="col-md-3">
+                              <div class="stat-box">
+                                   <div class="stat-number">10 năm</div>
+                                   <p class="mb-0">Thời gian phục hồi sau khủng hoảng 2008</p>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+          </section>
+
+          <!-- Lessons Learned -->
+          <section class="my-5" data-aos="fade-up">
+               <h2 class="fw-bold text-center mb-5">Bài học kinh nghiệm</h2>
+               <div class="lesson-item">
+                    <h5>Quản lý rủi ro hệ thống</h5>
+                    <p>Cần có cơ chế giám sát chặt chẽ các tổ chức tài chính "quá lớn để sụp đổ" (too big to fail) 
+                    và kiểm soát đòn bẩy tài chính.</p>
+               </div>
+               <div class="lesson-item">
+                    <h5>Minh bạch thông tin</h5>
+                    <p>Các sản phẩm tài chính phức tạp cần được công khai rõ ràng về rủi ro. 
+                    Sự thiếu minh bạch đã góp phần làm trầm trọng khủng hoảng 2008.</p>
+               </div>
+               <div class="lesson-item">
+                    <h5>Chính sách tiền tệ linh hoạt</h5>
+                    <p>Ngân hàng trung ương cần có khả năng phản ứng nhanh với các dấu hiệu khủng hoảng 
+                    thông qua điều chỉnh lãi suất và cung tiền.</p>
+               </div>
+               <div class="lesson-item">
+                    <h5>Hợp tác quốc tế</h5>
+                    <p>Trong thời đại toàn cầu hóa, khủng hoảng tài chính lan truyền nhanh chóng. 
+                    Cần có sự phối hợp giữa các quốc gia để ổn định thị trường.</p>
+               </div>
+               <div class="lesson-item">
+                    <h5>Tránh tâm lý bầy đàn</h5>
+                    <p>Nhà đầu tư cần duy trì lý trí, không để cảm xúc chi phối quyết định. 
+                    Tâm lý đám đông thường dẫn đến bong bóng và sụp đổ.</p>
+               </div>
+          </section>
 
           <!-- Did you know -->
+          <section class="my-5" data-aos="zoom-in">
+               <div class="did-you-know">
+                    <h3>Sự kiện đáng chú ý khác</h3>
+                    <div class="row">
+                         <div class="col-md-6 mb-4">
+                              <p><strong>Thứ Hai Đen (Black Monday) 1987</strong> 
+                              Ngày 19/10/1987, chỉ số Dow Jones giảm 22.6% trong một ngày - 
+                              mức giảm lớn nhất trong lịch sử.</p>
+                         </div>
+                         <div class="col-md-6 mb-4">
+                              <p><strong>Cơn sốt hoa tulip (1637)</strong> 
+                              Bong bóng tài chính đầu tiên được ghi nhận trong lịch sử, 
+                              khi giá một củ tulip có thể bằng giá một ngôi nhà ở Amsterdam.</p>
+                         </div>
+                         <div class="col-md-6 mb-4">
+                              <p><strong>Khủng hoảng nợ châu Âu (2010)</strong> 
+                              Hy Lạp, Ireland, Bồ Đào Nha, Tây Ban Nha và Ý đối mặt với khủng hoảng nợ công nghiêm trọng, 
+                              đe dọa sự tồn tại của đồng Euro.</p>
+                         </div>
+                         <div class="col-md-6 mb-4">
+                              <p><strong>Ngân hàng Barings (1995)</strong> 
+                              Ngân hàng lâu đời nhất Anh quốc sụp đổ do một nhân viên giao dịch 
+                              gây ra khoản lỗ 1.3 tỷ USD.</p>
+                         </div>
+                    </div>
+               </div>
+          </section>
 
      </main>
 
