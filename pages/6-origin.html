@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,7 +39,7 @@
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .navbar-brand {
@@ -108,7 +109,7 @@
             object-fit: cover;
             border-radius: 10px;
             margin-top: 2rem;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
         }
 
         /* ==================== STATS SECTION ==================== */
@@ -129,7 +130,7 @@
 
         .stat-box:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
         .stat-number {
@@ -168,7 +169,7 @@
             position: relative;
             overflow: hidden;
             border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             aspect-ratio: 1;
             cursor: pointer;
             transition: transform 0.3s ease;
@@ -272,14 +273,14 @@
             background-color: white;
             padding: 2rem;
             border-radius: 8px;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
         }
 
         .timeline-content:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
 
         .timeline-year {
@@ -311,7 +312,7 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0, 0, 0, 0.5);
             animation: fadeIn 0.3s ease;
         }
 
@@ -322,7 +323,7 @@
             border-radius: 15px;
             width: 90%;
             max-width: 800px;
-            box-shadow: 0 10px 50px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
             animation: slideDown 0.3s ease;
             max-height: 85vh;
             overflow-y: auto;
@@ -366,7 +367,7 @@
         .modal-image {
             width: 100%;
             border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
         }
 
         .modal-details h3 {
@@ -411,8 +412,13 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         @keyframes slideDown {
@@ -420,6 +426,7 @@
                 opacity: 0;
                 transform: translateY(-30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -444,7 +451,7 @@
             height: 0;
             overflow: hidden;
             border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
         }
 
         .video-container iframe {
@@ -478,8 +485,9 @@
             font-weight: bold;
         }
 
-        .footer-section p, .footer-section a {
-            color: rgba(255,255,255,0.8);
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
             font-size: 0.95rem;
             line-height: 1.8;
             text-decoration: none;
@@ -490,10 +498,10 @@
         }
 
         .footer-bottom {
-            border-top: 1px solid rgba(255,255,255,0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
             padding-top: 2rem;
             text-align: center;
-            color: rgba(255,255,255,0.7);
+            color: rgba(255, 255, 255, 0.7);
         }
 
         /* ==================== RESPONSIVE ==================== */
@@ -547,6 +555,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -557,14 +566,59 @@
             animation: fadeInUp 0.6s ease-out forwards;
             opacity: 0;
         }
+
+        .hero {
+            background-image: url('https://nxbctqg.org.vn/img_data/images/114637759372_tt.jpg');
+            /* đường dẫn ảnh */
+            background-size: cover;
+            /* phóng to ảnh cho vừa khung */
+            background-position: center;
+            /* căn giữa ảnh */
+            background-repeat: no-repeat;
+            /* không lặp lại */
+            height: 100vh;
+            /* chiếm hết chiều cao màn hình */
+            display: flex;
+            align-items: center;
+            /* căn giữa dọc */
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        /* thêm lớp phủ tối để chữ dễ đọc */
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            /* để nội dung nằm trên lớp phủ */
+            z-index: 1;
+        }
+
+        .navbar {
+  white-space: nowrap;
+}
+
+
+        
     </style>
 </head>
+
 <body>
 
-<!-- ==================== HEADER ==================== -->
-<header
+    <!-- ==================== HEADER ==================== -->
+ <header
       id="main-header"
-      class="sticky-top bg-dark text-white py-3 shadow-sm">
+      class="sticky-top bg-dark text-white py-3 shadow-sm"
+    >
       <nav class="container d-flex justify-content-between align-items-center">
         <h3 class="m-0">Lịch sử tài chính</h3>
         <ul class="nav">
@@ -595,373 +649,404 @@
         </ul>
       </nav>
     </header>
-
-<!-- ==================== HERO SECTION ==================== -->
-<section class="hero" id="home">
-    <div class="container">
-        <div class="hero-content">
-            <h1>Lịch Sử Tài Chính Việt Nam</h1>
-            <p>Khám phá hành trình phát triển kinh tế và tài chính từ quá khứ đến hiện tại</p>
-        </div>
-    </div>
-</section>
-<!-- ==================== STATS SECTION ==================== -->
-<section class="stats-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3 col-sm-6">
-                <div class="stat-box">
-                    <div class="stat-number">1000+</div>
-                    <div class="stat-label">Năm lịch sử</div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="stat-box">
-                    <div class="stat-number">50</div>
-                    <div class="stat-label">Giai đoạn phát triển</div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="stat-box">
-                    <div class="stat-number">7%</div>
-                    <div class="stat-label">Tăng trưởng trung bình</div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="stat-box">
-                    <div class="stat-number">98M</div>
-                    <div class="stat-label">Dân số tham gia</div>
-                </div>
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Lịch Sử Tài Chính Việt Nam</h1>
+                <p>Khám phá hành trình phát triển kinh tế và tài chính từ quá khứ đến hiện tại</p>
             </div>
         </div>
-    </div>
-</section>
-
-<!-- ==================== GALLERY SECTION ==================== -->
-<section class="gallery-section" id="gallery">
-    <div class="container">
-        <h2 class="section-title">Hình Ảnh Tiêu Biểu</h2>
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="https://nghiencuulichsu.com/wp-content/uploads/2017/03/b343f6d14964cf58cef21d93245105e2.jpg" alt="Thương mại cổ đại">
-                <div class="gallery-overlay">Thương mại cổ đại</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://nghiencuulichsu.com/wp-content/uploads/2017/06/expo1889.jpg" alt="Thời kỳ thuộc địa">
-                <div class="gallery-overlay">Thời kỳ thuộc địa</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://media.tapchikinhtetaichinh.vn/w1480/images/upload/phammaihanh/2015_07_22/bank_jpg2_OCDW.jpg" alt="Ngân hàng hiện đại">
-                <div class="gallery-overlay">Ngân hàng hiện đại</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMMnVHnmOTIze1U4WHpPkz87Upde5DKzlqcg&s" alt="Sàn giao dịch chứng khoán">
-                <div class="gallery-overlay">Sàn giao dịch chứng khoán</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://nghiencuuchienluoc.org/wp-content/uploads/2023/06/kinh-te-1-1685360376929850055204.png" alt="Phát triển thương mại">
-                <div class="gallery-overlay">Phát triển thương mại</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://tapchinganhang.gov.vn/stores/news_dataimages/2025/072025/07/16/in_article/cw-fintech-mobile-payments-digital-currency-global-transactions-by-nazarkru-gettyimages-940953880-3x2-2400x1600-100791731-orig20250707160739.jpg?rt=20250707160739" alt="Thanh toán kỹ thuật số">
-                <div class="gallery-overlay">Thanh toán kỹ thuật số</div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ==================== TIMELINE SECTION ==================== -->
-<section class="timeline-section" id="timeline">
-    <div class="container">
-        <h2 class="section-title">Dòng Thời Gian Phát Triển</h2>
-        <div class="timeline">
-            <!-- Added clickable timeline items with data attributes -->
-            <div class="timeline-item fade-in" style="animation-delay: 0s;" data-modal="modal1">
-                <div class="timeline-marker"></div>
-                <div class="timeline-content">
-                    <div class="timeline-year">1010</div>
-                    <div class="timeline-title">Thành lập nhà nước độc lập</div>
-                    <div class="timeline-desc">Nền tảng cho phát triển kinh tế Việt Nam</div>
+    </section>
+    <!-- ==================== STATS SECTION ==================== -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="stat-box">
+                        <div class="stat-number">1000+</div>
+                        <div class="stat-label">Năm lịch sử</div>
+                    </div>
                 </div>
-            </div>
-
-            <div class="timeline-item fade-in" style="animation-delay: 0.1s;" data-modal="modal2">
-                <div class="timeline-marker"></div>
-                <div class="timeline-content">
-                    <div class="timeline-year">1858</div>
-                    <div class="timeline-title">Thời kỳ thuộc địa</div>
-                    <div class="timeline-desc">Ảnh hưởng của Pháp đến kinh tế Việt Nam</div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="stat-box">
+                        <div class="stat-number">50</div>
+                        <div class="stat-label">Giai đoạn phát triển</div>
+                    </div>
                 </div>
-            </div>
-
-            <div class="timeline-item fade-in" style="animation-delay: 0.2s;" data-modal="modal3">
-                <div class="timeline-marker"></div>
-                <div class="timeline-content">
-                    <div class="timeline-year">1954</div>
-                    <div class="timeline-title">Độc lập hoàn toàn</div>
-                    <div class="timeline-desc">Xây dựng nền kinh tế độc lập</div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="stat-box">
+                        <div class="stat-number">7%</div>
+                        <div class="stat-label">Tăng trưởng trung bình</div>
+                    </div>
                 </div>
-            </div>
-
-            <div class="timeline-item fade-in" style="animation-delay: 0.3s;" data-modal="modal4">
-                <div class="timeline-marker"></div>
-                <div class="timeline-content">
-                    <div class="timeline-year">1986</div>
-                    <div class="timeline-title">Đổi mới kinh tế</div>
-                    <div class="timeline-desc">Chuyển sang nền kinh tế thị trường định hướng xã hội chủ nghĩa</div>
-                </div>
-            </div>
-
-            <div class="timeline-item fade-in" style="animation-delay: 0.4s;" data-modal="modal5">
-                <div class="timeline-marker"></div>
-                <div class="timeline-content">
-                    <div class="timeline-year">1995</div>
-                    <div class="timeline-title">Gia nhập WTO</div>
-                    <div class="timeline-desc">Mở cửa nền kinh tế, tích hợp quốc tế</div>
-                </div>
-            </div>
-
-            <div class="timeline-item fade-in" style="animation-delay: 0.5s;" data-modal="modal6">
-                <div class="timeline-marker"></div>
-                <div class="timeline-content">
-                    <div class="timeline-year">2020</div>
-                    <div class="timeline-title">Chiến lược số</div>
-                    <div class="timeline-desc">Chuyển đổi số trong tài chính và ngân hàng</div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="stat-box">
+                        <div class="stat-number">98M</div>
+                        <div class="stat-label">Dân số tham gia</div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Modal templates for timeline details -->
-<div id="modal1" class="timeline-modal">
-    <div class="modal-content-box">
-        <div class="modal-header">
-            <h2>1010 - Thành lập nhà nước độc lập</h2>
-            <button class="close-btn" onclick="closeModal('modal1')">&times;</button>
+    <!-- ==================== GALLERY SECTION ==================== -->
+    <section class="gallery-section" id="gallery">
+        <div class="container">
+            <h2 class="section-title">Hình Ảnh Tiêu Biểu</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://nghiencuulichsu.com/wp-content/uploads/2017/03/b343f6d14964cf58cef21d93245105e2.jpg"
+                        alt="Thương mại cổ đại">
+                    <div class="gallery-overlay">Thương mại cổ đại</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://nghiencuulichsu.com/wp-content/uploads/2017/06/expo1889.jpg"
+                        alt="Thời kỳ thuộc địa">
+                    <div class="gallery-overlay">Thời kỳ thuộc địa</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://media.tapchikinhtetaichinh.vn/w1480/images/upload/phammaihanh/2015_07_22/bank_jpg2_OCDW.jpg"
+                        alt="Ngân hàng hiện đại">
+                    <div class="gallery-overlay">Ngân hàng hiện đại</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMMnVHnmOTIze1U4WHpPkz87Upde5DKzlqcg&s"
+                        alt="Sàn giao dịch chứng khoán">
+                    <div class="gallery-overlay">Sàn giao dịch chứng khoán</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://nghiencuuchienluoc.org/wp-content/uploads/2023/06/kinh-te-1-1685360376929850055204.png"
+                        alt="Phát triển thương mại">
+                    <div class="gallery-overlay">Phát triển thương mại</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://tapchinganhang.gov.vn/stores/news_dataimages/2025/072025/07/16/in_article/cw-fintech-mobile-payments-digital-currency-global-transactions-by-nazarkru-gettyimages-940953880-3x2-2400x1600-100791731-orig20250707160739.jpg?rt=20250707160739"
+                        alt="Thanh toán kỹ thuật số">
+                    <div class="gallery-overlay">Thanh toán kỹ thuật số</div>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e2/T%C6%B0%E1%BB%A3ng_L%C3%BD_Th%C3%A1i_T%E1%BB%95.jpeg" alt="Thành lập nhà nước độc lập" class="modal-image">
-            <div class="modal-details">
-                <h3>Nền tảng cho phát triển kinh tế</h3>
-                <p>Năm 1010, Lý Công Uẩn thành lập nhà nước Đại Cồ Việt, đánh dấu sự khởi đầu của một nền kinh tế độc lập. Sự kiện này mở ra một kỷ nguyên mới trong lịch sử tài chính Việt Nam.</p>
-                <p>Hệ thống thương mại cổ đại được hình thành, tạo nền tảng cho sự phát triển kinh tế xã hội trong hàng trăm năm tiếp theo.</p>
-                <div class="modal-video">
-                    <p><i class="fas fa-video"></i> Tài liệu lịch sử</p>
-                    <div class="modal-video-container">
-                        <iframe src="https://www.youtube.com/embed/JUTzQadKqAc" allowfullscreen="" loading="lazy"></iframe>
+    </section>
+
+    <!-- ==================== TIMELINE SECTION ==================== -->
+    <section class="timeline-section" id="timeline">
+        <div class="container">
+            <h2 class="section-title">Dòng Thời Gian Phát Triển</h2>
+            <div class="timeline">
+                <!-- Added clickable timeline items with data attributes -->
+                <div class="timeline-item fade-in" style="animation-delay: 0s;" data-modal="modal1">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">1010</div>
+                        <div class="timeline-title">Thành lập nhà nước độc lập</div>
+                        <div class="timeline-desc">Nền tảng cho phát triển kinh tế Việt Nam</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item fade-in" style="animation-delay: 0.1s;" data-modal="modal2">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">1858</div>
+                        <div class="timeline-title">Thời kỳ thuộc địa</div>
+                        <div class="timeline-desc">Ảnh hưởng của Pháp đến kinh tế Việt Nam</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item fade-in" style="animation-delay: 0.2s;" data-modal="modal3">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">1954</div>
+                        <div class="timeline-title">Độc lập hoàn toàn</div>
+                        <div class="timeline-desc">Xây dựng nền kinh tế độc lập</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item fade-in" style="animation-delay: 0.3s;" data-modal="modal4">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">1986</div>
+                        <div class="timeline-title">Đổi mới kinh tế</div>
+                        <div class="timeline-desc">Chuyển sang nền kinh tế thị trường định hướng xã hội chủ nghĩa</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item fade-in" style="animation-delay: 0.4s;" data-modal="modal5">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">1995</div>
+                        <div class="timeline-title">Gia nhập WTO</div>
+                        <div class="timeline-desc">Mở cửa nền kinh tế, tích hợp quốc tế</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item fade-in" style="animation-delay: 0.5s;" data-modal="modal6">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2020</div>
+                        <div class="timeline-title">Chiến lược số</div>
+                        <div class="timeline-desc">Chuyển đổi số trong tài chính và ngân hàng</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal templates for timeline details -->
+    <div id="modal1" class="timeline-modal">
+        <div class="modal-content-box">
+            <div class="modal-header">
+                <h2>1010 - Thành lập nhà nước độc lập</h2>
+                <button class="close-btn" onclick="closeModal('modal1')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e2/T%C6%B0%E1%BB%A3ng_L%C3%BD_Th%C3%A1i_T%E1%BB%95.jpeg"
+                    alt="Thành lập nhà nước độc lập" class="modal-image">
+                <div class="modal-details">
+                    <h3>Nền tảng cho phát triển kinh tế</h3>
+                    <p>Năm 1010, Lý Công Uẩn thành lập nhà nước Đại Cồ Việt, đánh dấu sự khởi đầu của một nền kinh tế
+                        độc lập. Sự kiện này mở ra một kỷ nguyên mới trong lịch sử tài chính Việt Nam.</p>
+                    <p>Hệ thống thương mại cổ đại được hình thành, tạo nền tảng cho sự phát triển kinh tế xã hội trong
+                        hàng trăm năm tiếp theo.</p>
+                    <div class="modal-video">
+                        <p><i class="fas fa-video"></i> Tài liệu lịch sử</p>
+                        <div class="modal-video-container">
+                            <iframe src="https://www.youtube.com/embed/JUTzQadKqAc" allowfullscreen=""
+                                loading="lazy"></iframe>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div id="modal2" class="timeline-modal">
-    <div class="modal-content-box">
-        <div class="modal-header">
-            <h2>1858 - Thời kỳ thuộc địa</h2>
-            <button class="close-btn" onclick="closeModal('modal2')">&times;</button>
-        </div>
-        <div class="modal-body">
-            <img src="https://www.pacificatrocities.org/uploads/1/2/2/9/12298219/editor/frenchcol1.jpg?1636729673=" alt="Thời kỳ thuộc địa" class="modal-image">
-           
-            <div class="modal-details">
-                <h3>Ảnh hưởng kinh tế từ Pháp</h3>
-                <p>Từ năm 1858, Việt Nam trở thành thuộc địa của Pháp. Thời kỳ này mang lại những thay đổi lớn trong cấu trúc kinh tế với sự xuất hiện của các công ty Pháp và hệ thống tài chính mới.</p>
-                <p>Mặc dù có những ảnh hưởng tiêu cực, nhưng hình ảnh của nền kinh tế hiện đại bắt đầu hình thành trong giai đoạn này.</p>
-                <div class="modal-video">
-                    <p><i class="fas fa-video"></i> Tài liệu lịch sử</p>
-                    <div class="modal-video-container">
-                        <iframe src="https://www.youtube.com/embed/3FgwE4mF-lU" allowfullscreen="" loading="lazy"></iframe>
+    <div id="modal2" class="timeline-modal">
+        <div class="modal-content-box">
+            <div class="modal-header">
+                <h2>1858 - Thời kỳ thuộc địa</h2>
+                <button class="close-btn" onclick="closeModal('modal2')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img src="https://www.pacificatrocities.org/uploads/1/2/2/9/12298219/editor/frenchcol1.jpg?1636729673="
+                    alt="Thời kỳ thuộc địa" class="modal-image">
+
+                <div class="modal-details">
+                    <h3>Ảnh hưởng kinh tế từ Pháp</h3>
+                    <p>Từ năm 1858, Việt Nam trở thành thuộc địa của Pháp. Thời kỳ này mang lại những thay đổi lớn trong
+                        cấu trúc kinh tế với sự xuất hiện của các công ty Pháp và hệ thống tài chính mới.</p>
+                    <p>Mặc dù có những ảnh hưởng tiêu cực, nhưng hình ảnh của nền kinh tế hiện đại bắt đầu hình thành
+                        trong giai đoạn này.</p>
+                    <div class="modal-video">
+                        <p><i class="fas fa-video"></i> Tài liệu lịch sử</p>
+                        <div class="modal-video-container">
+                            <iframe src="https://www.youtube.com/embed/3FgwE4mF-lU" allowfullscreen=""
+                                loading="lazy"></iframe>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div id="modal3" class="timeline-modal">
-    <div class="modal-content-box">
-        <div class="modal-header">
-            <h2>1954 - Độc lập hoàn toàn</h2>
-            <button class="close-btn" onclick="closeModal('modal3')">&times;</button>
-        </div>
-        <div class="modal-body">
-            <img src="https://mediaen.vietnamplus.vn/images/cc571c067c64d4f85fb35f04673bf296d930be9d8ac27426387f37ec47eff357477d851a9eeb0d0c494aad572e484536/3_2.jpg" alt="Độc lập hoàn toàn" class="modal-image">
-            <div class="modal-details">
-                <h3>Xây dựng nền kinh tế độc lập</h3>
-                <p>Năm 1954 đánh dấu sự kết thúc của cuộc chiến tranh Pháp-Việt và sự ra đời của Việt Nam Dân chủ Cộng hòa. Bắt đầu xây dựng nền kinh tế độc lập theo định hướng xã hội chủ nghĩa.</p>
-                <p>Quá trình này bao gồm quốc hữu hóa các công ty và xây dựng lại hệ thống tài chính quốc gia.</p>
-                <div class="modal-video">
-                    <p><i class="fas fa-video"></i> Tài liệu lịch sử</p>
-                    <div class="modal-video-container">
-                        <iframe src="https://www.youtube.com/embed/7B1p8ICdT8M" allowfullscreen="" loading="lazy"></iframe>
+    <div id="modal3" class="timeline-modal">
+        <div class="modal-content-box">
+            <div class="modal-header">
+                <h2>1954 - Độc lập hoàn toàn</h2>
+                <button class="close-btn" onclick="closeModal('modal3')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img src="https://mediaen.vietnamplus.vn/images/cc571c067c64d4f85fb35f04673bf296d930be9d8ac27426387f37ec47eff357477d851a9eeb0d0c494aad572e484536/3_2.jpg"
+                    alt="Độc lập hoàn toàn" class="modal-image">
+                <div class="modal-details">
+                    <h3>Xây dựng nền kinh tế độc lập</h3>
+                    <p>Năm 1954 đánh dấu sự kết thúc của cuộc chiến tranh Pháp-Việt và sự ra đời của Việt Nam Dân chủ
+                        Cộng hòa. Bắt đầu xây dựng nền kinh tế độc lập theo định hướng xã hội chủ nghĩa.</p>
+                    <p>Quá trình này bao gồm quốc hữu hóa các công ty và xây dựng lại hệ thống tài chính quốc gia.</p>
+                    <div class="modal-video">
+                        <p><i class="fas fa-video"></i> Tài liệu lịch sử</p>
+                        <div class="modal-video-container">
+                            <iframe src="https://www.youtube.com/embed/7B1p8ICdT8M" allowfullscreen=""
+                                loading="lazy"></iframe>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div id="modal4" class="timeline-modal">
-    <div class="modal-content-box">
-        <div class="modal-header">
-            <h2>1986 - Đổi mới kinh tế</h2>
-            <button class="close-btn" onclick="closeModal('modal4')">&times;</button>
-        </div>
-        <div class="modal-body">
-            <img src="https://imgnvsk.vnanet.vn/MediaUpload/Org/2023/08/19/dhvi-619-16-48-13.png" alt="Đổi mới kinh tế" class="modal-image">
-            <div class="modal-details">
-                <h3>Chuyển sang nền kinh tế thị trường</h3>
-                <p>Năm 1986 là năm bản lề trong lịch sử Việt Nam khi khởi động chính sách Đổi mới. Chuyển từ nền kinh tế kế hoạch hóa tập trung sang nền kinh tế thị trường định hướng xã hội chủ nghĩa.</p>
-                <p>Sự mở cửa này mở ra cơ hội mới cho phát triển kinh tế, thu hút đầu tư nước ngoài, và tích hợp với thế giới.</p>
-                <div class="modal-video">
-                    <p><i class="fas fa-video"></i> Tài liệu lịch sử</p>
-                    <div class="modal-video-container">
-                        <iframe src="https://www.youtube.com/embed/YZZkGk0QNrs" allowfullscreen="" loading="lazy"></iframe>
+    <div id="modal4" class="timeline-modal">
+        <div class="modal-content-box">
+            <div class="modal-header">
+                <h2>1986 - Đổi mới kinh tế</h2>
+                <button class="close-btn" onclick="closeModal('modal4')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img src="https://imgnvsk.vnanet.vn/MediaUpload/Org/2023/08/19/dhvi-619-16-48-13.png"
+                    alt="Đổi mới kinh tế" class="modal-image">
+                <div class="modal-details">
+                    <h3>Chuyển sang nền kinh tế thị trường</h3>
+                    <p>Năm 1986 là năm bản lề trong lịch sử Việt Nam khi khởi động chính sách Đổi mới. Chuyển từ nền
+                        kinh tế kế hoạch hóa tập trung sang nền kinh tế thị trường định hướng xã hội chủ nghĩa.</p>
+                    <p>Sự mở cửa này mở ra cơ hội mới cho phát triển kinh tế, thu hút đầu tư nước ngoài, và tích hợp với
+                        thế giới.</p>
+                    <div class="modal-video">
+                        <p><i class="fas fa-video"></i> Tài liệu lịch sử</p>
+                        <div class="modal-video-container">
+                            <iframe src="https://www.youtube.com/embed/YZZkGk0QNrs" allowfullscreen=""
+                                loading="lazy"></iframe>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div id="modal5" class="timeline-modal">
-    <div class="modal-content-box">
-        <div class="modal-header">
-            <h2>1995 - Gia nhập WTO</h2>
-            <button class="close-btn" onclick="closeModal('modal5')">&times;</button>
-        </div>
-        <div class="modal-body">
-            <img src="https://vstatic.vietnam.vn/vietnam/resource/IMAGE/2025/1/23/6a9b251db27247829586b8df483a6c26" alt="Gia nhập WTO" class="modal-image">
-            <div class="modal-details">
-                <h3>Hội nhập kinh tế quốc tế</h3>
-                <p>Năm 2007, Việt Nam chính thức gia nhập Tổ chức Thương mại Thế giới (WTO). Đây là bước ngoặt quan trọng trong quá trình tích hợp kinh tế quốc tế.</p>
-                <p>Sự gia nhập WTO mở ra cơ hội tiếp cận thị trường toàn cầu, thu hút các doanh nghiệp đa quốc gia, và thúc đẩy cạnh tranh trong nền kinh tế.</p>
-                <div class="modal-video">
-                    <p><i class="fas fa-video"></i> Tài liệu lịch sử</p>
-                    <div class="modal-video-container">
-                        <iframe src="https://www.youtube.com/embed/lyY-J-aRlMQ" allowfullscreen="" loading="lazy"></iframe>
+    <div id="modal5" class="timeline-modal">
+        <div class="modal-content-box">
+            <div class="modal-header">
+                <h2>1995 - Gia nhập WTO</h2>
+                <button class="close-btn" onclick="closeModal('modal5')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img src="https://vstatic.vietnam.vn/vietnam/resource/IMAGE/2025/1/23/6a9b251db27247829586b8df483a6c26"
+                    alt="Gia nhập WTO" class="modal-image">
+                <div class="modal-details">
+                    <h3>Hội nhập kinh tế quốc tế</h3>
+                    <p>Năm 2007, Việt Nam chính thức gia nhập Tổ chức Thương mại Thế giới (WTO). Đây là bước ngoặt quan
+                        trọng trong quá trình tích hợp kinh tế quốc tế.</p>
+                    <p>Sự gia nhập WTO mở ra cơ hội tiếp cận thị trường toàn cầu, thu hút các doanh nghiệp đa quốc gia,
+                        và thúc đẩy cạnh tranh trong nền kinh tế.</p>
+                    <div class="modal-video">
+                        <p><i class="fas fa-video"></i> Tài liệu lịch sử</p>
+                        <div class="modal-video-container">
+                            <iframe src="https://www.youtube.com/embed/lyY-J-aRlMQ" allowfullscreen=""
+                                loading="lazy"></iframe>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div id="modal6" class="timeline-modal">
-    <div class="modal-content-box">
-        <div class="modal-header">
-            <h2>2020 - Chiến lược số</h2>
-            <button class="close-btn" onclick="closeModal('modal6')">&times;</button>
-        </div>
-        <div class="modal-body">
-            <img src="https://fintechnews.sg/wp-content/uploads/2020/11/Fintech-Vietnam-Startup-Map-2020-3.png" alt="Chiến lược số" class="modal-image">
-            <div class="modal-details">
-                <h3>Chuyển đổi số toàn diện</h3>
-                <p>Năm 2020 đánh dấu bước ngoặt trong lịch sử tài chính Việt Nam với chiến lược chuyển đổi số. Các ngân hàng, công ty tài chính, và nền kinh tế toàn bộ chuyển hướng sang phương thức hoạt động số hóa.</p>
-                <p>Sự phát triển của công nghệ FinTech, thanh toán di động, và tiền điện tử đánh dấu một thời đại mới trong tài chính Việt Nam.</p>
-                <div class="modal-video">
-                    <p><i class="fas fa-video"></i> Tài liệu lịch sử</p>
-                    <div class="modal-video-container">
-                        <iframe src="https://www.youtube.com/embed/sAuY5OzbThE" allowfullscreen="" loading="lazy"></iframe>
+    <div id="modal6" class="timeline-modal">
+        <div class="modal-content-box">
+            <div class="modal-header">
+                <h2>2020 - Chiến lược số</h2>
+                <button class="close-btn" onclick="closeModal('modal6')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img src="https://fintechnews.sg/wp-content/uploads/2020/11/Fintech-Vietnam-Startup-Map-2020-3.png"
+                    alt="Chiến lược số" class="modal-image">
+                <div class="modal-details">
+                    <h3>Chuyển đổi số toàn diện</h3>
+                    <p>Năm 2020 đánh dấu bước ngoặt trong lịch sử tài chính Việt Nam với chiến lược chuyển đổi số. Các
+                        ngân hàng, công ty tài chính, và nền kinh tế toàn bộ chuyển hướng sang phương thức hoạt động số
+                        hóa.</p>
+                    <p>Sự phát triển của công nghệ FinTech, thanh toán di động, và tiền điện tử đánh dấu một thời đại
+                        mới trong tài chính Việt Nam.</p>
+                    <div class="modal-video">
+                        <p><i class="fas fa-video"></i> Tài liệu lịch sử</p>
+                        <div class="modal-video-container">
+                            <iframe src="https://www.youtube.com/embed/sAuY5OzbThE" allowfullscreen=""
+                                loading="lazy"></iframe>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- ==================== VIDEO SECTION ==================== -->
-<section class="video-section" id="video">
-    <div class="container">
-        <h2 class="section-title">Tài Liệu Video</h2>
-        <div class="video-grid">
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/zFHiQ9VeIq8" allowfullscreen="" loading="lazy"></iframe>
-            </div>
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/yqerP_TOS0c?start=1" allowfullscreen="" loading="lazy"></iframe>
+    <!-- ==================== VIDEO SECTION ==================== -->
+    <section class="video-section" id="video">
+        <div class="container">
+            <h2 class="section-title">Tài Liệu Video</h2>
+            <div class="video-grid">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/zFHiQ9VeIq8" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/yqerP_TOS0c?start=1" allowfullscreen=""
+                        loading="lazy"></iframe>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    function openModal(modalId) {
-        document.getElementById(modalId).style.display = 'block';
-        document.body.style.overflow = 'hidden';
-    }
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
 
-    function closeModal(modalId) {
-        document.getElementById(modalId).style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }
-
-    // Close modal when clicking outside
-    window.addEventListener('click', function(event) {
-        if (event.target.classList.contains('timeline-modal')) {
-            event.target.style.display = 'none';
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
             document.body.style.overflow = 'auto';
         }
-    });
 
-    // Add click event listeners to timeline items
-    document.querySelectorAll('[data-modal]').forEach(item => {
-        item.addEventListener('click', function() {
-            const modalId = this.getAttribute('data-modal');
-            openModal(modalId);
-        });
-
-        // Also add hover effect to marker
-        const marker = item.querySelector('.timeline-marker');
-        if (marker) {
-            marker.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const modalId = item.getAttribute('data-modal');
-                openModal(modalId);
-            });
-        }
-    });
-
-    // Fade In Animation on Scroll
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
-    };
-
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-                observer.unobserve(entry.target);
+        // Close modal when clicking outside
+        window.addEventListener('click', function (event) {
+            if (event.target.classList.contains('timeline-modal')) {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
             }
         });
-    }, observerOptions);
 
-    document.querySelectorAll('.fade-in').forEach(el => {
-        observer.observe(el);
-    });
+        // Add click event listeners to timeline items
+        document.querySelectorAll('[data-modal]').forEach(item => {
+            item.addEventListener('click', function () {
+                const modalId = this.getAttribute('data-modal');
+                openModal(modalId);
+            });
 
-    // Smooth Scroll
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+            // Also add hover effect to marker
+            const marker = item.querySelector('.timeline-marker');
+            if (marker) {
+                marker.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    const modalId = item.getAttribute('data-modal');
+                    openModal(modalId);
                 });
             }
         });
-    });
-</script>
+
+        // Fade In Animation on Scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 
 </body>
+
 </html>
