@@ -254,6 +254,12 @@
   <button onclick="thue()">
     Nộp tiền
   </button>
+
+  <!-- ✅ Nút trở về trang chủ -->
+  <button onclick="goHome()" style="margin-top: 10px;">
+    Trở về trang chủ
+  </button>
+
   </div>
   <div id="warning" class="modal fade">
     <div class="modal-dialog">
@@ -393,6 +399,11 @@
       updateStats();
       startEarningMoney();
     });
+
+    
+    function goHome() {
+      window.location.href = "../../pages/3-origin.html"; // ✅ thay "index.html" bằng trang chủ bạn muốn
+    }
   </script>
 </body>
 
